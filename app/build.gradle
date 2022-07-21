@@ -3,6 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'kotlin-android-extensions'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -16,7 +17,10 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables.useSupportLibrary = true
+        //vectorDrawables.useSupportLibrary = true
+        vectorDrawables {
+            useSupportLibrary true
+        }
         multiDexEnabled true
     }
 
@@ -68,7 +72,7 @@ android {
                 }
             }
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            //manifestPlaceholders = [app_name: "Debug"]
+            manifestPlaceholders = [app_name: "Debug"]
         }
     }
 
@@ -80,18 +84,18 @@ android {
     flavorDimensions "default"
     productFlavors {
         parkme {
-            applicationId 'com.moserptech.meghasandesha.belagavi'
+            //applicationId 'com.anetos.parkme'
             //applicationIdSuffix System.getenv("HOCKEY_BUNDLE_ID") != null ? "" : ".neoDevMob"
             //minSdkVersion 16
             //versionCode project.inCode
             //versionName project.inVersion
 
             buildConfigField 'String', 'CONCEPT', '"belagavi"'
-            buildConfigField 'String', 'BASE_URL', '"http://203.201.62.116:8067/api/"'
+            buildConfigField 'String', 'BASE_URL', '"http://"'
             buildConfigField "Boolean", "SHOW_VERSION_TOAST", 'true'
             signingConfig signingConfigs.release
             //Release keys for one signal
-            manifestPlaceholders = [app_name                : "Belagavi Megha Sandesha",
+            manifestPlaceholders = [app_name                : "Pakr me",
                                     ENABLE_CLEARTEXT_TRAFFIC: "false",
                                     google_maps_api_key     : ""
             ]
@@ -120,8 +124,7 @@ android {
 }
 
 dependencies {
-
-    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation 'androidx.core:core-ktx:1.8.0'
     implementation 'androidx.appcompat:appcompat:1.4.2'
     implementation 'com.google.android.material:material:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
@@ -173,7 +176,22 @@ dependencies {
     implementation "com.google.android.libraries.places:places:$mapsPlacesPlayServices"
     // implementation 'com.google.android.gms:play-services:12.0.1'
 
+    // Import the Firebase BoM
+    implementation platform('com.google.firebase:firebase-bom:29.3.0')
+    // Declare the dependency for the Firebase SDK for Google Analytics
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+
+    // For example, declare the dependencies for Firebase Authentication and Cloud Firestore
+    implementation 'com.google.firebase:firebase-auth-ktx'
+    implementation 'com.google.firebase:firebase-firestore-ktx'
+
+    // FirebaseUI for Firebase Auth
+    implementation 'com.firebaseui:firebase-ui-auth:7.1.1'
+    implementation 'com.google.firebase:firebase-auth-ktx:21.0.6'
+
+    //animation
     implementation 'com.airbnb.android:lottie:5.0.3'
+    implementation 'jp.wasabeef:recyclerview-animators:4.0.2'
 
     //App update
     implementation 'com.google.android.play:core-ktx:1.8.1'

@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">parkme</string>
+
+    <string name="loading">Loading</string>
+    <string name="work_in_progress">Work in progress</string>
+    <string name="search">Search</string>
+    <string name="more">More</string>
+    <string name="email">Email</string>
+
+    <string name="app_update_text">Please upgrade your app for a better browsing experience.</string>
+    <string name="app_update_failure_text">Sorry, your app failed to update. Please try again later.</string>
+    <string name="app_Update" translatable="false">Flexible</string>
+    <string name="reading_mode">Reading mode</string>
+    <string name="share_app">Share app with…</string>
 </resources>
