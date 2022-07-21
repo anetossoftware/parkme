@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.widget.login_register.LoginRegisterActivity">
+
+    <TextView
+        android:id="@+id/textView"
+        style="@style/DialogTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_large"
+        android:textAllCaps="true"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.185"
+        tools:text="Welcome to my note" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnLoginReg"
+        style="@style/MaterialButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/spacing_normal"
+        android:fontFamily="@font/monstt"
+        android:padding="@dimen/spacing_normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.759"
+        tools:text="login/register" />
+
+
+    <!--<com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_current_passcode"
+        style="@style/DialogSectionItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="@dimen/spacing_normal"
+        tools:text="Email" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_current_passcode"
+        style="@style/TextInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/TextInputLayout"
+        app:layout_constraintStart_toStartOf="">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_current_passcode"
+            style="@style/TextInputEditText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:imeOptions="actionDone"
+            android:inputType="numberPassword"
+            tools:hint="current_vault_passcode" />
+    </com.google.android.material.textfield.TextInputLayout>-->
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

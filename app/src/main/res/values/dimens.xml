@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="map_icon_size">32dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="nav_header_vertical_spacing">8dp</dimen>
+    <dimen name="nav_header_height">176dp</dimen>
+    <dimen name="appbar_padding">16dp</dimen>
+    <dimen name="appbar_padding_top">8dp</dimen>
+
+    <dimen name="dp0">0dp</dimen>
+    <dimen name="xwdp5">5dp</dimen>
+    <dimen name="dp10">10dp</dimen>
+    <dimen name="dp20">20dp</dimen>
+    <dimen name="dp40">40dp</dimen>
+    <dimen name="dp150">150dp</dimen>
+
+    <dimen name="sp16">16sp</dimen>
+    <dimen name="sp24">24sp</dimen>
+    <dimen name="dp180">180dp</dimen>
+    <dimen name="dp300">300dp</dimen>
+    <dimen name="dp30">30dp</dimen>
+    <dimen name="dp2">2dp</dimen>
+    <dimen name="dp100">100dp</dimen>
+    <dimen name="dp1">1dp</dimen>
+    <dimen name="dp16">16dp</dimen>
+    <dimen name="sp18">18sp</dimen>
+    <dimen name="dp12">12dp</dimen>
+    <dimen name="dp8">8dp</dimen>
+    <dimen name="list_item_spacing">16dp</dimen>
+    <dimen name="list_item_spacing_half">8dp</dimen>
+
+    <dimen name="large_avatar_size">120dp</dimen> <!-- 2 * actionBarSize - 2 * avatar_padding -->
+    <dimen name="large_avatar_height">160dp</dimen>
+    <dimen name="dp3">3dp</dimen>
+    <dimen name="dp60">60dp</dimen>
+    <dimen name="sp14">14sp</dimen>
+    <dimen name="dp15">15dp</dimen>
+    <dimen name="sp20">20sp</dimen>
+
+    <dimen name="menu_title">22sp</dimen>
+    <dimen name="menu_title_padding">14dp</dimen>
+    <dimen name="menu_activities_list_padding_left">24dp</dimen>
+    <dimen name="menu_activities_list_padding_top_down">14dp</dimen>
+    <dimen name="menu_entries_text">20sp</dimen>
+    <dimen name="menu_entries_title">16sp</dimen>
+    <dimen name="menu_entries_sides_padding">10dp</dimen>
+    <dimen name="menu_entries_top_down_padding">15dp</dimen>
+    <dimen name="menu_entries_top_down_radio_padding">7dp</dimen>
+    <dimen name="dp55">55dp</dimen>
+    <dimen name="dp250">250dp</dimen>
+    <dimen name="dp56">56dp</dimen>
+    <dimen name="sp28">28sp</dimen>
+    <dimen name="dp70">70dp</dimen>
+    <dimen name="dp50">50dp</dimen>
+    <dimen name="dp200">200dp</dimen>
+    <dimen name="dp35">35dp</dimen>
+    <dimen name="dp36">36dp</dimen>
+    <dimen name="dp34">34dp</dimen>
+    <dimen name="dp32">32dp</dimen>
+    <dimen name="dp31">31dp</dimen>
+    <dimen name="dp28">28dp</dimen>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="mtf_cardHeight_initial">4dp</dimen>
+    <dimen name="mtf_cardHeight_final">55dp</dimen>
+    <dimen name="mtf_corner_radius">4dp</dimen>
+    <dimen name="dp7">7dp</dimen>
+
+    <dimen name="app_bar_height">180dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
+    <dimen name="headerTextSize">28sp</dimen>
+    <dimen name="sp26">26sp</dimen>
+    <dimen name="dp230">230dp</dimen>
+    <dimen name="dp270">270dp</dimen>
+    <dimen name="dp330">330dp</dimen>
+    <dimen name="dp280">280dp</dimen>
+    <dimen name="dp90">90dp</dimen>
+    <dimen name="sp32">32sp</dimen>
+    <dimen name="sp22">22sp</dimen>
+    <dimen name="dp110">110dp</dimen>
+    <dimen name="dp24">24dp</dimen>
+    <dimen name="dp22">22dp</dimen>
+    <dimen name="dp25">25dp</dimen>
+    <dimen name="dp290">290dp</dimen>
+    <dimen name="dp4">4dp</dimen>
+    <dimen name="dp190">190dp</dimen>
+    <dimen name="dp5">5dp</dimen>
+    <dimen name="dp26">26dp</dimen>
+    <dimen name="dp120">120dp</dimen>
+    <dimen name="dp14">14dp</dimen>
+    <dimen name="dp92">92dp</dimen>
+    <dimen name="dp96">96dp</dimen>
+    <dimen name="dp48">48dp</dimen>
+    <dimen name="sp12">12sp</dimen>
+    <dimen name="dp80">80dp</dimen>
+    <dimen name="dp18">18dp</dimen>
+
+    <dimen name="color_bar_width">48dp</dimen>
+    <dimen name="color_bar_height">8dp</dimen>
+    <dimen name="sp10">10sp</dimen>
+    <dimen name="layout_card_view">2dp</dimen>
+
+    <!--
+Refer to App Widget Documentation for margin information
+http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
+    -->
+    <dimen name="widget_margin">8dp</dimen>
+    <integer name="max_width_short_month_label_dp">240</integer>
+    <integer name="max_height_mini_view_dp">180</integer>
+    <integer name="max_height_mini_view_1_row_dp">120</integer>
+
+
+    <!-- Margin & Padding -->
+    <dimen name="spacing_extra_small">4dp</dimen>
+    <dimen name="spacing_small">8dp</dimen>
+    <dimen name="spacing_normal">16dp</dimen>
+    <dimen name="spacing_large">24dp</dimen>
+    <dimen name="spacing_extra_large">36dp</dimen>
+    <dimen name="spacing_huge">48dp</dimen>
+
+    <!-- Elevation -->
+    <dimen name="elevation_none">0dp</dimen>
+    <dimen name="elevation_extra_small">1dp</dimen>
+    <dimen name="elevation_small">2dp</dimen>
+    <dimen name="elevation_normal">4dp</dimen>
+    <dimen name="elevation_large">8dp</dimen>
+    <dimen name="elevation_extra_large">16dp</dimen>
+
+    <!-- Text Size -->
+    <dimen name="size_extra_tiny">12sp</dimen>
+    <dimen name="size_tiny">14sp</dimen>
+    <dimen name="size_extra_small">16sp</dimen>
+    <dimen name="size_small">18sp</dimen>
+    <dimen name="size_normal">20sp</dimen>
+    <dimen name="size_large">22sp</dimen>
+    <dimen name="size_extra_large">24sp</dimen>
+    <dimen name="size_huge">26sp</dimen>
+    <dimen name="size_extra_huge">28sp</dimen>
+
+    <!-- Custom -->
+    <dimen name="padding_bottom">100dp</dimen>
+    <dimen name="collapsing_toolbar_height">200dp</dimen>
+    <dimen name="collapsing_toolbar_expanded_text">50sp</dimen>
+    <dimen name="dialog_item_divider_height">3dp</dimen>
+</resources>
