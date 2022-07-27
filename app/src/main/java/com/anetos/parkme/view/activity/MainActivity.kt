@@ -5,7 +5,7 @@ import android.os.Bundle
 import com.anetos.parkme.R
 import com.anetos.parkme.core.helper.replaceFragmentWithTag
 import com.anetos.parkme.databinding.ActivityMainBinding
-import com.anetos.parkme.view.HomeFragment
+import com.anetos.parkme.view.widget.home.HomeFragment
 
 class MainActivity : AppCompatActivity() {
 
