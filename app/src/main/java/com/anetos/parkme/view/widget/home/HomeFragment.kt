@@ -1,4 +1,4 @@
-package com.anetos.parkme.view
+package com.anetos.parkme.view.widget.home
 
 import android.content.Context
 import android.os.Bundle

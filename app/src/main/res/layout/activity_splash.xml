@@ -17,6 +17,6 @@
         app:lottie_autoPlay="true"
         app:lottie_loop="false"
         android:rotationY="180"
-        app:lottie_fileName="parking.json"/>
+        app:lottie_fileName="ic_moving_car_person.json"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

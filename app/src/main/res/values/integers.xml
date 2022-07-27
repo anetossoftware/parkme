@@ -4,4 +4,6 @@
     <integer name="anim_duration_long">400</integer>
     <integer name="anim_duration_longest">1000</integer>
     <integer name="slide_animation_duration">400</integer>
+    <item name="default_location_latitude" format="float" type="integer">12.961776</item>
+    <item name="default_location_longitude" format="float" type="integer">77.582868</item>
 </resources>
