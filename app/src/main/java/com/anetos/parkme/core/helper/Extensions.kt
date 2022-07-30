@@ -15,14 +15,15 @@ import android.text.TextPaint
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
 import android.text.style.URLSpan
-import android.view.GestureDetector
-import android.view.Gravity
-import android.view.MotionEvent
-import android.view.View
+import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.ColorInt
+import androidx.annotation.DrawableRes
+import androidx.annotation.IdRes
+import androidx.annotation.StringRes
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.ColorUtils
@@ -124,23 +125,61 @@ internal fun View.visibleOrGone(setVisible: Boolean) {
     if (setVisible) show() else hide()
 }
 
+fun View.disableLook() {
+    this.alpha = .5f
+    this.isEnabled = false
+}
+
+fun View.enableLook() {
+    this.alpha = 1f
+    this.isEnabled = true
+}
+
 fun View.snackbar(
-    message: String,
-    note: Note? = null,
-) = Snackbar.make(this, message, Snackbar.LENGTH_SHORT).apply {
-    if (note == null) {
-        setBackgroundTint(context.colorAttributeResource(R.attr.notePrimaryColor))
-        setTextColor(context.colorAttributeResource(R.attr.noteBackgroundColor))
+    @StringRes stringId: Int,
+    @DrawableRes drawableId: Int? = null,
+    @IdRes anchorViewId: Int? = null,
+    color: NoteColor? = null,
+    vararg formatArgs: Any? = emptyArray(),
+    vibrate: Boolean = false,
+) = Snackbar.make(this, context.stringResource(stringId, *formatArgs), Snackbar.LENGTH_SHORT).apply {
+    animationMode = Snackbar.ANIMATION_MODE_SLIDE
+    val textView = view.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
+    if (anchorViewId != null) setAnchorView(anchorViewId)
+    if (drawableId != null) {
+        textView?.setCompoundDrawablesRelativeWithIntrinsicBounds(drawableId, 0, 0, 0)
+        textView?.compoundDrawablePadding = context.dimenResource(R.dimen.spacing_normal).toInt()
+        textView?.gravity = Gravity.CENTER
+    }
+    if (color != null) {
+        val backgroundColor = context.colorResource(color.toResource())
+        val contentColor = context.colorAttributeResource(R.attr.noteBackgroundColor)
+        setBackgroundTint(backgroundColor)
+        setTextColor(contentColor)
+        textView?.compoundDrawablesRelative?.get(0)?.mutate()?.setTint(contentColor)
     } else {
-        setBackgroundTint(context.colorResource(note.noteColor.toResource()))
-        setTextColor(context.colorAttributeResource(R.attr.noteBackgroundColor))
+        val backgroundColor = context.colorAttributeResource(R.attr.notePrimaryColor)
+        val contentColor = context.colorAttributeResource(R.attr.noteBackgroundColor)
+        setBackgroundTint(backgroundColor)
+        setTextColor(contentColor)
+        textView?.compoundDrawablesRelative?.get(0)?.mutate()?.setTint(contentColor)
     }
-    val params = view.layoutParams as? CoordinatorLayout.LayoutParams
-    params?.let {
-        it.gravity = Gravity.TOP
-        view.layoutParams = it
-    }
+    if (vibrate) performClickHapticFeedback()
     show()
+}
+
+fun View.performClickHapticFeedback() =
+    performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY, HapticFeedbackConstants.FLAG_IGNORE_GLOBAL_SETTING)
+
+fun View.performLongClickHapticFeedback() =
+    performHapticFeedback(HapticFeedbackConstants.LONG_PRESS, HapticFeedbackConstants.FLAG_IGNORE_GLOBAL_SETTING)
+
+
+private var toast: Toast? = null
+fun Context.showToast(msg: String) {
+    toast?.cancel()
+    toast = Toast.makeText(this, msg, Toast.LENGTH_SHORT)
+    toast?.show()
 }
 
 @OptIn(ExperimentalCoroutinesApi::class)
