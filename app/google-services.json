@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "926440502655-qa3ji4ksfkg909t035epokljkjbaris7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.anetos.parkme",
+            "certificate_hash": "c76d6f2dbce8a11ef288f37c9dc2ae571e806a75"
+          }
+        },
+        {
           "client_id": "926440502655-kj1uvegk74c4bn6b5uhqpr7qtmrkif04.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -42,6 +50,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "926440502655-kfolgqolbq94s3ou841lndbjbrmf1e8n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.anetos.parkme.debug",
+            "certificate_hash": "c76d6f2dbce8a11ef288f37c9dc2ae571e806a75"
+          }
+        },
         {
           "client_id": "926440502655-kj1uvegk74c4bn6b5uhqpr7qtmrkif04.apps.googleusercontent.com",
           "client_type": 3

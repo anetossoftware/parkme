@@ -7,6 +7,16 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
 
+    <color name="black_variant">#BF000000</color>
+    <color name="violet">#151C47</color>
+    <color name="dark_violet">#0A0E23</color>
+    <color name="cream">#ddcdc6</color>
+    <color name="grey">#808080</color>
+    <color name="orange">#F74C06</color>
+    <color name="green">#5Fc52e</color>
+    <color name="blue">#456FE8</color>
+    <color name="error">#9E0F1B</color>
+
     <color name="colorBackground">#FFFFFF</color>
     <color name="colorBackgroundVariant">#FFFFFF</color>
     <color name="colorSurface">#F7F7F7</color>

@@ -12,4 +12,39 @@
     <string name="app_Update" translatable="false">Flexible</string>
     <string name="reading_mode">Reading mode</string>
     <string name="share_app">Share app with…</string>
+    <string name="mobile_number">Mobile Number</string>
+    <string name="msg_login">We will send you a One Time Password to verify your mobile number</string>
+    <string name="code_here">CODE HERE</string>
+    <string name="resend_otp">Resend OTP</string>
+    <string name="edit_number">Edit Number</string>
+    <string name="mobile">Mobile</string>
+    <string name="loading_please_wait">Please wait...</string>
+    <string name="no_internet">Check your internet connection once…</string>
+    <string name="ok">OK</string>
+    <string name="empty_mobile_number">Please enter your mobile number</string>
+    <string name="error_occurred">Error occurred!</string>
+    <string name="code_sent">Verification code has been sent.</string>
+    <string name="verification_header">OTP Verification</string>
+    <string name="proceed">Proceed</string>
+    <string name="verification_success">Mobile number verified successfully</string>
+    <string name="too_many_verify_attempts">We received too many requests from your account. Please try again after some time.</string>
+    <string name="server_contact_failed">Failed to communicate with the server. Please try again.</string>
+    <string name="verification_failed">Failed to verify the mobile number.</string>
+    <string name="failed_to_find_user">Unable to find user data</string>
+    <string name="empty_otp">OTP cannot be empty…</string>
+    <string name="data_fetching_failed">Failed to retrieve data</string>
+    <string name="incorrect_code">Incorrect verification code</string>
+    <string name="sign_in_failed">Failed to sign in</string>
+    <string name="sign_in">Sign In</string>
+    <string name="continue_label">Continue</string>
+    <string name="clear">Clear</string>
+    <string name="name">Name</string>
+    <string name="empty_name">Enter your name</string>
+    <string name="details_missing">Please enter all the details</string>
+    <string name="invalid_email">Enter valid email</string>
+    <string name="registered">Registered</string>
+    <string name="register_failed">Registration failed!</string>
+    <string name="empty_email">Enter the email</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.anetos.parkme
 
+import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 import com.google.firebase.FirebaseApp
@@ -8,8 +9,6 @@ import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
 
 class Application : Application() {
-
-    var context: Context? = null
 
     override fun onCreate() {
         super.onCreate()
@@ -35,7 +34,8 @@ class Application : Application() {
     companion object {
         lateinit var instance: Application
         lateinit var firebaseAnalytics: FirebaseAnalytics
-
+        @SuppressLint("StaticFieldLeak")
+        lateinit var context: Context
         @Synchronized
         fun getAppContext(): Application {
             return instance

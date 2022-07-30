@@ -1,13 +1,18 @@
 package com.anetos.parkme.view
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
+import com.anetos.parkme.core.helper.Navigator
+import com.anetos.parkme.core.helper.SharedPreferenceHelper
 import com.anetos.parkme.databinding.ActivitySplashBinding
-import com.anetos.parkme.view.activity.MainActivity
+import com.anetos.parkme.view.widget.login_register.LoginActivity
+import com.google.firebase.messaging.FirebaseMessaging
 
+@SuppressLint("CustomSplashScreen")
 class SplashActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySplashBinding
@@ -16,16 +21,40 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        checkAndSaveFirebaseToken()
         Looper.myLooper()?.let {
             Handler(it).postDelayed({
-                startActivity(Intent(this, MainActivity::class.java))
-                finish()
+                binding.animationView.pauseAnimation()
+                proceed()
+                /*startActivity(Intent(this, LoginActivity::class.java))
+                finish()*/
             }, DELAY)
         }
     }
 
+    private fun checkAndSaveFirebaseToken() {
+        if (SharedPreferenceHelper().getValueString(SharedPreferenceHelper.keyFirebaseToken) == null) {
+            FirebaseMessaging.getInstance().token.addOnCompleteListener {
+                if (it.isSuccessful)
+                    SharedPreferenceHelper().saveAppData(SharedPreferenceHelper.keyFirebaseToken, it.result)
+            }
+        }
+    }
+
+    private fun proceed() {
+        if (SharedPreferenceHelper().containsUserKey(SharedPreferenceHelper.keyUserDetails)) {
+            val user = SharedPreferenceHelper().getUser()
+            when {
+                //user.isAdmin() -> Navigator.toMainActivity()
+                user.isUser() -> Navigator.toMainActivity()
+                //else -> Navigator.toWorkerMainActivity()
+            }
+        } else
+            Navigator.toLoginActivity()
+        finish()
+    }
+
     companion object {
-        val DELAY = 2600L
+        val DELAY = 1200L
     }
 }
