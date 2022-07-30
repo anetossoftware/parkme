@@ -7,6 +7,8 @@ object Constant {
 
 object RequestCode {
     const val APP_UPDATE_REQUEST_CODE = 1001
+    val REQUEST_LOCATION = 199
+    const val LOCATION_PERMISSION_REQUEST_CODE = 129
 }
 
 object SharePrefConstant {
@@ -16,10 +18,17 @@ object SharePrefConstant {
 
 object ConstantFirebase {
     const val COLLECTION_USERS = "users"
-    const val FIRESTORE_COLLECTION = "db_parkme"
-    const val FIRESTORE_MY_NOTE = "my_notes"
+    const val COLLECTION_PARKING_SPOT = "parking_spot"
 
     enum class ROLES {
-        USER, ADMIN, SERVICE_PROVIDER
+        REGULAR, ADMIN, SERVICE_PROVIDER
+    }
+
+    enum class AVAILABILITY_STATUS {
+        AVAILABLE, OCCUPIED
+    }
+
+    enum class USER {
+        FREE, PREMIUM
     }
 }

@@ -7,4 +7,4 @@
     android:layout_height="match_parent"
     map:cameraTargetLat="@integer/default_location_latitude"
     map:cameraTargetLng="@integer/default_location_longitude"
-    map:cameraZoom="13" />
+    map:cameraZoom="15" />

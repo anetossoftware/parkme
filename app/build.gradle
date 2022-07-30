@@ -165,12 +165,12 @@ dependencies {
     implementation "com.squareup.okhttp3:logging-interceptor:4.9.1"
 
     //RxJava2
-    // implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
-    //implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
+     implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
+    implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
     //implementation 'io.reactivex.rxjava3:rxjava:3.0.0'
     //implementation "io.reactivex.rxjava2:rxandroid:2.0.1"
-    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
-    implementation 'io.reactivex.rxjava2:rxjava:2.2.9'
+    //implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+    //implementation 'io.reactivex.rxjava2:rxjava:2.2.9'
 
     //google-Maps
     implementation "com.google.maps.android:android-maps-utils:$mapsUtilPlayServices"

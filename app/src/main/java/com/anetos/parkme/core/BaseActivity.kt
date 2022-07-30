@@ -1,6 +1,8 @@
 package com.anetos.parkme.core
 
 import android.app.Activity
+import android.content.Intent
+import android.content.IntentSender
 import android.net.ConnectivityManager
 import android.os.Bundle
 import android.os.PersistableBundle
@@ -15,9 +17,15 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import com.anetos.parkme.Application
 import com.anetos.parkme.R
+import com.anetos.parkme.core.helper.PermissionHelper
+import com.anetos.parkme.core.maphelper.LocationHelper
 import com.anetos.parkme.data.RequestCode
 import com.anetos.parkme.data.RequestCode.APP_UPDATE_REQUEST_CODE
 import com.anetos.parkme.view.activity.MainActivity
+import com.google.android.gms.common.api.GoogleApiClient
+import com.google.android.gms.common.api.PendingResult
+import com.google.android.gms.common.api.Status
+import com.google.android.gms.location.*
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
@@ -71,7 +79,7 @@ abstract class BaseActivity : AppCompatActivity() {
         }
 
     @ExperimentalCoroutinesApi
-    private fun isAppUpdateAvailable() {
+    fun isAppUpdateAvailable() {
 
         // Before starting an update, register a listener for updates.
         appUpdateManager.registerListener(installStateUpdatedListener)
@@ -176,34 +184,92 @@ abstract class BaseActivity : AppCompatActivity() {
         }
     }
 
-    protected fun setToolbar(viewId: Int, title: String?) {
-        val toolbar = findViewById<Toolbar>(viewId)
-        setSupportActionBar(toolbar)
-        toolbar.title = title
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        supportActionBar!!.setDisplayShowHomeEnabled(true)
-        toolbar.setNavigationOnClickListener { finish() }
-    }
+    private var googleApiClient: GoogleApiClient? = null
+    private var googleApi: FusedLocationProviderClient? = null
 
-    protected fun showSnackBar(container: View?, message: String?, buttonText: String?) {
-        val snackbar =
-            Snackbar.make(container!!, message!!, BaseTransientBottomBar.LENGTH_INDEFINITE)
-        snackbar.setAction(buttonText) { view: View? -> snackbar.dismiss() }
-        snackbar.setActionTextColor(ContextCompat.getColor(this, R.color.white))
-        snackbar.show()
-    }
-
-    val isConnectedToInternet: Boolean
-        get() {
-            val cm = this.getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager
-            val activeNetwork = cm.activeNetworkInfo
-            return activeNetwork != null && activeNetwork.isConnectedOrConnecting
+    fun enableLoc() {
+        LocationHelper.isLocationEnabled(this)
+        if (!PermissionHelper.checkLocationPermission(this)) {
+            PermissionHelper.requestLocationPermission(
+                this,
+                requestCode = RequestCode.LOCATION_PERMISSION_REQUEST_CODE,
+                message = "App need the permission"
+            )
         }
+        googleApi = FusedLocationProviderClient(this)
+        googleApiClient = GoogleApiClient.Builder(this)
+            .addApi(LocationServices.API)
+            .addConnectionCallbacks(object : GoogleApiClient.ConnectionCallbacks {
+                override fun onConnected(bundle: Bundle?) {}
+                override fun onConnectionSuspended(i: Int) {
+                    googleApiClient?.connect()
+                }
+            })
+            .addOnConnectionFailedListener {
+            }.build()
+        googleApiClient?.connect()
 
-    fun hideKeyboard() {
-        val view = currentFocus
-        val inputManager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-        inputManager.hideSoftInputFromWindow(view!!.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
+        val locationRequest = LocationRequest.create()
+        locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+        locationRequest.interval = 30 * 1000.toLong()
+        locationRequest.fastestInterval = 5 * 1000.toLong()
+        val builder = LocationSettingsRequest.Builder()
+            .addLocationRequest(locationRequest)
+        builder.setAlwaysShow(true)
+
+        /* val task: Task<LocationSettingsResponse> = LocationServices.getSettingsClient(this).checkLocationSettings(builder.build())
+         task.addOnCompleteListener {
+             it.result.locationSettingsStates
+         }
+         task.addOnCompleteListener(object : OnCompleteListener<LocationSettingsResponse> {
+             override fun onComplete(task: Task<LocationSettingsResponse>) {
+                 try {
+                     var response: LocationSettingsResponse = task.getResult(ApiException::class.java)
+                     // All location settings are satisfied. The client can initialize location requests here.
+
+                 } catch (exception: ApiException) {
+                     val status: Status = exception.status
+                     when (status.statusCode) {
+                         LocationSettingsStatusCodes.RESOLUTION_REQUIRED -> try {
+                             status.startResolutionForResult(
+                                 this@BaseActivity,
+                                 REQUEST_LOCATION
+                             )
+                         } catch (e: IntentSender.SendIntentException) {
+                         }
+                     }
+                 }
+             }
+         });*/
+
+        val result: PendingResult<LocationSettingsResult> =
+            LocationServices.SettingsApi.checkLocationSettings(googleApiClient!!, builder.build())
+        result.setResultCallback { results ->
+            val status: Status = results.status
+            when (status.statusCode) {
+                LocationSettingsStatusCodes.RESOLUTION_REQUIRED -> try {
+                    status.startResolutionForResult(
+                        this@BaseActivity,
+                        RequestCode.REQUEST_LOCATION
+                    )
+                } catch (e: IntentSender.SendIntentException) {
+                }
+            }
+        }
+    }
+
+    override fun onActivityResult(
+        requestCode: Int,
+        resultCode: Int,
+        data: Intent?
+    ) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when (requestCode) {
+            RequestCode.REQUEST_LOCATION -> when (resultCode) {
+                Activity.RESULT_OK -> Log.d("abc", "OK")
+                Activity.RESULT_CANCELED -> Log.d("abc", "CANCEL")
+            }
+        }
     }
 
     companion object {

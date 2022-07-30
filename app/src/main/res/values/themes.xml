@@ -285,6 +285,16 @@
         <item name="android:textCursorDrawable">@drawable/cursor_shape</item>
     </style>
 
+    <style name="AddressTextInputEditText">
+        <item name="android:focusable">true</item>
+        <item name="android:autoLink">all</item>
+        <item name="android:gravity">top</item>
+        <item name="android:minLines">4</item>
+        <item name="maxLines">5</item>
+        <item name="android:textColor">?attr/notePrimaryColor</item>
+        <item name="android:textCursorDrawable">@drawable/cursor_shape</item>
+    </style>
+
     <style name="MaterialButton" parent="Widget.MaterialComponents.Button">
         <item name="android:backgroundTint">?attr/notePrimaryColor</item>
         <item name="android:textAllCaps">false</item>

@@ -63,7 +63,7 @@
     <color name="colorTabTint">@color/colorAccent</color>
     <color name="logoColor">#1a73e8</color>
 
-    <color name="transparant">#ad131313</color>
+    <color name="transparant">#C3131313</color>
 
     <!--<color name="ic_launcher_background">@color/colorWhite</color>-->
     <color name="ic_launcher_background">#ededed</color>

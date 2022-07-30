@@ -12,11 +12,11 @@ class User : Serializable {
     var mobileNumber: String? = null
     var emailAddress: String? = null
     var address: String? = null
-    var role: String? = null
+    var role: String? = ConstantFirebase.ROLES.REGULAR.name
+    var bankCard: BankCard? = null
+    var userSubscribe: String? = ConstantFirebase.USER.FREE.name
     var service: String? = null
-    var pricePerHr = 0
     var insertedAt: Long? = null
-    var jobsClosed = 0
 
     constructor()
 
@@ -28,8 +28,9 @@ class User : Serializable {
         email: String,
         address: String,
         role: String,
+        bankCard: BankCard,
+        userSubscribe: String,
         service: String,
-        price: Int
     ) {
         this.name = name
         this.countryNameCode = countryNameCode
@@ -38,7 +39,8 @@ class User : Serializable {
         this.emailAddress = email
         this.address = address
         this.role = role
-        this.pricePerHr = price
+        this.bankCard = bankCard
+        this.userSubscribe = userSubscribe
         this.service = service
         this.insertedAt = Calendar.getInstance().timeInMillis
     }
@@ -86,7 +88,7 @@ class User : Serializable {
 
     @Exclude
     fun isUser(): Boolean {
-        return role == ConstantFirebase.ROLES.USER.name
+        return role == ConstantFirebase.ROLES.REGULAR.name
     }
 
     /*@Exclude

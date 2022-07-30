@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/noteBackgroundColor">
@@ -30,8 +29,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-        tools:context=".view.note.AllNoteListFragment">
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/animation_view"
@@ -70,7 +68,7 @@
 
     </FrameLayout>
 
-    <!--<com.google.android.material.bottomappbar.BottomAppBar
+    <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottomAppBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -94,31 +92,6 @@
         app:backgroundTint="?attr/notePrimaryColor"
         app:layout_anchor="@id/bottomAppBar"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-        app:tint="?attr/noteBackgroundColor" />-->
-
-    <com.google.android.material.bottomappbar.BottomAppBar
-        android:id="@+id/bottomAppBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        app:backgroundTint="?attr/noteBackgroundColor"
-        app:fabAnimationMode="scale"
-        app:fabCradleRoundedCornerRadius="@dimen/spacing_normal"
-        app:hideOnScroll="true"
-        app:menu="@menu/menu_main"
-        app:navigationContentDescription="@string/app_name"
-        app:navigationIcon="@drawable/ic_round_menu_24"
-        app:navigationIconTint="?attr/notePrimaryColor" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/spacing_normal"
-        android:contentDescription="@string/app_name"
-        android:src="@drawable/ic_round_edit_24"
-        app:backgroundTint="?attr/notePrimaryColor"
-        app:layout_anchor="@id/bottomAppBar"
         app:tint="?attr/noteBackgroundColor" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
