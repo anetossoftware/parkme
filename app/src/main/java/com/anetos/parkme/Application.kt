@@ -3,10 +3,13 @@ package com.anetos.parkme
 import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
+import com.google.android.gms.maps.MapsInitializer
+import com.google.android.libraries.places.api.Places
 import com.google.firebase.FirebaseApp
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
+import java.util.*
 
 class Application : Application() {
 
@@ -21,9 +24,11 @@ class Application : Application() {
         // Obtain the FirebaseAnalytics instance.
         firebaseAnalytics = Firebase.analytics
         firebaseAnalytics.setAnalyticsCollectionEnabled(true)
+        MapsInitializer.initialize(this)
+        Places.initialize(this, getString(R.string.google_maps_key), Locale.US)
     }
 
-    fun getAppContext(): Context? {
+    fun getAppContext(): Context {
         return context
     }
 

@@ -1,27 +1,20 @@
-package com.anetos.parkme.view.widget.login_register
+package com.anetos.parkme.view.widget.profile
 
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.anetos.parkme.Application
 import com.anetos.parkme.R
 import com.anetos.parkme.core.helper.*
 import com.anetos.parkme.data.ConstantFirebase
 import com.anetos.parkme.data.model.User
-import com.anetos.parkme.databinding.RegisterDialogFragmentBinding
+import com.anetos.parkme.databinding.DialogFragmentProfileBinding
 import com.anetos.parkme.view.activity.MainActivity
-import com.anetos.parkme.view.widget.common.BackPressDialogFragment
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
-class RegisterDialogFragment(
-    val countryCode: String,
-    val mobileNumber: String
-) : BaseDialogFragment() {
-    private lateinit var binding: RegisterDialogFragmentBinding
+class ProfileDialogFragment() : BaseDialogFragment() {
+    private lateinit var binding: DialogFragmentProfileBinding
     private val firestore = FirebaseFirestore.getInstance()
 
     override fun onCreateView(
@@ -29,7 +22,7 @@ class RegisterDialogFragment(
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = RegisterDialogFragmentBinding.inflate(inflater, container, false)
+        binding = DialogFragmentProfileBinding.inflate(inflater, container, false)
         setupBaseDialogFragment()
         setupState()
         setupListeners()
@@ -40,9 +33,9 @@ class RegisterDialogFragment(
         binding.apply {
             tb.tvDialogTitle.text = DIALOG_TITLE
             btnRegister.text = DIALOG_TITLE
-            countryCode.setDefaultCountryUsingNameCode(this@RegisterDialogFragment.countryCode)
+            //countryCode.setDefaultCountryUsingNameCode(this@ProfileDialogFragment.countryCode)
             //countryCode.resetToDefaultCountry(mobileNumber)
-            etMobile.setText(mobileNumber)
+            //etMobile.setText(mobileNumber)
             etMobile.disableLook()
         }
 
@@ -104,26 +97,8 @@ class RegisterDialogFragment(
         }
     }
 
-    override fun onCancel(dialog: DialogInterface) {
-        super.onCancel(dialog)
-        /*activity?.supportFragmentManager?.let {
-            BackPressDialogFragment(
-                Application.context,
-                BACK_PRESS_DIALOG_TITLE,
-                BACK_PRESS_DIALOG_CONFIRMATION,
-                BACK_PRESS_DIALOG_DISCRIPTION,
-                BACK_PRESS_DIALOG_POSITIVE_BUTTON,
-                BACK_PRESS_DIALOG_NAGATIVE_BUTTON
-            ).onClickListener(object : BackPressDialogFragment.onBackPressClickListener {
-                override fun onClick(backPressDialogFragment: BackPressDialogFragment) {
-                    this@RegisterDialogFragment.isCancelable = true
-                }
-            }).show(it, null)
-        }*/
-    }
-
     companion object {
-        const val DIALOG_TITLE = "Register"
+        const val DIALOG_TITLE = "Profile"
         const val BACK_PRESS_DIALOG_TITLE = "Confirmation"
         const val BACK_PRESS_DIALOG_CONFIRMATION = "Are you sure you want to exit?"
         const val BACK_PRESS_DIALOG_DISCRIPTION =

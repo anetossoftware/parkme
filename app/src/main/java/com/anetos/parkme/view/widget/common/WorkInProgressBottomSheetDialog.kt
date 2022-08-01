@@ -11,7 +11,7 @@ import com.anetos.parkme.databinding.BaseDialogFragmentBinding
 import com.anetos.parkme.databinding.WorkinprogressBottomSheetDialogBinding
 
 class WorkInProgressBottomSheetDialog(
-    var ctx: Context,
+    var ctx: Context? = null,
     var btnText: String? = null,
     var description: String? = null
 ) : BaseDialogFragment() {
