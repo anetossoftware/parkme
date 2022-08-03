@@ -135,19 +135,24 @@ class MapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowCl
             .get()
             .addOnSuccessListener { result ->
                 val parkingSpotList: MutableList<ParkingSpot> = ArrayList()
-                for (document in result) {
-                    val data = document.data
-                    val parkingSpot = ParkingSpot()
-                    parkingSpot.documentId = document.id
-                    parkingSpot.parkingId = data.get(ParkingSpot::parkingId.name).toString()
-                    parkingSpot.address = data.get(ParkingSpot::address.name).toString()
-                    parkingSpot.latitude = data.get(ParkingSpot::latitude.name) as Double
-                    parkingSpot.longitude = data.get(ParkingSpot::longitude.name) as Double
-                    parkingSpot.pricePerHr = data.get(ParkingSpot::pricePerHr.name) as Double
-                    parkingSpot.availabilityStatus = data.get(ParkingSpot::availabilityStatus.name).toString()
-                    Log.d(TAG, "${document.id} => ${document.data}")
-                    parkingSpotList.add(parkingSpot)
+                try {
+                    for (document in result) {
+                        val data = document.data
+                        val parkingSpot = ParkingSpot()
+                        parkingSpot.documentId = document.id
+                        parkingSpot.parkingId = data.get(ParkingSpot::parkingId.name).toString()
+                        parkingSpot.address = data.get(ParkingSpot::address.name).toString()
+                        parkingSpot.latitude = data.get(ParkingSpot::latitude.name) as Double
+                        parkingSpot.longitude = data.get(ParkingSpot::longitude.name) as Double
+                        parkingSpot.pricePerHr = data.get(ParkingSpot::pricePerHr.name) as Double
+                        parkingSpot.availabilityStatus = data.get(ParkingSpot::availabilityStatus.name).toString()
+                        Log.d(TAG, "${document.id} => ${document.data}")
+                        parkingSpotList.add(parkingSpot)
+                    }
+                } catch (e: Exception) {
+                    Log.e(TAG, e.message.toString())
                 }
+
                 //stopShimmering()
                 if (parkingSpotList.size == 0 || parkingSpotList.isNullOrEmpty()) {
                     parkingSpotList.add(ParkingSpot()) // for empty-list placeholder
@@ -214,7 +219,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowCl
                 view.findViewById<TextView>(R.id.locationName).text = place.address
                 view.findViewById<TextView>(R.id.price).text =
                     place.pricePerHr.toString().plus("/hr")
-                view.findViewById<TextView>(R.id.provider).text = place.address
+                view.findViewById<TextView>(R.id.provider).text = "Parking ID: ${place.parkingId}"
             }
         }
     }
