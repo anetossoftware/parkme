@@ -196,6 +196,7 @@
                     style="@style/SubtitleTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingVertical="@dimen/spacing_normal"
                     android:layout_marginStart="10dp"
                     app:layout_constraintStart_toEndOf="@id/resend_otp"
                     app:layout_constraintTop_toTopOf="@id/resend_otp" />
