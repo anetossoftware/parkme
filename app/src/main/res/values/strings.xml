@@ -42,7 +42,7 @@
     <string name="empty_name">Enter your name</string>
     <string name="details_missing">Please enter all the details</string>
     <string name="invalid_email">Enter valid email</string>
-    <string name="registered">Registered</string>
+    <string name="registered">Registered successfully.</string>
     <string name="register_failed">Registration failed!</string>
     <string name="empty_email">Enter the email</string>
     <!-- TODO: Remove or change this placeholder text -->
@@ -59,7 +59,7 @@
     <string name="empty_cvv">Enter CVV code</string>
     <string name="parkign_details">Parking Details</string>
     <string name="booking_failed">Booking failed</string>
-    <string name="booking_success">Booking Successfull.</string>
+    <string name="booking_success">Booking Successful.</string>
     <string name="name_on_card">Name on card</string>
     <string name="mmyy">MM/YY</string>
 </resources>

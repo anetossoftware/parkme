@@ -91,7 +91,7 @@ class BookingDialogFragment(
                     stringId = R.string.details_missing,
                     anchorViewId = anchorViewId,
                     drawableId = R.drawable.ic_round_error_24,
-                    color = NoteColor.DarkRed,
+                    color = NoteColor.Error,
                     vibrate = true
                 )
                 tilName.error = getString(R.string.empty_name)

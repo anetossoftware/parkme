@@ -16,6 +16,8 @@
     <color name="green">#5Fc52e</color>
     <color name="blue">#456FE8</color>
     <color name="error">#9E0F1B</color>
+    <color name="success">#0F9E22</color>
+
     <!--<color name="dark_red">#B00020</color>-->
 
     <color name="colorBackground">#FFFFFF</color>
