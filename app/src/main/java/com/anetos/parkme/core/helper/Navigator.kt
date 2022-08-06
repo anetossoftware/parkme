@@ -13,9 +13,12 @@ object Navigator {
         Application.context.startActivity(intent)
     }
 
-    fun toMainActivity() {
+    fun toMainActivity(clearStack: Boolean = false) {
         val intent = Intent(Application.context, MainActivity::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            if (clearStack)
+                addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+            else
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK
         }
         Application.context.startActivity(intent)
     }

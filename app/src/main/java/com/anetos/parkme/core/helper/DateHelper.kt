@@ -21,7 +21,7 @@ const val ISO_DATE2 = "yyyy-MM-dd'T'HH:mm:ss"
 const val ISO_DATE3 = "yyyy-MM-dd'T'HH:mm"
 //const val FORECAST_RECORD_TIME_PATTERN = "ddMMMyyyy HHmm z"
 const val FORECAST_RECORD_DATE_PATTERN = "ddMMM"
-
+const val EXPIRY_PATTERN = "MM/yy"
 val API_TIME_FORMAT = SimpleDateFormat(API_TIME_PATTERN, Locale.ENGLISH)
 val API_DATE_FORMAT = SimpleDateFormat(API_DATE_PATTERN, Locale.ENGLISH)
 val DATE_FORMAT_2 = SimpleDateFormat(DATE_PATTERN_2, Locale.ENGLISH)
@@ -217,4 +217,20 @@ fun getDayOfMonthSuffix(date: String): String {
         3 -> return day.toString() + "rd " + currentTime
         else -> return day.toString() + "th " + currentTime
     }
+}
+
+@SuppressLint("SimpleDateFormat")
+fun String.expiryDate(): Boolean {
+    try {
+        val simpleDateFormat = SimpleDateFormat(EXPIRY_PATTERN)
+        simpleDateFormat.isLenient = false
+        val expiry = simpleDateFormat.parse(this)
+        return expiry?.before(Date()) ?: false
+    } catch (e: Exception) {
+       return true
+    }
+}
+
+fun validateCardExpiryDate(expiryDate: String): Boolean {
+    return expiryDate.matches("(?:0[1-9]|1[0-2])/[0-9]{2}".toRegex())
 }

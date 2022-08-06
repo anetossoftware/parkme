@@ -33,12 +33,6 @@ class HomeFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //binding.bottomAppBar.setRoundedCorners()
-        context?.let { context ->
-            val backgroundColor = context.colorAttributeResource(R.attr.noteBackgroundColor)
-            binding.bottomAppBar.navigationIcon?.mutate()?.setTint(backgroundColor)
-            binding.bottomAppBar.menu.forEach { it.icon?.mutate()?.setTint(backgroundColor) }
-        }
     }
 
     companion object {

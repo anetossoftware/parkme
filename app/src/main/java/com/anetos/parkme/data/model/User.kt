@@ -16,6 +16,7 @@ class User : Serializable {
     var bankCard: BankCard? = null
     var userSubscribe: String? = ConstantFirebase.USER.FREE.name
     var service: String? = null
+    var bookedParkingId: String? = null
     var insertedAt: Long? = null
 
     constructor()
@@ -31,6 +32,7 @@ class User : Serializable {
         bankCard: BankCard,
         userSubscribe: String,
         service: String,
+        bookedParkingId: String,
     ) {
         this.name = name
         this.countryNameCode = countryNameCode
@@ -42,6 +44,7 @@ class User : Serializable {
         this.bankCard = bankCard
         this.userSubscribe = userSubscribe
         this.service = service
+        this.bookedParkingId = bookedParkingId
         this.insertedAt = Calendar.getInstance().timeInMillis
     }
 

@@ -83,7 +83,7 @@
                 android:layout_gravity="end"
                 android:layout_margin="@dimen/spacing_normal"
                 android:layout_weight="0.5"
-                android:backgroundTint="@color/design_default_color_error"
+                android:backgroundTint="@color/error"
                 android:padding="@dimen/spacing_normal"
                 android:textColor="@android:color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
