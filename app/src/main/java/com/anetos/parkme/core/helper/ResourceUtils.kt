@@ -52,6 +52,7 @@ fun NoteColor.toResource(): Int = when (this) {
     NoteColor.LightRed -> R.color.colorAccentLightRed
     NoteColor.LightPink -> R.color.colorAccentLightPink
     NoteColor.Black -> R.color.colorAccentBlack
+    NoteColor.DarkRed -> R.color.error
 }
 
 val Number.dp

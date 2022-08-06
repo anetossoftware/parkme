@@ -49,4 +49,17 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="address">Address</string>
     <string name="wallet">Wallet</string>
+    <string name="card_number">Card Number</string>
+    <string name="expiry">Expiry</string>
+    <string name="cvv">CVV</string>
+    <string name="confirm_booking">Confirm Booking</string>
+    <string name="close">Close</string>
+    <string name="empty_card_number">Enter 16 digit card number</string>
+    <string name="empty_expiry">Enter expiry date in MM/YY</string>
+    <string name="empty_cvv">Enter CVV code</string>
+    <string name="parkign_details">Parking Details</string>
+    <string name="booking_failed">Booking failed</string>
+    <string name="booking_success">Booking Successfull.</string>
+    <string name="name_on_card">Name on card</string>
+    <string name="mmyy">MM/YY</string>
 </resources>

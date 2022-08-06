@@ -16,6 +16,10 @@ object SharePrefConstant {
     const val keyFirebaseToken = "firebase_token"
 }
 
+object ConstantDelay {
+    const val NAVIGATION_DELAY = 700L
+}
+
 object ConstantFirebase {
     const val COLLECTION_USERS = "users"
     const val COLLECTION_PARKING_SPOT = "parking_spot"

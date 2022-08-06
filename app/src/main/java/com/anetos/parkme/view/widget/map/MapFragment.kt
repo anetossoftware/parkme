@@ -3,28 +3,31 @@ package com.anetos.parkme.view.widget.map
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.location.Geocoder
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.text.SpannableString
-import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
+import com.anetos.parkme.R
 import com.anetos.parkme.core.BaseFragment
+import com.anetos.parkme.core.helper.Navigator
 import com.anetos.parkme.core.helper.PermissionHelper
+import com.anetos.parkme.core.helper.dialog.DialogsManager
 import com.anetos.parkme.core.helper.snackbar
-import com.anetos.parkme.core.maphelper.*
+import com.anetos.parkme.core.helper.withDelay
+import com.anetos.parkme.core.maphelper.MapClusterItem
+import com.anetos.parkme.core.maphelper.MarkerClusterRenderer
+import com.anetos.parkme.core.maphelper.configureMap
+import com.anetos.parkme.data.ConstantDelay
 import com.anetos.parkme.data.ConstantFirebase
 import com.anetos.parkme.data.model.ParkingSpot
 import com.anetos.parkme.databinding.FragmentMapBinding
+import com.anetos.parkme.view.widget.booking.BookingDialogFragment
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -36,12 +39,8 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
 import com.google.maps.android.clustering.ClusterManager
-import kotlinx.android.synthetic.main.layout_maps.*
 import java.io.IOException
 import java.util.*
-import com.anetos.parkme.R
-import com.anetos.parkme.core.helper.vectorToBitmap
-import com.anetos.parkme.view.widget.home.HomeFragment
 
 
 class MapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener,
@@ -76,7 +75,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowCl
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
         mMap.setOnInfoWindowClickListener(this)
-        mMap.setOnInfoWindowLongClickListener(this);
+        mMap.setOnInfoWindowLongClickListener(this)
         mClusterManager = ClusterManager(requireContext(), mMap)
         context?.configureMap(mMap)
     }
@@ -145,7 +144,8 @@ class MapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowCl
                         parkingSpot.latitude = data.get(ParkingSpot::latitude.name) as Double
                         parkingSpot.longitude = data.get(ParkingSpot::longitude.name) as Double
                         parkingSpot.pricePerHr = data.get(ParkingSpot::pricePerHr.name) as Double
-                        parkingSpot.availabilityStatus = data.get(ParkingSpot::availabilityStatus.name).toString()
+                        parkingSpot.availabilityStatus =
+                            data.get(ParkingSpot::availabilityStatus.name).toString()
                         Log.d(TAG, "${document.id} => ${document.data}")
                         parkingSpotList.add(parkingSpot)
                     }
@@ -197,11 +197,13 @@ class MapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowCl
             R.layout.view_maps_info_window,
             null
         )
+
         @SuppressLint("InflateParams")
         val mWindow = context.layoutInflater.inflate(
             R.layout.view_maps_info_window_custom,
             null
         )
+
         @SuppressLint("InflateParams", "NewApi")
         override fun getInfoContents(marker: Marker): View? {
             render(marker, mContents)
@@ -209,7 +211,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowCl
         }
 
         override fun getInfoWindow(marker: Marker): View? {
-            render(marker, mWindow);
+            render(marker, mWindow)
             return mWindow
         }
 
@@ -226,26 +228,41 @@ class MapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowCl
 
     override fun onInfoWindowClick(p0: Marker) {
         binding.root.snackbar(R.string.app_name)
-        Toast.makeText(
-            requireActivity(), "Info window clicked",
-            Toast.LENGTH_SHORT
-        ).show()
     }
 
     override fun onInfoWindowLongClick(marker: Marker) {
-        val parkingSpot = marker.snippet
-        val fragment: Fragment = HomeFragment()
-        val fragmentManager: FragmentManager = requireActivity().supportFragmentManager
-        val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.container, fragment)
-        fragmentTransaction.addToBackStack(null)
-        fragmentTransaction.commit()
-        binding.root.snackbar(R.string.app_name)
+        val parkingSpot = Gson().fromJson(marker.snippet, ParkingSpot::class.java)
+        BookingDialogFragment(
+            parkingSpot
+        ).onClickListener(object : BookingDialogFragment.onClickListener {
+            override fun onClick(bookingDialogFragment: BookingDialogFragment) {
+                activity?.let { DialogsManager.showProgressDialog(it) }
+            }
 
-        Toast.makeText(
-            requireActivity(), "onInfoWindowLongClick Info window clicked",
-            Toast.LENGTH_SHORT
-        ).show()
+            override fun onFailure(bookingDialogFragment: BookingDialogFragment) {
+                DialogsManager.dismissProgressDialog()
+                view?.snackbar(R.string.booking_failed, vibrate = true)
+            }
+
+            override fun onNavigationClick(bookingDialogFragment: BookingDialogFragment) {
+                view?.snackbar(R.string.booking_success)
+                ::navigateWithDelay.withDelay(ConstantDelay.NAVIGATION_DELAY)
+                DialogsManager.dismissProgressDialog()
+            }
+
+        }).show(
+            requireActivity().supportFragmentManager,
+            null
+        )
+    }
+
+    fun navigateWithDelay() {
+        Navigator.toMainActivity(true)
+        /*val fragmentTransaction: FragmentTransaction? =
+            activity?.supportFragmentManager?.beginTransaction()
+        fragmentTransaction?.replace(R.id.container, HomeFragment())
+        fragmentTransaction?.addToBackStack(null)
+        fragmentTransaction?.commit()*/
     }
 
     companion object {

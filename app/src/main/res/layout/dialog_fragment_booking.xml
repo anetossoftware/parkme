@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/BaseDialogFragment"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="@dimen/spacing_normal">
+
+    <LinearLayout
+        android:id="@+id/ll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/tb"
+            layout="@layout/dialog_fragment_toolbar_with_close" />
+
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/DialogSectionItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="@dimen/spacing_normal"
+            android:text="@string/parkign_details"
+            tools:text="Parking Details" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/generic_shape"
+            android:orientation="vertical">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_label_parkingid"
+                style="@style/NoteBodyTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/spacing_normal"
+                android:paddingTop="@dimen/spacing_normal"
+                android:text="@string/name"
+                tools:text="Parking ID" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_label_price"
+                style="@style/NoteBodyTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/spacing_normal"
+                android:paddingTop="@dimen/spacing_normal"
+                android:text="@string/name"
+                tools:text="Price" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_label_parking_address"
+                style="@style/NoteBodyTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/spacing_normal"
+                tools:text="Address" />
+        </LinearLayout>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_label_name"
+            style="@style/DialogSectionItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="@dimen/spacing_normal"
+            android:text="@string/name"
+            tools:text="Name" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilName"
+            style="@style/TextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/TextInputLayout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etName"
+                style="@style/TextInputEditText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/name_on_card"
+                android:imeOptions="actionNext"
+                android:inputType="textPersonName|textCapWords"
+                android:maxLength="16" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_label_bank_card"
+            style="@style/DialogSectionItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="@dimen/spacing_normal"
+            android:text="@string/card_number"
+            tools:text="Card Number" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilBankCard"
+            style="@style/TextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/TextInputLayout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etBankCard"
+                style="@style/TextInputEditText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/card_number"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:maxLength="16" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".6"
+                android:paddingEnd="@dimen/dp16"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="RtlSymmetry">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_label_date"
+                    style="@style/DialogSectionItem"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="@dimen/spacing_normal"
+                    android:text="@string/expiry"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Expiry" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_expiry"
+                    style="@style/TextInputLayout"
+                    android:layout_width="@dimen/dp0"
+                    android:layout_height="wrap_content"
+                    app:endIconDrawable="@drawable/ic_round_calendar_month_24"
+                    app:endIconMode="custom"
+                    app:endIconTint="?attr/notePrimaryColor"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_label_date">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_expiry"
+                        style="@style/TextInputEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="@string/mmyy"
+                        android:imeOptions="actionNext"
+                        android:inputType="date"
+                        android:maxLength="5"
+                        tools:hint="MM/YY" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/input_layout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".4"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_label_cvv"
+                    style="@style/DialogSectionItem"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="@dimen/spacing_normal"
+                    android:text="@string/cvv"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="CVV" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_cvv"
+                    style="@style/TextInputLayout"
+                    android:layout_width="@dimen/dp0"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_label_cvv">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_cvv"
+                        style="@style/TextInputEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="@string/cvv"
+                        android:imeOptions="actionDone"
+                        android:inputType="number"
+                        android:maxLength="3"
+                        tools:hint="@string/cvv" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_confirm"
+            style="@style/MaterialButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/spacing_normal"
+            android:padding="@dimen/spacing_normal"
+            android:text="@string/confirm_booking"
+            tools:text="Confirm Booking" />
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

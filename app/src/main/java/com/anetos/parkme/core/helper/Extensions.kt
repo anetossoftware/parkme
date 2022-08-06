@@ -10,10 +10,9 @@ import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.RippleDrawable
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.SpannableStringBuilder
-import android.text.TextPaint
+import android.os.Handler
+import android.os.Looper
+import android.text.*
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
 import android.text.style.URLSpan
@@ -67,6 +66,26 @@ internal fun String.textStyle(context: Context, typeface: Int = Typeface.NORMAL,
         )
     }
     return str;
+}
+
+internal fun String.textStyle(context: Context, startLength: String, endLength: String,
+                              typeface: Int = Typeface.NORMAL, colorInt: Int = R.color.black): SpannableStringBuilder {
+    val str = SpannableStringBuilder(String.format(this).replace(this, this))
+    this.let {
+        str.setSpan(
+            StyleSpan(typeface),
+            str.indexOf(startLength),
+            str.indexOf(endLength) + endLength.length,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        str.setSpan(
+            ForegroundColorSpan(ContextCompat.getColor(context, colorInt)),
+            str.indexOf(startLength),
+            str.indexOf(endLength) + endLength.length,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+    }
+    return str
 }
 
 fun View.setFullSpan() {
@@ -205,6 +224,25 @@ fun View.snackbar(
     show()
 }
 
+fun View.snackbar(
+    message: String,
+    note: Note? = null,
+) = Snackbar.make(this, message, Snackbar.LENGTH_SHORT).apply {
+    if (note == null) {
+        setBackgroundTint(context.colorAttributeResource(R.attr.notePrimaryColor))
+        setTextColor(context.colorAttributeResource(R.attr.noteBackgroundColor))
+    } else {
+        setBackgroundTint(context.colorResource(note.noteColor.toResource()))
+        setTextColor(context.colorAttributeResource(R.attr.noteBackgroundColor))
+    }
+    val params = view.layoutParams as? CoordinatorLayout.LayoutParams
+    params?.let {
+        it.gravity = Gravity.TOP
+        view.layoutParams = it
+    }
+    show()
+}
+
 fun View.performClickHapticFeedback() =
     performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY, HapticFeedbackConstants.FLAG_IGNORE_GLOBAL_SETTING)
 
@@ -234,6 +272,42 @@ fun EditText.textAsFlow(emitNewTextOnly: Boolean = false): Flow<CharSequence?> {
         awaitClose { removeTextChangedListener(listener) }
     }.onStart { emit(text) }
 }
+
+fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
+    this.addTextChangedListener(object : TextWatcher {
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+        }
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+        }
+
+        override fun afterTextChanged(editable: Editable?) {
+            afterTextChanged.invoke(editable.toString())
+        }
+    })
+}
+
+private val beforeTextChangedStub: (CharSequence, Int, Int, Int) -> Unit = { _, _, _, _ -> }
+private val onTextChangedStub: (CharSequence, Int, Int, Int) -> Unit = { _, _, _, _ -> }
+private val afterTextChangedStub: (Editable) -> Unit = {}
+
+fun EditText.addChangedListener(
+    beforeTextChanged: (CharSequence, Int, Int, Int) -> Unit = beforeTextChangedStub,
+    onTextChanged: (CharSequence, Int, Int, Int) -> Unit = onTextChangedStub,
+    afterTextChanged: (Editable) -> Unit = afterTextChangedStub
+) = addTextChangedListener(object : TextWatcher {
+    override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
+        beforeTextChanged(charSequence, i, i1, i2)
+    }
+
+    override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
+        onTextChanged(charSequence, i, i1, i2)
+    }
+
+    override fun afterTextChanged(editable: Editable) {
+        afterTextChanged(editable)
+    }
+})
 
 fun TextView.removeLinksUnderline() {
     val spannable = SpannableString(text)
@@ -323,12 +397,12 @@ fun vectorToBitmap(
     return BitmapDescriptorFactory.fromBitmap(bitmap)
 }
 
-fun formatAccountNumber(original: String?, interval: Int = 4, separator: Char = '-'): String {
-    return if (original == null) {
+fun String.formatAccountNumber(interval: Int = 4, separator: Char = ' '): String {
+    return if (this == null) {
         ""
     } else {
-        val stringBuilder = StringBuilder(original)
-        for (i in 0 until original.length / interval) {
+        val stringBuilder = StringBuilder(this)
+        for (i in 0 until this.length / interval) {
             stringBuilder.insert((i + 1) * interval + i, separator)
         }
         if (stringBuilder[stringBuilder.length - 1] == separator) {
@@ -337,3 +411,21 @@ fun formatAccountNumber(original: String?, interval: Int = 4, separator: Char = 
         stringBuilder.toString()
     }
 }
+
+fun <R> (() -> R).withDelay(delay: Long = 250L) {
+    Looper.myLooper()?.let {
+        Handler(it).postDelayed({ this.invoke() }, delay)
+    }
+}
+
+fun withDelay(delay : Long = 500, block : () -> Unit) {
+    Looper.myLooper()?.let {
+        Handler(it).postDelayed(Runnable(block), delay)
+    }
+}
+
+/*private fun (() -> Any).withDelay(delay: Long? = 1000L) {
+    Looper.myLooper()?.let {
+        Handler(it).postDelayed({ this.invoke() }, delay)
+    }
+}*/
