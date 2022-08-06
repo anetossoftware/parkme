@@ -8,12 +8,10 @@ import androidx.core.content.ContextCompat
 import com.anetos.parkme.BuildConfig
 import com.anetos.parkme.R
 import com.anetos.parkme.core.BaseActivity
-import com.anetos.parkme.core.helper.DataHelper
-import com.anetos.parkme.core.helper.SharedPreferenceHelper
+import com.anetos.parkme.core.helper.*
 import com.anetos.parkme.core.helper.dialog.DialogsManager
-import com.anetos.parkme.core.helper.showToast
-import com.anetos.parkme.core.helper.snackbar
 import com.anetos.parkme.core.isNetworkAvailable
+import com.anetos.parkme.data.ConstantDelay
 import com.anetos.parkme.data.ConstantFirebase
 import com.anetos.parkme.data.SharePrefConstant
 import com.anetos.parkme.data.model.User
@@ -57,6 +55,10 @@ class LoginActivity : BaseActivity() {
     }
 
     private fun setListeners() {
+        binding.etOtp.afterTextChanged {
+            if (it.length == 6)
+                hideKeyboard(binding.root)
+        }
         binding.btnLoginReg.setOnClickListener {
             if (binding.numberLayout.visibility == View.VISIBLE)
                 sendOTP()
@@ -79,7 +81,7 @@ class LoginActivity : BaseActivity() {
             BACK_PRESS_DIALOG_DISCRIPTION,
             BACK_PRESS_DIALOG_POSITIVE_BUTTON,
             BACK_PRESS_DIALOG_NEGATIVE_BUTTON
-        ).onClickListener(object : BackPressDialogFragment.onBackPressClickListener{
+        ).onClickListener(object : BackPressDialogFragment.onBackPressClickListener {
             override fun onClick(backPressDialogFragment: BackPressDialogFragment) {
                 finish()
             }
@@ -93,18 +95,13 @@ class LoginActivity : BaseActivity() {
 
     private fun sendOTP() {
         if (!isNetworkAvailable()) {
-            binding.root.snackbar(R.string.no_internet,  vibrate = true)
+            binding.root.snackbar(R.string.no_internet, vibrate = true)
             return
         }
         val mobile: String = binding.etMobile.text.toString().trim()
         when {
             mobile.isEmpty() -> {
                 binding.tilMobile.error = getString(R.string.empty_mobile_number)
-                /*DialogsManager.showErrorDialog(
-                    this,
-                    getString(R.string.empty_mobile_number),
-                    getString(R.string.ok), null
-                )*/
             }
             else -> {
                 DialogsManager.showProgressDialog(this)
@@ -115,15 +112,14 @@ class LoginActivity : BaseActivity() {
                         super.onCodeSent(p0, p1)
                         verificationID = p0
                         DialogsManager.dismissProgressDialog()
-                        binding.root.snackbar(R.string.code_sent)
                         displayVerifyLayout()
                         startTimer()
+                        binding.root.snackbar(R.string.code_sent)
                     }
 
                     override fun onVerificationCompleted(phoneAuthCredential: PhoneAuthCredential) {
                         if (phoneAuthCredential.smsCode != null)
                             binding.etOtp.setText(phoneAuthCredential.smsCode)
-                        binding.root.snackbar(R.string.verification_success)
 
                         stopTimer()
                         login(phoneAuthCredential)
@@ -133,14 +129,23 @@ class LoginActivity : BaseActivity() {
                         DialogsManager.dismissProgressDialog()
                         e.printStackTrace()
                         when (e) {
-                            is FirebaseTooManyRequestsException -> this@LoginActivity.showToast(
-                                getString(R.string.too_many_verify_attempts)
-                            )
-                            is FirebaseAuthException -> this@LoginActivity.showToast(
-                                getString(R.string.server_contact_failed)
-                            )
-                            else -> this@LoginActivity.showToast(
-                                getString(R.string.verification_failed)
+                            is FirebaseTooManyRequestsException -> binding.root.snackbar(
+                                    stringId = R.string.too_many_verify_attempts,
+                                    drawableId = R.drawable.ic_round_error_24,
+                                    color = NoteColor.Error,
+                                    vibrate = true
+                                )
+                            is FirebaseAuthException -> binding.root.snackbar(
+                                    stringId = R.string.server_contact_failed,
+                                    drawableId = R.drawable.ic_round_error_24,
+                                    color = NoteColor.Error,
+                                    vibrate = true
+                                )
+                            else -> binding.root.snackbar(
+                                stringId = R.string.verification_failed,
+                                drawableId = R.drawable.ic_round_error_24,
+                                color = NoteColor.Error,
+                                vibrate = true
                             )
                         }
                     }
@@ -188,6 +193,11 @@ class LoginActivity : BaseActivity() {
             .addOnCompleteListener { task: Task<AuthResult?> ->
                 when {
                     task.isSuccessful -> {
+                        binding.root.snackbar(
+                            stringId = R.string.verification_success,
+                            drawableId = R.drawable.ic_round_check_circle_24,
+                            color = NoteColor.Success,
+                        )
                         firestore.collection(ConstantFirebase.COLLECTION_USERS)
                             .document(
                                 DataHelper.getUserIndex(
@@ -207,7 +217,7 @@ class LoginActivity : BaseActivity() {
                                                 .saveObjectToSharedPreference(
                                                     SharePrefConstant.keyUserDetails, user
                                                 )
-                                            navigate()
+                                            ::navigateToMainActivity.withDelay()
                                         } else {
                                             ConfirmationDialogFragment(
                                                 "Error",
@@ -217,11 +227,7 @@ class LoginActivity : BaseActivity() {
                                             ).show(supportFragmentManager, null)
                                         }
                                     } else {
-                                        RegisterDialogFragment(
-                                            binding.countryCode.selectedCountryNameCode,
-                                            binding.etMobile.text.toString().trim()
-                                        ).show(this.supportFragmentManager, null)
-                                        displayNumberLayout(true)
+                                        ::navigateToRegisterWithDelay.withDelay()
                                     }
                                 } else {
                                     ConfirmationDialogFragment(
@@ -235,34 +241,71 @@ class LoginActivity : BaseActivity() {
                     }
                     task.exception is FirebaseAuthInvalidCredentialsException -> {
                         DialogsManager.dismissProgressDialog()
-                        binding.root.snackbar(R.string.incorrect_code, vibrate = true)
+                        binding.root.snackbar(
+                            stringId = R.string.incorrect_code,
+                            drawableId = R.drawable.ic_round_error_24,
+                            color = NoteColor.Error,
+                            vibrate = true
+                        )
                     }
                     else -> {
                         DialogsManager.dismissProgressDialog()
-                        binding.root.snackbar(R.string.sign_in_failed,  vibrate = true)
+                        binding.root.snackbar(
+                            stringId = R.string.sign_in_failed,
+                            drawableId = R.drawable.ic_round_error_24,
+                            color = NoteColor.Error,
+                            vibrate = true
+                        )
                     }
                 }
             }
     }
 
-    private fun navigate() {
+    private fun navigateToMainActivity() {
         startActivity(Intent(this, MainActivity::class.java))
         finish()
-        /*val user = PrefManager.getUserDTO()
-        Helper.subscribeToTopic(Helper.getTopic(user))
-        if (user.isAdmin())
-            Helper.subscribeToTopic(Constants.TOPIC_ADMIN)
-        when {
-            user.isAdmin() -> Navigator.toMainActivity()
-            user.isUser() -> Navigator.toUserMainActivity()
-            else -> Navigator.toWorkerMainActivity()
-        }*/
-        finish()
+    }
+
+    private fun navigateToRegisterWithDelay() {
+        RegisterDialogFragment(
+            binding.countryCode.selectedCountryNameCode,
+            binding.etMobile.text.toString().trim()
+        ).onClickListener(object : RegisterDialogFragment.onClickListener {
+            override fun onClick(registerDialogFragment: RegisterDialogFragment) {
+                DialogsManager.showProgressDialog(this@LoginActivity)
+            }
+
+            override fun onFailure(registerDialogFragment: RegisterDialogFragment) {
+                DialogsManager.dismissProgressDialog()
+                binding.root.snackbar(
+                    stringId = R.string.booking_failed,
+                    drawableId = R.drawable.ic_round_error_24,
+                    color = NoteColor.Error,
+                    vibrate = true
+                )
+            }
+
+            override fun onNavigationClick(registerDialogFragment: RegisterDialogFragment) {
+                DialogsManager.dismissProgressDialog()
+                ::navigateWithDelay.withDelay(ConstantDelay.NAVIGATION_DELAY)
+            }
+        }).show(this.supportFragmentManager, null)
+        displayNumberLayout(true)
+    }
+
+    fun navigateWithDelay() {
+        startActivity(Intent(this, MainActivity::class.java))
+        this.finish()
     }
 
     private fun verifyOTP() {
         if (!isNetworkAvailable()) {
-            binding.root.snackbar(R.string.no_internet,  vibrate = true)
+            binding.root.snackbar(
+                stringId = R.string.no_internet,
+                drawableId = R.drawable.ic_round_error_24,
+                color = NoteColor.Error,
+                vibrate = true
+            )
             return
         }
         val valOTP: String = binding.etOtp.text.toString().trim { it <= ' ' }

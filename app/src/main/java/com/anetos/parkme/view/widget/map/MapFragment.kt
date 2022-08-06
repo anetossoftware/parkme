@@ -15,11 +15,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.anetos.parkme.R
 import com.anetos.parkme.core.BaseFragment
-import com.anetos.parkme.core.helper.Navigator
-import com.anetos.parkme.core.helper.PermissionHelper
+import com.anetos.parkme.core.helper.*
 import com.anetos.parkme.core.helper.dialog.DialogsManager
-import com.anetos.parkme.core.helper.snackbar
-import com.anetos.parkme.core.helper.withDelay
 import com.anetos.parkme.core.maphelper.MapClusterItem
 import com.anetos.parkme.core.maphelper.MarkerClusterRenderer
 import com.anetos.parkme.core.maphelper.configureMap
@@ -241,11 +238,20 @@ class MapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowCl
 
             override fun onFailure(bookingDialogFragment: BookingDialogFragment) {
                 DialogsManager.dismissProgressDialog()
-                view?.snackbar(R.string.booking_failed, vibrate = true)
+                view?.rootView?.snackbar(
+                    stringId = R.string.booking_failed,
+                    drawableId = R.drawable.ic_round_error_24,
+                    color = NoteColor.Error,
+                    vibrate = true
+                )
             }
 
             override fun onNavigationClick(bookingDialogFragment: BookingDialogFragment) {
-                view?.snackbar(R.string.booking_success)
+                view?.rootView?.snackbar(
+                    stringId = R.string.booking_success,
+                    drawableId = R.drawable.ic_round_check_circle_24,
+                    color = NoteColor.Success,
+                )
                 ::navigateWithDelay.withDelay(ConstantDelay.NAVIGATION_DELAY)
                 DialogsManager.dismissProgressDialog()
             }
