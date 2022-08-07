@@ -3,7 +3,6 @@ package com.anetos.parkme.view.widget.map
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.location.Geocoder
 import android.os.Bundle
 import android.os.Handler
@@ -67,6 +66,15 @@ class MapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowCl
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
         startLocationUpdate()
         getFirebaseData()
+
+        binding.tb.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.aboutLegend -> activity?.supportFragmentManager?.let {
+                    LegendDialogFragment().show(it, null)
+                }
+            }
+            false
+        }
     }
 
     override fun onMapReady(googleMap: GoogleMap) {

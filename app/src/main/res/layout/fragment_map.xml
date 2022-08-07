@@ -19,6 +19,7 @@
             android:layout_height="wrap_content"
             app:navigationContentDescription="@string/app_name"
             app:navigationIcon="@drawable/ic_baseline_location_on_24"
+            app:menu="@menu/menu_map"
             app:title="@string/app_name" />
 
     </com.google.android.material.appbar.AppBarLayout>

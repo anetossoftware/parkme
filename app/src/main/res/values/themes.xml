@@ -212,6 +212,16 @@
         <item name="android:focusable">true</item>
         <item name="android:drawablePadding">@dimen/spacing_normal</item>
     </style>
+
+    <style name="LegendItem" parent="Widget.MaterialComponents.TextView">
+        <!--<item name="fontFamily">@font/nunito_bold</item>-->
+        <item name="android:textSize">@dimen/size_small</item>
+        <item name="android:textColor">?attr/notePrimaryColor</item>
+        <item name="android:padding">@dimen/spacing_normal</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:drawablePadding">@dimen/spacing_normal</item>
+    </style>
     <!--<style name="DialogItem" parent="Widget.MaterialComponents.TextView">
         <item name="fontFamily">@font/nunito_semibold</item>
         <item name="android:textSize">@dimen/size_extra_small</item>
@@ -363,4 +373,26 @@
         <item name="cornerSize">50%</item>
     </style>
 
+    <style name="SettingsItem" parent="Widget.MaterialComponents.TextView">
+        <item name="fontFamily">@font/nunito_semibold</item>
+        <item name="android:textSize">@dimen/size_small</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textColor">?attr/notePrimaryColor</item>
+        <item name="android:background">@drawable/dialog_item_shape</item>
+        <item name="android:padding">@dimen/spacing_normal</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:drawablePadding">@dimen/spacing_normal</item>
+    </style>
+
+    <style name="IconItem" parent="Widget.MaterialComponents.TextView">
+        <item name="fontFamily">@font/nunito_semibold</item>
+        <item name="android:textSize">@dimen/size_small</item>
+        <item name="android:textColor">?attr/notePrimaryColor</item>
+        <item name="android:padding">@dimen/spacing_normal</item>
+        <item name="android:layout_margin">@dimen/spacing_small</item>
+        <item name="android:background">@drawable/dialog_item_selector</item>
+        <item name="android:gravity">center</item>
+        <item name="android:drawablePadding">@dimen/spacing_normal</item>
+    </style>
 </resources>
