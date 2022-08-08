@@ -63,4 +63,6 @@
     <string name="name_on_card">Name on card</string>
     <string name="mmyy">MM/YY</string>
     <string name="okay">OKAY!</string>
+    <string name="about">About</string>
+    <string name="about_message">Parkme is developed and maintained by Conestoga Developers.</string>
 </resources>
