@@ -23,7 +23,9 @@ import com.anetos.parkme.data.ConstantDelay
 import com.anetos.parkme.data.ConstantFirebase
 import com.anetos.parkme.data.model.ParkingSpot
 import com.anetos.parkme.databinding.FragmentMapBinding
+import com.anetos.parkme.view.widget.about.AboutDialogFragment
 import com.anetos.parkme.view.widget.booking.BookingDialogFragment
+import com.anetos.parkme.view.widget.common.WorkInProgressBottomSheetDialog
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -51,6 +53,8 @@ class MapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowCl
     private lateinit var mClusterManager: ClusterManager<MapClusterItem>
     var placeName = ""
 
+    private val anchorViewId by lazy { R.id.fab }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -66,6 +70,36 @@ class MapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowCl
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
         startLocationUpdate()
         getFirebaseData()
+
+        binding.fab.setOnClickListener {
+            mMap.clear()
+            mClusterManager.clearItems()
+            getFirebaseData()
+        }
+        binding.bottomAppBar.setOnSwipeGestureListener {
+
+        }
+
+        binding.bottomAppBar.setNavigationOnClickListener {
+            activity?.supportFragmentManager?.let { it1 ->
+                WorkInProgressBottomSheetDialog().show(it1, null)
+            }
+        }
+        binding.bottomAppBar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.wallet -> {
+
+                    true
+                }
+                R.id.more -> {
+                    activity?.supportFragmentManager?.let {
+                        AboutDialogFragment().show(it, null)
+                    }
+                    true
+                }
+                else -> false
+            }
+        }
 
         binding.tb.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
@@ -237,37 +271,46 @@ class MapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowCl
 
     override fun onInfoWindowLongClick(marker: Marker) {
         val parkingSpot = Gson().fromJson(marker.snippet, ParkingSpot::class.java)
-        BookingDialogFragment(
-            parkingSpot
-        ).onClickListener(object : BookingDialogFragment.onClickListener {
-            override fun onClick(bookingDialogFragment: BookingDialogFragment) {
-                activity?.let { DialogsManager.showProgressDialog(it) }
-            }
+        if (ConstantFirebase.AVAILABILITY_STATUS.AVAILABLE.name.equals(parkingSpot.availabilityStatus, true)) {
+            BookingDialogFragment(
+                parkingSpot
+            ).onClickListener(object : BookingDialogFragment.onClickListener {
+                override fun onClick(bookingDialogFragment: BookingDialogFragment) {
+                    activity?.let { DialogsManager.showProgressDialog(it) }
+                }
 
-            override fun onFailure(bookingDialogFragment: BookingDialogFragment) {
-                DialogsManager.dismissProgressDialog()
-                view?.rootView?.snackbar(
-                    stringId = R.string.booking_failed,
-                    drawableId = R.drawable.ic_round_error_24,
-                    color = NoteColor.Error,
-                    vibrate = true
-                )
-            }
+                override fun onFailure(bookingDialogFragment: BookingDialogFragment) {
+                    DialogsManager.dismissProgressDialog()
+                    view?.rootView?.snackbar(
+                        stringId = R.string.booking_failed,
+                        drawableId = R.drawable.ic_round_error_24,
+                        anchorViewId = anchorViewId,
+                        color = NoteColor.Error,
+                        vibrate = true
+                    )
+                }
 
-            override fun onNavigationClick(bookingDialogFragment: BookingDialogFragment) {
-                view?.rootView?.snackbar(
-                    stringId = R.string.booking_success,
-                    drawableId = R.drawable.ic_round_check_circle_24,
-                    color = NoteColor.Success,
-                )
-                ::navigateWithDelay.withDelay(ConstantDelay.NAVIGATION_DELAY)
-                DialogsManager.dismissProgressDialog()
-            }
+                override fun onNavigationClick(bookingDialogFragment: BookingDialogFragment) {
+                    view?.rootView?.snackbar(
+                        stringId = R.string.booking_success,
+                        drawableId = R.drawable.ic_round_check_circle_24,
+                        anchorViewId = anchorViewId,
+                        color = NoteColor.Success,
+                    )
+                    ::navigateWithDelay.withDelay(ConstantDelay.NAVIGATION_DELAY)
+                    DialogsManager.dismissProgressDialog()
+                }
 
-        }).show(
-            requireActivity().supportFragmentManager,
-            null
-        )
+            }).show(requireActivity().supportFragmentManager, null)
+        } else {
+            view?.rootView?.snackbar(
+                string = ERROR_PARKING_OCCUPIED,
+                drawableId = R.drawable.ic_round_error_24,
+                anchorViewId = anchorViewId,
+                color = NoteColor.Error,
+                vibrate = true
+            )
+        }
     }
 
     fun navigateWithDelay() {
@@ -282,5 +325,6 @@ class MapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowCl
     companion object {
         fun newInstance(ctx: Context) = MapFragment()
         val TAG = this.javaClass.simpleName
+        const val ERROR_PARKING_OCCUPIED = "Oops! Parking spot is occupied."
     }
 }

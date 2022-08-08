@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/noteBackgroundColor"
     app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container_map"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="?actionBarSize"
         android:background="?attr/noteBackgroundColor">
 
         <include
@@ -24,29 +23,4 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <com.google.android.material.bottomappbar.BottomAppBar
-        android:id="@+id/bottomAppBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        app:backgroundTint="?attr/noteBackgroundColor"
-        app:fabAlignmentMode="center"
-        app:fabAnimationMode="scale"
-        app:fabCradleRoundedCornerRadius="@dimen/spacing_normal"
-        app:hideOnScroll="true"
-        app:menu="@menu/menu_main"
-        app:navigationContentDescription="@string/app_name"
-        app:navigationIcon="@drawable/ic_round_menu_24"
-        app:navigationIconTint="?attr/notePrimaryColor" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/spacing_normal"
-        android:contentDescription="@string/app_name"
-        android:src="@drawable/ic_round_edit_24"
-        app:backgroundTint="?attr/notePrimaryColor"
-        app:layout_anchor="@id/bottomAppBar"
-        app:tint="?attr/noteBackgroundColor" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

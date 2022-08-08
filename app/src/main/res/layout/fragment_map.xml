@@ -27,6 +27,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginBottom="?actionBarSize"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
         <include
@@ -39,5 +40,31 @@
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/bottomAppBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        app:backgroundTint="?attr/noteBackgroundColor"
+        app:fabAlignmentMode="center"
+        app:fabAnimationMode="scale"
+        app:fabCradleRoundedCornerRadius="@dimen/spacing_normal"
+        app:hideOnScroll="true"
+        app:menu="@menu/menu_bottom_map"
+        app:navigationContentDescription="@string/app_name"
+        app:navigationIcon="@drawable/ic_round_menu_24"
+        app:navigationIconTint="?attr/notePrimaryColor" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/spacing_normal"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/ic_round_refresh_24"
+        app:backgroundTint="?attr/notePrimaryColor"
+        app:layout_anchor="@id/bottomAppBar"
+        app:tint="?attr/noteBackgroundColor" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
