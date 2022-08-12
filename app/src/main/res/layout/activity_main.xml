@@ -6,21 +6,11 @@
     android:background="?attr/noteBackgroundColor"
     app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/container_map"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/nav_host_fragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="?attr/noteBackgroundColor">
-
-        <include
-            layout="@layout/content_main"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        app:defaultNavHost="true" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

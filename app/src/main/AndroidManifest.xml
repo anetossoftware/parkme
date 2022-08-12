@@ -35,11 +35,13 @@
         <activity
             android:name=".view.widget.login_register.LoginActivity"
             android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait"
             android:exported="false"
             android:theme="@style/BaseTheme" />
         <activity
             android:name=".view.activity.MainActivity"
             android:exported="false"
+            android:screenOrientation="portrait"
             android:theme="@style/BaseTheme" />
 
         <meta-data

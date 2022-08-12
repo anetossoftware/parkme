@@ -5,6 +5,7 @@ plugins {
     id 'kotlin-android-extensions'
     id 'com.google.gms.google-services'
     id 'com.google.firebase.crashlytics'
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 android {
@@ -126,7 +127,7 @@ android {
 
 dependencies {
     implementation 'androidx.core:core-ktx:1.8.0'
-    implementation 'androidx.appcompat:appcompat:1.4.2'
+    implementation 'androidx.appcompat:appcompat:1.5.0'
     implementation 'com.google.android.material:material:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'com.google.firebase:firebase-messaging-ktx:23.0.6'
@@ -165,7 +166,7 @@ dependencies {
     // Retrofit
     implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:$retrofitCoroutinesVersion"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
-    implementation "com.squareup.okhttp3:logging-interceptor:4.9.1"
+    implementation "com.squareup.okhttp3:logging-interceptor:4.9.3"
 
     //RxJava2
      implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
@@ -205,4 +206,8 @@ dependencies {
     implementation 'com.hbb20:ccp:2.6.0'
     //datetime
     implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.1'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.5.1'
+    // Feature module Support
+    implementation("androidx.navigation:navigation-dynamic-features-fragment:2.5.1")
 }
