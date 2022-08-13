@@ -24,6 +24,14 @@ open class BaseDialogFragment(private val isCollapsable: Boolean = false) : Bott
                     behavior.skipCollapsed = true
                 }
             }
+            /*dialog?.setOnShowListener { dialog ->
+                val d = dialog as BottomSheetDialog
+                val bottomSheet = d.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet) as FrameLayout
+                BottomSheetBehavior.from(bottomSheet).apply {
+                    state = BottomSheetBehavior.STATE_EXPANDED
+                    isFitToContents = true
+                }
+            }*/
         }
     }
 

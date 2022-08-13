@@ -14,19 +14,19 @@
     <item
         android:id="@+id/profile"
         android:icon="@drawable/ic_round_person_24"
-        android:title="Profile"
+        android:title="@string/profile"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/logout"
+        android:icon="@drawable/ic_round_logout_24"
+        android:title="@string/logout"
         app:showAsAction="always" />
 
     <!--<item
         android:id="@+id/home"
         android:icon="@drawable/ic_round_home_24"
         android:title="Home"
-        app:showAsAction="always" />-->
-
-    <!--<item
-        android:id="@+id/logout"
-        android:icon="@drawable/ic_baseline_logout_24"
-        android:title="Logout"
         app:showAsAction="always" />-->
 
     <!--<item
@@ -40,6 +40,7 @@
         android:contentDescription="@string/more"
         android:icon="@drawable/ic_round_more_24"
         android:title="@string/more"
+        android:visible="false"
         app:showAsAction="always" />
 
 </menu>

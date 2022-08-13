@@ -29,7 +29,7 @@ class MainActivity : BaseActivity() {
     }
 
     private fun setupActivity() {
-        if (SharedPreferenceHelper().getUser().bookedParkingId.isNullOrBlank()) {
+        if (SharedPreferenceHelper().getUser().bookedSpot?.bookedParkingId.isNullOrBlank()) {
             inflateGraphAndSetStartDestination(R.id.mapFragment)
         } else {
             inflateGraphAndSetStartDestination(R.id.homeFragment)

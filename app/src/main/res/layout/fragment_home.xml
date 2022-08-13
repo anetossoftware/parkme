@@ -23,9 +23,10 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -52,18 +53,19 @@
                     android:background="@drawable/bg_gradient_1"
                     android:padding="15dp">
 
-                    <TextView
-                        android:id="@+id/label_1"
-                        style="@style/poppins_medium_16"
-                        android:layout_width="wrap_content"
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/label_price"
+                        style="@style/GradientSubTitle"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/white"
+                        android:text="@string/to_time"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="Total Price" />
 
                     <TextView
-                        android:id="@+id/total_users"
-                        style="@style/poppins_bold_24"
+                        android:id="@+id/value_price"
+                        style="@style/GradientTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="0"
@@ -71,7 +73,7 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/label_1" />
+                        app:layout_constraintTop_toBottomOf="@id/label_price" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -94,18 +96,19 @@
                     android:background="@drawable/bg_gradient_2"
                     android:padding="15dp">
 
-                    <TextView
-                        android:id="@+id/label_2"
-                        style="@style/poppins_medium_16"
-                        android:layout_width="wrap_content"
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/label_hours"
+                        style="@style/GradientSubTitle"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/white"
+                        android:text="@string/to_time"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="Total Hours" />
 
                     <TextView
-                        android:id="@+id/technicians"
-                        style="@style/poppins_bold_24"
+                        android:id="@+id/value_hours"
+                        style="@style/GradientTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="0"
@@ -113,7 +116,7 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/label_2" />
+                        app:layout_constraintTop_toBottomOf="@id/label_hours" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -136,26 +139,28 @@
                     android:background="@drawable/bg_gradient_3"
                     android:padding="15dp">
 
-                    <TextView
-                        android:id="@+id/label_3"
-                        style="@style/poppins_medium_16"
-                        android:layout_width="wrap_content"
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/label_booked_on"
+                        style="@style/GradientSubTitle"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/white"
+                        android:text="@string/booked_on"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="Booked on" />
 
                     <TextView
-                        android:id="@+id/total_jobs"
-                        style="@style/poppins_bold_24"
+                        android:id="@+id/value_booked_on"
+                        style="@style/GradientTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="0"
+                        android:inputType="datetime"
                         android:textColor="@color/white"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/label_3" />
+                        app:layout_constraintTop_toBottomOf="@id/label_booked_on" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -178,34 +183,35 @@
                     android:background="@drawable/bg_gradient_4"
                     android:padding="15dp">
 
-                    <TextView
-                        android:id="@+id/label_4"
-                        style="@style/poppins_medium_16"
-                        android:layout_width="wrap_content"
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/label_booked_till"
+                        style="@style/GradientSubTitle"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/white"
+                        android:text="@string/expires_on"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="Expires on" />
 
                     <TextView
-                        android:id="@+id/revenue"
-                        style="@style/poppins_bold_24"
+                        android:id="@+id/value_booked_till"
+                        style="@style/GradientTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="0"
+                        android:inputType="datetime"
                         android:textColor="@color/white"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/label_4" />
+                        app:layout_constraintTop_toBottomOf="@id/label_booked_till" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.cardview.widget.CardView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </FrameLayout>
+    </LinearLayout>
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottomAppBar"
@@ -214,20 +220,22 @@
         android:layout_gravity="bottom"
         android:layout_margin="@dimen/spacing_normal"
         app:backgroundTint="?attr/notePrimaryColor"
+        app:fabAlignmentMode="end"
         app:fabAnimationMode="scale"
         app:fabCradleRoundedCornerRadius="@dimen/spacing_normal"
         app:hideOnScroll="true"
         app:menu="@menu/menu_main"
         app:navigationContentDescription="@string/app_name"
-        app:navigationIcon="@drawable/ic_round_menu_24" />
+        app:navigationIcon="@drawable/ic_round_menu_24"
+        app:navigationIconTint="?attr/notePrimaryColor"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabNote"
+        android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/spacing_large"
+        android:layout_margin="@dimen/spacing_normal"
         android:contentDescription="@string/app_name"
-        android:src="@drawable/ic_round_edit_24"
+        android:src="@drawable/navigation_variant"
         app:backgroundTint="?attr/notePrimaryColor"
         app:layout_anchor="@id/bottomAppBar"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"

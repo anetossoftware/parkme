@@ -65,4 +65,15 @@
     <string name="okay">OKAY!</string>
     <string name="about">About</string>
     <string name="about_message">Parkme is developed and maintained by Conestoga Developers.</string>
+    <string name="time_from">Time from</string>
+    <string name="to_time">To time</string>
+    <string name="to_time_error">Please choose correct time.</string>
+    <string name="empty_from_time">Enter start time</string>
+    <string name="empty_to_time">Enter end time</string>
+    <string name="logout">Logout</string>
+    <string name="profile">Profile</string>
+    <string name="logout_successful">Successfully logged out.</string>
+    <string name="booked_on">Booked on</string>
+    <string name="booked_till">Booked till</string>
+    <string name="expires_on">Expires on</string>
 </resources>
