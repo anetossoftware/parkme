@@ -6,9 +6,12 @@ import com.anetos.parkme.view.activity.MainActivity
 import com.anetos.parkme.view.widget.login_register.LoginActivity
 
 object Navigator {
-    fun toLoginActivity() {
+    fun toLoginActivity(clearStack: Boolean = false) {
         val intent = Intent(Application.context, LoginActivity::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            if (clearStack)
+                addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+            else
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK
         }
         Application.context.startActivity(intent)
     }

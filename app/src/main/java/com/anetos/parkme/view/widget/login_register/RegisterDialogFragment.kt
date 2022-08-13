@@ -5,9 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.anetos.parkme.Application
+import com.anetos.parkme.BuildConfig
 import com.anetos.parkme.R
 import com.anetos.parkme.core.helper.*
-import com.anetos.parkme.data.ConstantDelay
 import com.anetos.parkme.data.ConstantFirebase
 import com.anetos.parkme.data.SharePrefConstant
 import com.anetos.parkme.data.model.User
@@ -44,6 +44,8 @@ class RegisterDialogFragment(
             //countryCode.resetToDefaultCountry(mobileNumber)
             etMobile.setText(mobileNumber)
             etMobile.disableLook()
+            if (BuildConfig.DEBUG)
+                feedDebugData()
         }
 
     private fun setupState() {
@@ -144,6 +146,13 @@ class RegisterDialogFragment(
 
     fun navigationDelay() {
 
+    }
+
+    fun feedDebugData() {
+        binding.apply {
+            etName.setText("Dummy Name")
+            etEmail.setText("dummy@gmail.com")
+        }
     }
 
     var onClick: onClickListener? = null

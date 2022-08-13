@@ -61,6 +61,66 @@
         </LinearLayout>
 
         <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_label_from_time"
+            style="@style/DialogSectionItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="@dimen/spacing_normal"
+            android:text="@string/time_from"
+            tools:text="Time from" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_from_time"
+            style="@style/TextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/TextInputLayout"
+            app:endIconDrawable="@drawable/calendar_start"
+            app:endIconMode="custom"
+            app:endIconTint="?attr/notePrimaryColor">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_from_time"
+                style="@style/TextInputEditText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:enabled="false"
+                android:hint="@string/time_from"
+                android:imeOptions="actionNext"
+                android:inputType="date|datetime" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_label_to_time"
+            style="@style/DialogSectionItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="@dimen/spacing_normal"
+            android:text="@string/to_time"
+            tools:text="To time" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_to_time"
+            style="@style/TextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/TextInputLayout"
+            app:endIconDrawable="@drawable/calendar_end"
+            app:endIconMode="custom"
+            app:endIconTint="?attr/notePrimaryColor">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_to_time"
+                style="@style/TextInputEditText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:enabled="false"
+                android:hint="@string/to_time"
+                android:imeOptions="actionNext"
+                android:inputType="date|datetime" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_label_name"
             style="@style/DialogSectionItem"
             android:layout_width="match_parent"
@@ -145,9 +205,6 @@
                     style="@style/TextInputLayout"
                     android:layout_width="@dimen/dp0"
                     android:layout_height="wrap_content"
-                    app:endIconDrawable="@drawable/ic_round_calendar_month_24"
-                    app:endIconMode="custom"
-                    app:endIconTint="?attr/notePrimaryColor"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_label_date">

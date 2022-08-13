@@ -26,12 +26,23 @@ val API_TIME_FORMAT = SimpleDateFormat(API_TIME_PATTERN, Locale.ENGLISH)
 val API_DATE_FORMAT = SimpleDateFormat(API_DATE_PATTERN, Locale.ENGLISH)
 val DATE_FORMAT_2 = SimpleDateFormat(DATE_PATTERN_2, Locale.ENGLISH)
 val DATE_FORMAT_ORDINAL = SimpleDateFormat(DATE_PATTERN_ORDINAL, Locale.ENGLISH)
+val SHORT_DATE_FORMAT = "MMM dd, yy HH:mm"
+val SECOND: Long = 1 * 1000
+val MINUTE = SECOND * 60
+val HOUR = MINUTE * 60
+val HOUR_PER_DAY: Long = 24
 
 //EEEE, MMM d, yyyy h:mm:ss a
-fun Long.convertLongToTime(): String {
+fun Long.convertLongToTime(dateFormat: String? = "MMMM dd, yyyy HH:mm"): String {
     val date = Date(this)
-    val format = SimpleDateFormat("MMMM dd, yyyy HH:mm")
+    val format = SimpleDateFormat(dateFormat)
     return format.format(date)
+}
+
+@SuppressLint("SimpleDateFormat")
+fun  String.convertDateTimeToLong(): Long {
+    val df = SimpleDateFormat("MMMM dd, yyyy HH:mm")
+    return df.parse(this)?.time ?: 0
 }
 
 fun String.currentTimeToLong(): Long {
