@@ -51,7 +51,27 @@ class MainActivity : BaseActivity() {
         navController.setGraph(graph, args)
     }
 
+    override fun onBackPressed() {
+        /*BackPressDialogFragment(
+            this,
+            BACK_PRESS_DIALOG_TITLE,
+            BACK_PRESS_DIALOG_CONFIRMATION,
+            BACK_PRESS_DIALOG_DISCRIPTION,
+            BACK_PRESS_DIALOG_POSITIVE_BUTTON,
+            BACK_PRESS_DIALOG_NEGATIVE_BUTTON
+        ).onClickListener(object : BackPressDialogFragment.onBackPressClickListener {
+            override fun onClick(backPressDialogFragment: BackPressDialogFragment) {
+                finish()
+            }
+        }).show(this.supportFragmentManager, null)*/
+    }
+
     companion object {
         val TAG = this.javaClass.simpleName
+        const val BACK_PRESS_DIALOG_TITLE = "Confirmation"
+        const val BACK_PRESS_DIALOG_CONFIRMATION = "Confirmation"
+        const val BACK_PRESS_DIALOG_DISCRIPTION = "Are you sure you want to exit?"
+        const val BACK_PRESS_DIALOG_POSITIVE_BUTTON = "YES"
+        const val BACK_PRESS_DIALOG_NEGATIVE_BUTTON = "NO"
     }
 }

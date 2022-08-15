@@ -8,7 +8,11 @@ import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.RippleDrawable
 import android.view.View
 import android.view.animation.AccelerateInterpolator
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
+import android.view.animation.DecelerateInterpolator
 import android.widget.TextView
+import androidx.annotation.AnimRes
 import androidx.fragment.app.Fragment
 import androidx.transition.Visibility
 import com.anetos.parkme.R
@@ -105,4 +109,27 @@ fun Fragment.setupFadeTransition() {
     enterTransition = MaterialFade().applyDefaultConfig()
     reenterTransition = MaterialFade().applyDefaultConfig()
     returnTransition = MaterialFade().applyDefaultConfig()
+}
+
+fun animate(viewToAnimate: View, duration: Long, @AnimRes animResource: Int, listener: Animation.AnimationListener? = null) {
+    val animation = AnimationUtils.loadAnimation(viewToAnimate.context, animResource)
+    animation.duration = duration
+    animation.setAnimationListener(listener)
+    viewToAnimate.startAnimation(animation)
+}
+
+fun getValueAnimator(fromWidth: Int, toWidth: Int, updateListener: ValueAnimator.AnimatorUpdateListener
+): ValueAnimator {
+    val widthAnimation = ValueAnimator.ofInt(fromWidth, toWidth)
+    widthAnimation.interpolator = DecelerateInterpolator()
+    widthAnimation.addUpdateListener(updateListener)
+    return widthAnimation
+}
+
+fun colorAnimator(
+    startColor: Int, endColor: Int, updateListener: ValueAnimator.AnimatorUpdateListener
+): ValueAnimator {
+    val colorAnimation = ValueAnimator.ofObject(ArgbEvaluator(), startColor, endColor)
+    colorAnimation.addUpdateListener(updateListener)
+    return colorAnimation
 }

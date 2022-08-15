@@ -25,6 +25,7 @@ import com.anetos.parkme.data.model.ParkingSpot
 import com.anetos.parkme.databinding.FragmentMapBinding
 import com.anetos.parkme.view.widget.about.AboutDialogFragment
 import com.anetos.parkme.view.widget.booking.BookingDialogFragment
+import com.anetos.parkme.view.widget.common.ConfirmationDialogFragment
 import com.anetos.parkme.view.widget.common.WorkInProgressBottomSheetDialog
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.GoogleMap
@@ -33,6 +34,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
@@ -87,8 +89,10 @@ class MapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowCl
         }
         binding.bottomAppBar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
-                R.id.wallet -> {
-
+                R.id.aboutLegend -> {
+                    activity?.supportFragmentManager?.let {
+                        LegendDialogFragment().show(it, null)
+                    }
                     true
                 }
                 R.id.more -> {
@@ -103,12 +107,39 @@ class MapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowCl
 
         binding.tb.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
-                R.id.aboutLegend -> activity?.supportFragmentManager?.let {
-                    LegendDialogFragment().show(it, null)
+                R.id.logout -> {
+                    logout()
                 }
             }
             false
         }
+    }
+
+    fun logout() {
+        ConfirmationDialogFragment(
+            dialogTitle = "Logout",
+            confirmation = "Logout confirmation",
+            description = "Are you sure you want to logout from application?",
+            buttonText = "Logout",
+        ).onClickListener(object : ConfirmationDialogFragment.onConfirmationClickListener {
+            override fun onClick(confirmationDialogFragment: ConfirmationDialogFragment) {
+                context?.let {
+                    SharedPreferenceHelper().clearAppPreferences()
+                    FirebaseAuth.getInstance().signOut()
+                    binding.root.snackbar(
+                        stringId = R.string.logout_successful,
+                        drawableId = R.drawable.ic_round_check_circle_24,
+                        anchorViewId = anchorViewId,
+                        color = NoteColor.Success,
+                        vibrate = true
+                    )
+                    confirmationDialogFragment.dismiss()
+                }
+                withDelay(1000) {
+                    Navigator.toLoginActivity()
+                }
+            }
+        }).show(requireActivity().supportFragmentManager, null)
     }
 
     override fun onMapReady(googleMap: GoogleMap) {

@@ -1,4 +1,4 @@
-package com.anetos.note.customlib
+package com.anetos.parkme.customlib
 
 import android.content.Context
 import android.util.AttributeSet

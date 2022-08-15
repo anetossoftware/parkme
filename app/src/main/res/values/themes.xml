@@ -22,7 +22,7 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="BaseTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="BaseTheme" parent="Theme.Material3.Light.NoActionBar">
         <item name="android:windowBackground">?attr/noteBackgroundColor</item>
         <item name="android:statusBarColor">?attr/noteBackgroundColor</item>
         <item name="android:windowLightStatusBar" tools:targetApi="23">true</item>
@@ -41,6 +41,7 @@
         <item name="noteSecondaryColor">@color/colorSecondary</item>
         <item name="noteBackgroundColor">@color/colorBackground</item>
         <item name="noteSurfaceColor">@color/colorSurface</item>
+        <item name="appBarLayoutStyle">@style/Widget.MaterialComponents.AppBarLayout.Primary</item>
         <item name="snackbarStyle">@style/Snackbar</item>
         <item name="snackbarTextViewStyle">@style/SnackbarTextView</item>
     </style>
@@ -133,7 +134,7 @@
         <item name="android:animateLayoutChanges">true</item>
     </style>
 
-    <style name="Toolbar" parent="Widget.MaterialComponents.TextView">
+    <style name="Toolbar" parent="Widget.Material3.Toolbar">
         <item name="contentInsetStartWithNavigation">0dp</item>
         <item name="titleMarginEnd">@dimen/spacing_normal</item>
         <item name="titleTextAppearance">@style/ToolbarTitleTextAppearance</item>
@@ -185,6 +186,15 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">?attr/noteBackgroundColor</item>
     </style>
+
+    <!--<style name="BottomSheetDialog" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="android:navigationBarColor">#000000</item>
+
+        <item name="android:colorBackground">@android:color/transparent</item>
+
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+    </style>-->
 
     <style name="BaseDialogFragment">
         <item name="android:layout_width">match_parent</item>
@@ -269,10 +279,27 @@
         <item name="android:ellipsize">end</item>
     </style>
 
-    <style name="NoteCreationDateTextView" parent="Widget.MaterialComponents.TextView">
+    <style name="ExpiryDateTextView" parent="Widget.MaterialComponents.TextView">
         <item name="android:textColor">?attr/noteSecondaryColor</item>
         <item name="android:textSize">@dimen/size_extra_tiny</item>
         <item name="fontFamily">@font/nunito_semibold_italic</item>
+    </style>
+
+    <style name="BankCardTypeTextView" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textColor">?attr/notePrimaryColor</item>
+        <item name="android:textSize">@dimen/size_large</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:letterSpacing">0.1</item>
+        <item name="fontFamily">@font/nunito_extrabold_italic</item>
+    </style>
+
+    <style name="WalletCardTypeTextView" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textColor">?attr/notePrimaryColor</item>
+        <item name="android:textSize">@dimen/size_large</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:letterSpacing">0.1</item>
+        <item name="fontFamily">@font/nunito_extrabold_italic</item>
     </style>
 
     <style name="NoteTitleEditText" parent="Widget.AppCompat.EditText">
@@ -346,7 +373,7 @@
         <item name="android:textCursorDrawable">@drawable/cursor_shape</item>
     </style>
 
-    <style name="MaterialButton" parent="Widget.MaterialComponents.Button">
+    <style name="MaterialButton" parent="Widget.Material3.Button">
         <item name="android:backgroundTint">?attr/notePrimaryColor</item>
         <item name="android:textAllCaps">false</item>
         <item name="android:textColor">?attr/noteBackgroundColor</item>
@@ -355,7 +382,7 @@
         <item name="fontFamily">@font/nunito_bold</item>
     </style>
 
-    <style name="MaterialSecondaryButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
+    <style name="MaterialSecondaryButton" parent="Widget.Material3.Button">
         <item name="android:backgroundTint">?attr/noteBackgroundColor</item>
         <item name="strokeColor">?attr/notePrimaryColor</item>
         <item name="android:textAllCaps">false</item>
@@ -365,7 +392,7 @@
         <item name="fontFamily">@font/nunito_bold</item>
     </style>
 
-    <style name="ProgressIndicator" parent="Widget.MaterialComponents.CircularProgressIndicator">
+    <style name="ProgressIndicator" parent="Widget.Material3.CircularProgressIndicator">
         <item name="android:indeterminate">true</item>
         <item name="android:contentDescription">@string/loading</item>
         <item name="indicatorColor">?attr/notePrimaryColor</item>
@@ -375,28 +402,16 @@
         <item name="trackThickness">5dp</item>
     </style>
 
-    <style name="Snackbar" parent="Widget.MaterialComponents.Snackbar">
+    <style name="Snackbar" parent="Widget.Material3.Snackbar">
         <item name="android:layout_margin">@dimen/spacing_normal</item>
     </style>
 
-    <style name="SnackbarTextView" parent="Widget.MaterialComponents.Snackbar.TextView">
+    <style name="SnackbarTextView" parent="Widget.Material3.Snackbar.TextView">
         <item name="fontFamily">@font/nunito_bold</item>
     </style>
 
     <style name="ShapeAppearanceOverlay.App.CornerSize50Percent" parent="">
         <item name="cornerSize">50%</item>
-    </style>
-
-    <style name="SettingsItem" parent="Widget.MaterialComponents.TextView">
-        <item name="fontFamily">@font/nunito_semibold</item>
-        <item name="android:textSize">@dimen/size_small</item>
-        <item name="android:gravity">center_vertical</item>
-        <item name="android:textColor">?attr/notePrimaryColor</item>
-        <item name="android:background">@drawable/dialog_item_shape</item>
-        <item name="android:padding">@dimen/spacing_normal</item>
-        <item name="android:clickable">true</item>
-        <item name="android:focusable">true</item>
-        <item name="android:drawablePadding">@dimen/spacing_normal</item>
     </style>
 
     <style name="IconItem" parent="Widget.MaterialComponents.TextView">
@@ -408,5 +423,43 @@
         <item name="android:background">@drawable/dialog_item_selector</item>
         <item name="android:gravity">center</item>
         <item name="android:drawablePadding">@dimen/spacing_normal</item>
+    </style>
+
+    <style name="ExtendedFab" parent="Widget.Material3.ExtendedFloatingActionButton.Primary">
+        <item name="android:layout_gravity">bottom|end</item>
+        <item name="android:layout_margin">@dimen/spacing_normal</item>
+        <item name="android:textColor">?attr/noteBackgroundColor</item>
+        <item name="backgroundTint">?attr/notePrimaryColor</item>
+        <item name="fontFamily">@font/nunito_semibold</item>
+    </style>
+
+    <style name="AddExtendedFab" parent="Widget.Material3.ExtendedFloatingActionButton.Primary">
+        <item name="android:layout_gravity">top|end</item>
+        <item name="android:textColor">?attr/noteBackgroundColor</item>
+        <item name="backgroundTint">?attr/notePrimaryColor</item>
+        <item name="android:elevation">@dimen/elevation_none</item>
+        <item name="icon">@drawable/ic_round_add_24</item>
+        <item name="iconTint">@color/white</item>
+        <item name="fontFamily">@font/nunito_semibold</item>
+    </style>
+
+    <style name="TabItemTextAppearance" parent="TextAppearance.MaterialComponents.Headline1">
+        <item name="fontFamily">@font/nunito_medium</item>
+        <item name="android:textSize">@dimen/size_small</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="TabLayout" parent="Widget.MaterialComponents.TabLayout">
+        <item name="android:background">@drawable/generic_shape</item>
+        <item name="tabIconTint">@drawable/tab_icon_color_selector</item>
+        <item name="tabIndicator">@drawable/tab_indicator_shape</item>
+        <item name="tabIndicatorAnimationMode">elastic</item>
+        <item name="tabIndicatorColor">?attr/notePrimaryColor</item>
+        <item name="tabIndicatorGravity">stretch</item>
+        <item name="tabInlineLabel">true</item>
+        <item name="tabSelectedTextColor">?attr/noteBackgroundColor</item>
+        <item name="tabTextAppearance">@style/TabItemTextAppearance</item>
+        <item name="tabTextColor">?attr/notePrimaryColor</item>
+        <item name="tabIndicatorAnimationDuration">500</item>
     </style>
 </resources>

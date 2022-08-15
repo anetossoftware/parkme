@@ -106,14 +106,13 @@ class RegisterDialogFragment(
             }
             activity?.hideKeyboard(root)
             onClick?.onClick(this@RegisterDialogFragment)
-            val user = User(
-                name,
-                countryCode.selectedCountryNameCode,
-                "+${countryCode.selectedCountryCode}",
-                number,
-                email,
-                ConstantFirebase.ROLES.REGULAR.name
-            )
+            val user = User()
+            user.name = name
+            user.countryNameCode = countryCode.selectedCountryNameCode
+            user.countryCode = "+${countryCode.selectedCountryCode}"
+            user.mobileNumber = number
+            user.emailAddress = email
+            ConstantFirebase.ROLES.REGULAR.name
             withDelay {
                 firestore.collection(ConstantFirebase.COLLECTION_USERS)
                     .document(DataHelper.getUserIndex(user))

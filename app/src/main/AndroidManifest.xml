@@ -41,6 +41,7 @@
         <activity
             android:name=".view.activity.MainActivity"
             android:exported="false"
+            android:windowSoftInputMode="adjustResize"
             android:screenOrientation="portrait"
             android:theme="@style/BaseTheme" />
 

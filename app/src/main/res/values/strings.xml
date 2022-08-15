@@ -76,4 +76,22 @@
     <string name="booked_on">Booked on</string>
     <string name="booked_till">Booked till</string>
     <string name="expires_on">Expires on</string>
+    <string name="back">Back</string>
+    <string name="new_folder">Profile</string>
+    <string name="bank_card">Bank Card</string>
+    <string name="payment_methods">Payment Methods</string>
+    <string name="visa">VISA</string>
+    <string name="exp">EXP:</string>
+    <string name="balance">Balance:</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="update">Update</string>
+    <string name="add_money">Add Money</string>
+    <string name="amount">Amount</string>
+    <string name="enter_amount">Enter Amount</string>
+    <string name="empty_amount">Enter the amount</string>
+    <string name="error_amount">Please enter correct amount</string>
+    <string name="payment_failed">Payment failed.</string>
+    <string name="money_added_success">Amount successfully added to your wallet.</string>
+    <string name="success_profile_update">Profile successfully updated.</string>
+    <string name="failure_profile_update">Profile not updated.</string>
 </resources>

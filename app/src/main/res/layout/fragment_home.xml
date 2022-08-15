@@ -19,6 +19,7 @@
             android:layout_height="wrap_content"
             app:navigationContentDescription="@string/app_name"
             app:navigationIcon="@drawable/ic_round_home_24"
+            app:menu="@menu/menu_map"
             app:title="@string/app_name" />
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -31,7 +32,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             tools:context=".fragments.HomeFragment">
 
             <androidx.cardview.widget.CardView
@@ -211,6 +212,51 @@
             </androidx.cardview.widget.CardView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/DialogSectionItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_normal"
+            android:padding="@dimen/spacing_normal"
+            android:text="@string/parkign_details"
+            tools:text="Parking Details" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/spacing_normal"
+            android:background="@drawable/generic_shape"
+            android:orientation="vertical">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_label_parkingid"
+                style="@style/NoteBodyTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/spacing_normal"
+                android:paddingTop="@dimen/spacing_normal"
+                android:text="@string/name"
+                tools:text="Parking ID" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_label_price"
+                style="@style/NoteBodyTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/spacing_normal"
+                android:paddingTop="@dimen/spacing_normal"
+                android:text="@string/name"
+                tools:text="Price" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_label_parking_address"
+                style="@style/NoteBodyTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/spacing_normal"
+                tools:text="Address" />
+        </LinearLayout>
     </LinearLayout>
 
     <com.google.android.material.bottomappbar.BottomAppBar
@@ -224,7 +270,7 @@
         app:fabAnimationMode="scale"
         app:fabCradleRoundedCornerRadius="@dimen/spacing_normal"
         app:hideOnScroll="true"
-        app:menu="@menu/menu_main"
+        app:menu="@menu/menu_bottom_home"
         app:navigationContentDescription="@string/app_name"
         app:navigationIcon="@drawable/ic_round_menu_24"
         app:navigationIconTint="?attr/notePrimaryColor"/>
