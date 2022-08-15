@@ -204,8 +204,8 @@ class BookingPaymentDialogFragment(
             updateUser.bankCard = bankCard
             updateUser.walletCard = walletCard
             updateUser.userSubscribe = user.userSubscribe.toString()
-            updateUser.userSubscribe = user.userSubscribe.toString()
             updateUser.bookedSpot = bookedSpot
+            updateUser.insertedAt = Calendar.getInstance().timeInMillis
             withDelay {
                 firestore.collection(ConstantFirebase.COLLECTION_USERS)
                     .document(DataHelper.getUserIndex(SharedPreferenceHelper().getUser()))

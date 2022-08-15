@@ -49,7 +49,7 @@ android {
             shrinkResources false
             zipAlignEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            //manifestPlaceholders = [app_name: "Production"]
+            manifestPlaceholders = [app_name: "Parkme"]
             /*firebaseCrashlytics {
                 // If you don't need crash reporting for your debug build,
                 // you can speed up your build by disabling mapping file uploading.
@@ -74,7 +74,7 @@ android {
                 }
             }
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            manifestPlaceholders = [app_name: "Debug"]
+            manifestPlaceholders = [app_name: "Parkme - Debug"]
         }
     }
 
@@ -97,7 +97,7 @@ android {
             buildConfigField "Boolean", "SHOW_VERSION_TOAST", 'true'
             signingConfig signingConfigs.release
             //Release keys for one signal
-            manifestPlaceholders = [app_name                : "park me",
+            manifestPlaceholders = [
                                     ENABLE_CLEARTEXT_TRAFFIC: "false",
                                     google_maps_api_key     : ""
             ]

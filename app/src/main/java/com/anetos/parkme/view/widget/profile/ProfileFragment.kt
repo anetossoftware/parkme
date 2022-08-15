@@ -19,6 +19,7 @@ import com.anetos.parkme.databinding.FragmentProfileBinding
 import com.anetos.parkme.view.widget.wallet.AddMoneyToWalletDialogFragment
 import com.google.android.material.tabs.TabLayout
 import com.google.firebase.firestore.FirebaseFirestore
+import java.util.*
 
 class ProfileFragment : Fragment() {
 
@@ -201,8 +202,8 @@ class ProfileFragment : Fragment() {
         updateUser.bankCard = bankCard
         updateUser.walletCard = walletCard
         updateUser.userSubscribe = user.userSubscribe.toString()
-        updateUser.userSubscribe = user.userSubscribe.toString()
         updateUser.bookedSpot = bookedSpot
+        updateUser.insertedAt = Calendar.getInstance().timeInMillis
         withDelay {
             firestore.collection(ConstantFirebase.COLLECTION_USERS)
                 .document(DataHelper.getUserIndex(SharedPreferenceHelper().getUser()))

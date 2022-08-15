@@ -443,6 +443,16 @@
         <item name="fontFamily">@font/nunito_semibold</item>
     </style>
 
+    <style name="CancelExtendedFab" parent="Widget.Material3.ExtendedFloatingActionButton.Primary">
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textColor">?attr/noteBackgroundColor</item>
+        <item name="backgroundTint">?attr/notePrimaryColor</item>
+        <item name="android:elevation">@dimen/elevation_none</item>
+        <item name="icon">@drawable/ic_round_close_24</item>
+        <item name="iconTint">@color/white</item>
+        <item name="fontFamily">@font/nunito_semibold</item>
+    </style>
+
     <style name="TabItemTextAppearance" parent="TextAppearance.MaterialComponents.Headline1">
         <item name="fontFamily">@font/nunito_medium</item>
         <item name="android:textSize">@dimen/size_small</item>
