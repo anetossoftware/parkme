@@ -181,7 +181,7 @@ class ProfileFragment : Fragment() {
         bankCard.cvv = user.bankCard?.cvv
 
         val walletCard = WalletCard()
-        walletCard.nameOnCard = name
+        walletCard.nameOnCard = user.bankCard?.nameOnCard
         walletCard.avilableBalance = user.walletCard?.avilableBalance
 
         val bookedSpot = BookedSpot()

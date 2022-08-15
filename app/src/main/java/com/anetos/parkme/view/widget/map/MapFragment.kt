@@ -290,7 +290,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowCl
             if (place != null) {
                 view.findViewById<TextView>(R.id.locationName).text = place.address
                 view.findViewById<TextView>(R.id.price).text =
-                    place.pricePerHr.toString().plus("/hr")
+                    place.pricePerHr.toString().plus(" CAD/hr")
                 view.findViewById<TextView>(R.id.provider).text = "Parking ID: ${place.parkingId}"
             }
         }
@@ -303,36 +303,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowCl
     override fun onInfoWindowLongClick(marker: Marker) {
         val parkingSpot = Gson().fromJson(marker.snippet, ParkingSpot::class.java)
         if (ConstantFirebase.AVAILABILITY_STATUS.AVAILABLE.name.equals(parkingSpot.availabilityStatus, true)) {
-            BookingDialogFragment(
-                parkingSpot
-            ).onClickListener(object : BookingDialogFragment.onClickListener {
-                override fun onClick(bookingDialogFragment: BookingDialogFragment) {
-                    activity?.let { DialogsManager.showProgressDialog(it) }
-                }
-
-                override fun onFailure(bookingDialogFragment: BookingDialogFragment) {
-                    DialogsManager.dismissProgressDialog()
-                    view?.rootView?.snackbar(
-                        stringId = R.string.booking_failed,
-                        drawableId = R.drawable.ic_round_error_24,
-                        anchorViewId = anchorViewId,
-                        color = NoteColor.Error,
-                        vibrate = true
-                    )
-                }
-
-                override fun onNavigationClick(bookingDialogFragment: BookingDialogFragment) {
-                    view?.rootView?.snackbar(
-                        stringId = R.string.booking_success,
-                        drawableId = R.drawable.ic_round_check_circle_24,
-                        anchorViewId = anchorViewId,
-                        color = NoteColor.Success,
-                    )
-                    ::navigateWithDelay.withDelay(ConstantDelay.NAVIGATION_DELAY)
-                    DialogsManager.dismissProgressDialog()
-                }
-
-            }).show(requireActivity().supportFragmentManager, null)
+            BookingDialogFragment(parkingSpot).show(requireActivity().supportFragmentManager, null)
         } else {
             view?.rootView?.snackbar(
                 string = ERROR_PARKING_OCCUPIED,
@@ -342,15 +313,6 @@ class MapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowCl
                 vibrate = true
             )
         }
-    }
-
-    fun navigateWithDelay() {
-        Navigator.toMainActivity(true)
-        /*val fragmentTransaction: FragmentTransaction? =
-            activity?.supportFragmentManager?.beginTransaction()
-        fragmentTransaction?.replace(R.id.container, HomeFragment())
-        fragmentTransaction?.addToBackStack(null)
-        fragmentTransaction?.commit()*/
     }
 
     companion object {

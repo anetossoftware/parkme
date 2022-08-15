@@ -94,4 +94,8 @@
     <string name="money_added_success">Amount successfully added to your wallet.</string>
     <string name="success_profile_update">Profile successfully updated.</string>
     <string name="failure_profile_update">Profile not updated.</string>
+    <string name="parking_id">Parking ID</string>
+    <string name="price">Price</string>
+    <string name="booking_slot">Booking Slot</string>
+    <string name="insufficiant_amount">Wallet doesn\'t have sufficient amount please pay with you Debit/Credit card.</string>
 </resources>

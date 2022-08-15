@@ -1,14 +1,11 @@
 package com.anetos.parkme.core.helper
 
-import android.app.Service
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ServiceLifecycleDispatcher
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.anetos.parkme.data.repository.Injection
 import com.anetos.parkme.view.DataViewModel
-import com.anetos.parkme.view.GoogleDataViewModel
 
 /**
  * Convenience factory to handle ViewModels with one parameter.
@@ -46,14 +43,6 @@ fun Fragment.dataViewModelProvider(): DataViewModel = activity!!.run {
         this,
         DataViewModel.FACTORY(Injection.provideDataRepository(context!!))
     ).get(DataViewModel::class.java)
-}
-
-fun Fragment.googleDataViewModelProvider(): GoogleDataViewModel = activity!!.run {
-    ViewModelProvider(
-        this,
-        GoogleDataViewModel.FACTORY(Injection.provideGoogleDataRepository(context!!))
-    )
-        .get(GoogleDataViewModel::class.java)
 }
 
 fun AppCompatActivity.dataViewModelProvider(): DataViewModel = this.run {
