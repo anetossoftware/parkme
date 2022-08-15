@@ -16,6 +16,7 @@ import com.anetos.parkme.data.model.User
 import com.anetos.parkme.data.model.WalletCard
 import com.anetos.parkme.databinding.DialogAddMoneyToWalletFragmentBinding
 import com.google.firebase.firestore.FirebaseFirestore
+import java.util.*
 
 class AddMoneyToWalletDialogFragment : BaseDialogFragment() {
     private val firestore = FirebaseFirestore.getInstance()
@@ -142,8 +143,8 @@ class AddMoneyToWalletDialogFragment : BaseDialogFragment() {
         updateUser.bankCard = bankCard
         updateUser.walletCard = walletCard
         updateUser.userSubscribe = user.userSubscribe.toString()
-        updateUser.userSubscribe = user.userSubscribe.toString()
         updateUser.bookedSpot = bookedSpot
+        updateUser.insertedAt = Calendar.getInstance().timeInMillis
         withDelay {
             firestore.collection(ConstantFirebase.COLLECTION_USERS)
                 .document(DataHelper.getUserIndex(SharedPreferenceHelper().getUser()))

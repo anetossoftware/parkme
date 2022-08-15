@@ -1,6 +1,5 @@
 package com.anetos.parkme.view.widget.home
 
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -12,15 +11,17 @@ import androidx.core.view.forEach
 import com.anetos.parkme.R
 import com.anetos.parkme.core.BaseFragment
 import com.anetos.parkme.core.helper.*
+import com.anetos.parkme.core.helper.dialog.DialogsManager
+import com.anetos.parkme.data.ConstantDelay
 import com.anetos.parkme.data.ConstantFirebase
-import com.anetos.parkme.data.model.ParkingSpot
-import com.anetos.parkme.data.model.User
+import com.anetos.parkme.data.model.*
 import com.anetos.parkme.databinding.FragmentHomeBinding
 import com.anetos.parkme.view.widget.about.AboutDialogFragment
 import com.anetos.parkme.view.widget.common.ConfirmationDialogFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import java.util.*
 
 class HomeFragment : BaseFragment() {
     private lateinit var binding: FragmentHomeBinding
@@ -49,6 +50,9 @@ class HomeFragment : BaseFragment() {
         }
         binding.bottomAppBar.setNavigationOnClickListener {
             showAbout()
+        }
+        binding.efabCancelBooking.setOnClickListener {
+            updateBooking()
         }
         binding.fab.setOnClickListener {
             val uri = String.format(
@@ -160,10 +164,18 @@ class HomeFragment : BaseFragment() {
             tvLabelPrice.text = String.format(PARKING_PRICE, bookedParkingSpot.pricePerHr)
             tvLabelParkingAddress.text = String.format(PARKING_ADDRESS, bookedParkingSpot.address)
         }
+        if ((user.bookedSpot?.bookedTill ?: 0) < Calendar.getInstance().timeInMillis) {
+            updateBooking()
+        }
     }
 
     fun showProfile() {
-        navController?.navigateSafely(HomeFragmentDirections.actionHomeFragmentToProfileFragment(user, bookedParkingSpot))
+        navController?.navigateSafely(
+            HomeFragmentDirections.actionHomeFragmentToProfileFragment(
+                user,
+                bookedParkingSpot
+            )
+        )
     }
 
     private fun showAbout() {
@@ -199,8 +211,112 @@ class HomeFragment : BaseFragment() {
         }).show(requireActivity().supportFragmentManager, null)
     }
 
+    private fun updateUser() {
+        context?.let { DialogsManager.showProgressDialog(it) }
+        val bankCard = BankCard()
+        bankCard.nameOnCard = user.bankCard?.nameOnCard
+        bankCard.cardNumber = user.bankCard?.cardNumber
+        bankCard.expiryDate = user.bankCard?.expiryDate
+        bankCard.cvv = user.bankCard?.cvv
+
+        val walletCard = WalletCard()
+        walletCard.nameOnCard = user.walletCard?.nameOnCard
+        walletCard.avilableBalance = user.walletCard?.avilableBalance
+
+        val bookedSpot = BookedSpot()
+        bookedSpot.bookedParkingId = null
+        bookedSpot.bookedFrom = null
+        bookedSpot.bookedTill = null
+        bookedSpot.bookedHours = null
+
+        val updateUser = User()
+        updateUser.name = user.name.toString()
+        updateUser.countryNameCode = user.countryNameCode.toString()
+        updateUser.countryCode = user.countryCode.toString()
+        updateUser.mobileNumber = user.mobileNumber.toString()
+        updateUser.emailAddress = user.emailAddress.toString()
+        updateUser.address = user.address.toString()
+        updateUser.role = user.role.toString()
+        updateUser.bankCard = bankCard
+        updateUser.walletCard = walletCard
+        updateUser.userSubscribe = user.userSubscribe.toString()
+        updateUser.bookedSpot = bookedSpot
+        updateUser.insertedAt = Calendar.getInstance().timeInMillis
+        withDelay {
+            db.collection(ConstantFirebase.COLLECTION_USERS)
+                .document(DataHelper.getUserIndex(SharedPreferenceHelper().getUser()))
+                .set(updateUser)
+                .addOnCompleteListener {
+                    if (it.isSuccessful) {
+                        SharedPreferenceHelper().saveUser(updateUser)
+                        cancelParkingSpot()
+                    }
+                }
+        }
+    }
+    private fun cancelParkingSpot() {
+        val updateParkingSpot = ParkingSpot()
+        updateParkingSpot.availabilityStatus = ConstantFirebase.AVAILABILITY_STATUS.AVAILABLE.name
+        updateParkingSpot.insertedAt = Calendar.getInstance().timeInMillis
+        updateParkingSpot.address = bookedParkingSpot.address
+        updateParkingSpot.latitude = bookedParkingSpot.latitude
+        updateParkingSpot.longitude = bookedParkingSpot.longitude
+        updateParkingSpot.parkingId = bookedParkingSpot.parkingId
+        updateParkingSpot.pricePerHr = bookedParkingSpot.pricePerHr
+        withDelay {
+            db.collection(ConstantFirebase.COLLECTION_PARKING_SPOT)
+                .document(bookedParkingSpot.documentId.toString())
+                .set(updateParkingSpot)
+                .addOnCompleteListener {
+                    DialogsManager.dismissProgressDialog()
+                    if (it.isSuccessful) {
+                        view?.rootView?.snackbar(
+                            stringId = R.string.booking_cancel_success,
+                            drawableId = R.drawable.ic_round_check_circle_24,
+                            anchorViewId = anchorViewId,
+                            color = NoteColor.Success,
+                        )
+                        ::navigateWithDelay.withDelay(ConstantDelay.NAVIGATION_DELAY)
+                    } else {
+                        view?.rootView?.snackbar(
+                            stringId = R.string.booking_cancel_failed,
+                            drawableId = R.drawable.ic_round_error_24,
+                            anchorViewId = anchorViewId,
+                            color = NoteColor.Error,
+                            vibrate = true
+                        )
+                    }
+                }
+                .addOnFailureListener {
+                    view?.rootView?.snackbar(
+                        stringId = R.string.booking_cancel_failed,
+                        drawableId = R.drawable.ic_round_error_24,
+                        anchorViewId = anchorViewId,
+                        color = NoteColor.Error,
+                        vibrate = true
+                    )
+                }
+        }
+    }
+
+    fun updateBooking() {
+        ConfirmationDialogFragment(
+            dialogTitle = "Cancellation",
+            confirmation = "Cancel confirmation",
+            description = "Are you sure you want to cancel your parking spot? If yes, you will not get any refund amount.",
+            buttonText = "Confirm",
+        ).onClickListener(object : ConfirmationDialogFragment.onConfirmationClickListener {
+            override fun onClick(confirmationDialogFragment: ConfirmationDialogFragment) {
+                updateUser()
+            }
+        }).show(requireActivity().supportFragmentManager, null)
+    }
+
+    fun navigateWithDelay() {
+        Navigator.toMainActivity(true)
+    }
+
     companion object {
-        fun newInstance(ctx: Context) = HomeFragment()
         const val TOTAL_PRICE = "Total Price"
         const val TOTAL_HOURS = "Booked Hours"
         const val BOOKED_ON = "Booked on : "

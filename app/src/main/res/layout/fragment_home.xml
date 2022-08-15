@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="?attr/noteBackgroundColor">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -17,9 +17,9 @@
             style="@style/Toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:menu="@menu/menu_map"
             app:navigationContentDescription="@string/app_name"
             app:navigationIcon="@drawable/ic_round_home_24"
-            app:menu="@menu/menu_map"
             app:title="@string/app_name" />
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -43,9 +43,9 @@
                 android:layout_marginTop="15dp"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="8dp"
+                app:layout_constraintBottom_toBottomOf="@id/card_2"
                 app:layout_constraintEnd_toStartOf="@id/card_2"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="@id/card_2"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -175,9 +175,9 @@
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/label_booked_till"
                     style="@style/GradientSubTitle"
-                    android:layout_marginVertical="@dimen/spacing_normal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/spacing_normal"
                     android:text="@string/expires_on"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/label_booked_on"
@@ -243,6 +243,19 @@
                 android:text="@string/address"
                 tools:text="Address" />
         </LinearLayout>
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/efab_cancel_booking"
+            style="@style/CancelExtendedFab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/spacing_normal"
+            android:backgroundTint="@color/colorRed"
+            android:contentDescription="@string/profile"
+            android:text="@string/cancel_booking"
+            android:visibility="visible"
+            tools:visibility="visible" />
+
     </LinearLayout>
 
     <com.google.android.material.bottomappbar.BottomAppBar
@@ -259,7 +272,7 @@
         app:menu="@menu/menu_bottom_home"
         app:navigationContentDescription="@string/app_name"
         app:navigationIcon="@drawable/ic_round_menu_24"
-        app:navigationIconTint="?attr/notePrimaryColor"/>
+        app:navigationIconTint="?attr/notePrimaryColor" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"

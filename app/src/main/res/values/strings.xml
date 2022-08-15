@@ -98,4 +98,7 @@
     <string name="price">Price</string>
     <string name="booking_slot">Booking Slot</string>
     <string name="insufficiant_amount">Wallet doesn\'t have sufficient amount please pay with you Debit/Credit card.</string>
+    <string name="cancel_booking">Cancel Booking</string>
+    <string name="booking_cancel_success">Booking canceled successfully.</string>
+    <string name="booking_cancel_failed">Booking cancellation failed.</string>
 </resources>

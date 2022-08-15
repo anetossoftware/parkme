@@ -16,7 +16,6 @@ class User() : Parcelable {
     var bankCard: BankCard? = null
     var walletCard: WalletCard? = null
     var userSubscribe: String? = ConstantFirebase.USER.FREE.name
-    var service: String? = null
     var bookedSpot: BookedSpot? = null
     var insertedAt: Long? = null
 
@@ -31,7 +30,6 @@ class User() : Parcelable {
         bankCard = parcel.readParcelable(BankCard::class.java.classLoader)
         walletCard = parcel.readParcelable(WalletCard::class.java.classLoader)
         userSubscribe = parcel.readString()
-        service = parcel.readString()
         bookedSpot = parcel.readParcelable(BookedSpot::class.java.classLoader)
         insertedAt = parcel.readValue(Long::class.java.classLoader) as? Long
     }
@@ -47,7 +45,6 @@ class User() : Parcelable {
         parcel.writeParcelable(bankCard, flags)
         parcel.writeParcelable(walletCard, flags)
         parcel.writeString(userSubscribe)
-        parcel.writeString(service)
         parcel.writeParcelable(bookedSpot, flags)
         parcel.writeValue(insertedAt)
     }

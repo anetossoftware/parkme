@@ -14,6 +14,7 @@ import com.anetos.parkme.data.model.User
 import com.anetos.parkme.databinding.RegisterDialogFragmentBinding
 import com.anetos.parkme.view.widget.common.BackPressDialogFragment
 import com.google.firebase.firestore.FirebaseFirestore
+import java.util.*
 
 class RegisterDialogFragment(
     val countryCode: String,
@@ -112,6 +113,7 @@ class RegisterDialogFragment(
             user.countryCode = "+${countryCode.selectedCountryCode}"
             user.mobileNumber = number
             user.emailAddress = email
+            user.insertedAt = Calendar.getInstance().timeInMillis
             ConstantFirebase.ROLES.REGULAR.name
             withDelay {
                 firestore.collection(ConstantFirebase.COLLECTION_USERS)
