@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <item
-        android:id="@+id/logout"
-        android:icon="@drawable/ic_round_logout_24"
-        android:title="@string/logout"
+        android:id="@+id/edit_profile"
+        android:icon="@drawable/ic_round_edit_24"
+        android:title="@string/edit_profile"
         app:showAsAction="always" />
 
 </menu>

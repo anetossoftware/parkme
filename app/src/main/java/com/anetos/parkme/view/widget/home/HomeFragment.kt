@@ -18,7 +18,6 @@ import com.anetos.parkme.data.model.User
 import com.anetos.parkme.databinding.FragmentHomeBinding
 import com.anetos.parkme.view.widget.about.AboutDialogFragment
 import com.anetos.parkme.view.widget.common.ConfirmationDialogFragment
-import com.anetos.parkme.view.widget.profile.ProfileDialogFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -67,12 +66,8 @@ class HomeFragment : BaseFragment() {
         binding.bottomAppBar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.profile -> {
-                    //setupFadeTransition()
+                    setupFadeTransition()
                     showProfile()
-                    true
-                }
-                R.id.logout -> {
-                    logout()
                     true
                 }
                 R.id.more -> {
@@ -81,6 +76,14 @@ class HomeFragment : BaseFragment() {
                 }
                 else -> false
             }
+        }
+        binding.tb.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.logout -> {
+                    logout()
+                }
+            }
+            false
         }
     }
 
@@ -157,13 +160,14 @@ class HomeFragment : BaseFragment() {
             valueHours.text = user.bookedSpot?.bookedHours.toString()
             valueBookedOn.text = user.bookedSpot?.bookedFrom?.convertLongToTime(SHORT_DATE_FORMAT)
             valueBookedTill.text = user.bookedSpot?.bookedTill?.convertLongToTime(SHORT_DATE_FORMAT)
+            tvLabelParkingid.text = String.format(PARKING_ID, bookedParkingSpot.parkingId)
+            tvLabelPrice.text = String.format(PARKING_PRICE, bookedParkingSpot.pricePerHr)
+            tvLabelParkingAddress.text = String.format(PARKING_ADDRESS, bookedParkingSpot.address)
         }
     }
 
     fun showProfile() {
-        activity?.supportFragmentManager?.let {
-            ProfileDialogFragment().show(it, null)
-        }
+        navController?.navigateSafely(HomeFragmentDirections.actionHomeFragmentToProfileFragment(user, bookedParkingSpot))
     }
 
     private fun showAbout() {
@@ -207,5 +211,8 @@ class HomeFragment : BaseFragment() {
         const val EXPIRES_ON = "Expires on"
         const val URL = "google.navigation:q=%f,%f"
         val TAG = HomeFragment::class.simpleName
+        const val PARKING_ID = "ID: %s"
+        const val PARKING_PRICE = "Rate: %s CAD / Hr"
+        const val PARKING_ADDRESS = "Address: %s"
     }
 }

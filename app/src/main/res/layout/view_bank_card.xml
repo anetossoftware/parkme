@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cv_bank_card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/spacing_normal"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="3dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_bank_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/generic_shape"
+        android:backgroundTint="@color/md_blue_grey_100"
+        android:cropToPadding="true"
+        android:padding="@dimen/spacing_normal">
+
+        <ImageView
+            android:id="@+id/iv_icon"
+            android:layout_width="@dimen/dp48"
+            android:layout_height="@dimen/dp48"
+            android:src="@drawable/integrated_circuit_chip"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/md_yellow_800" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_card_number"
+            style="@style/DialogSectionItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:letterSpacing=".3"
+            android:paddingVertical="@dimen/spacing_small"
+            app:layout_constraintStart_toStartOf="@id/iv_icon"
+            app:layout_constraintTop_toBottomOf="@id/iv_icon"
+            tools:text="1234  5678  9012  3456" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_label_expiry"
+            style="@style/ExpiryDateTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:paddingVertical="@dimen/spacing_normal"
+            android:text="@string/exp"
+            app:layout_constraintStart_toStartOf="@id/iv_icon"
+            app:layout_constraintTop_toBottomOf="@id/tv_card_number"
+            tools:text="EXP:" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_value_expiry"
+            style="@style/ExpiryDateTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:letterSpacing=".1"
+            android:paddingHorizontal="@dimen/spacing_small"
+            app:layout_constraintBottom_toBottomOf="@id/tv_label_expiry"
+            app:layout_constraintStart_toEndOf="@id/tv_label_expiry"
+            app:layout_constraintTop_toTopOf="@id/tv_label_expiry"
+            tools:text="11/24" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_card_holder_name"
+            style="@style/DialogSectionItem"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:letterSpacing=".3"
+            android:paddingVertical="@dimen/spacing_small"
+            app:layout_constraintEnd_toStartOf="@id/tv_card_type"
+            app:layout_constraintStart_toStartOf="@id/iv_icon"
+            app:layout_constraintTop_toBottomOf="@id/tv_label_expiry"
+            tools:text="Dummy Name" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_card_type"
+            style="@style/BankCardTypeTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:paddingVertical="@dimen/spacing_small"
+            android:text="@string/visa"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="VISA" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

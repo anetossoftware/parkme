@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cv_wallet_card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/spacing_normal"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="3dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/generic_shape"
+        android:backgroundTint="@color/md_blue_50"
+        android:cropToPadding="true"
+        android:padding="@dimen/spacing_normal">
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/efab_add_money"
+            style="@style/AddExtendedFab"
+            android:backgroundTint="@color/blue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/profile"
+            android:text="@string/add_money"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/iv_icon"
+            android:layout_width="@dimen/map_icon_size"
+            android:layout_height="@dimen/map_icon_size"
+            android:contentDescription="@string/wallet"
+            android:src="@drawable/ic_baseline_account_balance_wallet_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/efab_add_money"
+            app:tint="@color/md_red_A700" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_card_number"
+            style="@style/DialogSectionItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:letterSpacing=".3"
+            android:paddingVertical="@dimen/spacing_small"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@id/iv_icon"
+            app:layout_constraintTop_toBottomOf="@id/iv_icon"
+            tools:text="1234  5678  9012  3456" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_label_expiry"
+            style="@style/ExpiryDateTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:paddingVertical="@dimen/spacing_normal"
+            android:text="@string/exp"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@id/iv_icon"
+            app:layout_constraintTop_toBottomOf="@id/tv_card_number"
+            tools:text="EXP:" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_value_expiry"
+            style="@style/ExpiryDateTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:letterSpacing=".1"
+            android:paddingHorizontal="@dimen/spacing_small"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/tv_label_expiry"
+            app:layout_constraintStart_toEndOf="@id/tv_label_expiry"
+            app:layout_constraintTop_toTopOf="@id/tv_label_expiry"
+            tools:text="11/24" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_card_holder_name"
+            style="@style/DialogSectionItem"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:letterSpacing=".3"
+            android:paddingVertical="@dimen/spacing_small"
+            android:visibility="gone"
+            app:layout_constraintEnd_toStartOf="@id/tv_card_type"
+            app:layout_constraintStart_toStartOf="@id/iv_icon"
+            app:layout_constraintTop_toBottomOf="@id/tv_label_expiry"
+            tools:text="Dummy Name" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_label_balance"
+            style="@style/DialogSectionItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:letterSpacing=".2"
+            android:paddingVertical="@dimen/spacing_small"
+            android:text="@string/balance"
+            app:layout_constraintStart_toStartOf="@id/iv_icon"
+            app:layout_constraintTop_toBottomOf="@id/iv_icon"
+            tools:text="Balance:" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_value_balance"
+            style="@style/DialogSectionItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:letterSpacing=".2"
+            android:paddingHorizontal="@dimen/spacing_small"
+            app:layout_constraintBottom_toBottomOf="@id/tv_label_balance"
+            app:layout_constraintStart_toEndOf="@id/tv_label_balance"
+            app:layout_constraintTop_toTopOf="@id/tv_label_balance"
+            tools:text="2000.00" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_card_type"
+            style="@style/WalletCardTypeTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:paddingVertical="@dimen/spacing_small"
+            android:text="@string/app_name"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_label_balance"
+            tools:text="@string/app_name" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

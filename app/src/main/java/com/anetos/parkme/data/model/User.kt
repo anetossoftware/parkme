@@ -1,11 +1,11 @@
 package com.anetos.parkme.data.model
 
+import android.os.Parcel
+import android.os.Parcelable
 import com.anetos.parkme.data.ConstantFirebase
 import com.google.firebase.firestore.Exclude
-import java.io.Serializable
-import java.util.*
 
-class User : Serializable {
+class User() : Parcelable {
     var name: String? = null
     var countryNameCode: String? = null
     var countryCode: String? = null
@@ -14,74 +14,56 @@ class User : Serializable {
     var address: String? = null
     var role: String? = ConstantFirebase.ROLES.REGULAR.name
     var bankCard: BankCard? = null
+    var walletCard: WalletCard? = null
     var userSubscribe: String? = ConstantFirebase.USER.FREE.name
     var service: String? = null
     var bookedSpot: BookedSpot? = null
     var insertedAt: Long? = null
 
-    constructor()
-
-    constructor(
-        name: String,
-        countryNameCode: String,
-        countryCode: String,
-        mobile: String,
-        email: String,
-        address: String,
-        role: String,
-        bankCard: BankCard,
-        userSubscribe: String,
-        service: String,
-        bookedSpot: BookedSpot,
-    ) {
-        this.name = name
-        this.countryNameCode = countryNameCode
-        this.countryCode = countryCode
-        this.mobileNumber = mobile
-        this.emailAddress = email
-        this.address = address
-        this.role = role
-        this.bankCard = bankCard
-        this.userSubscribe = userSubscribe
-        this.service = service
-        this.bookedSpot = bookedSpot
-        this.insertedAt = Calendar.getInstance().timeInMillis
+    constructor(parcel: Parcel) : this() {
+        name = parcel.readString()
+        countryNameCode = parcel.readString()
+        countryCode = parcel.readString()
+        mobileNumber = parcel.readString()
+        emailAddress = parcel.readString()
+        address = parcel.readString()
+        role = parcel.readString()
+        bankCard = parcel.readParcelable(BankCard::class.java.classLoader)
+        walletCard = parcel.readParcelable(WalletCard::class.java.classLoader)
+        userSubscribe = parcel.readString()
+        service = parcel.readString()
+        bookedSpot = parcel.readParcelable(BookedSpot::class.java.classLoader)
+        insertedAt = parcel.readValue(Long::class.java.classLoader) as? Long
     }
 
-    constructor(
-        name: String,
-        countryNameCode: String,
-        countryCode: String,
-        mobile: String,
-        email: String,
-        address: String,
-        role: String
-    ) {
-        this.name = name
-        this.countryNameCode = countryNameCode
-        this.countryCode = countryCode
-        this.mobileNumber = mobile
-        this.emailAddress = email
-        this.address = address
-        this.role = role
-        this.insertedAt = Calendar.getInstance().timeInMillis
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(name)
+        parcel.writeString(countryNameCode)
+        parcel.writeString(countryCode)
+        parcel.writeString(mobileNumber)
+        parcel.writeString(emailAddress)
+        parcel.writeString(address)
+        parcel.writeString(role)
+        parcel.writeParcelable(bankCard, flags)
+        parcel.writeParcelable(walletCard, flags)
+        parcel.writeString(userSubscribe)
+        parcel.writeString(service)
+        parcel.writeParcelable(bookedSpot, flags)
+        parcel.writeValue(insertedAt)
     }
 
-    constructor(
-        name: String,
-        countryNameCode: String,
-        countryCode: String,
-        mobile: String,
-        email: String,
-        role: String
-    ) {
-        this.name = name
-        this.countryNameCode = countryNameCode
-        this.countryCode = countryCode
-        this.mobileNumber = mobile
-        this.emailAddress = email
-        this.role = role
-        this.insertedAt = Calendar.getInstance().timeInMillis
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<User> {
+        override fun createFromParcel(parcel: Parcel): User {
+            return User(parcel)
+        }
+
+        override fun newArray(size: Int): Array<User?> {
+            return arrayOfNulls(size)
+        }
     }
 
     @Exclude
@@ -92,26 +74,5 @@ class User : Serializable {
     @Exclude
     fun isUser(): Boolean {
         return role == ConstantFirebase.ROLES.REGULAR.name
-    }
-
-    /*@Exclude
-    fun isTechnician(): Boolean {
-        return role == Constants.ROLES.SERVICE_PROVIDER.name
-    }*/
-
-    fun updateDetails(
-        name: String, countryCode: String, countryNameCode: String, mobile: String,
-        email: String, address: String
-    ) {
-        this.name = name
-        this.countryNameCode = countryNameCode
-        this.countryCode = countryCode
-        this.mobileNumber = mobile
-        this.emailAddress = email
-        this.address = address
-    }
-
-    override fun toString(): String {
-        return "$name, Role => $role, $countryCode-$mobileNumber, $emailAddress, $address, $insertedAt"
     }
 }

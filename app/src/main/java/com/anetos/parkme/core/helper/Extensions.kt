@@ -30,6 +30,12 @@ import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.widget.doOnTextChanged
+import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.NavDirections
+import androidx.navigation.NavOptionsBuilder
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.navOptions
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.anetos.parkme.R
@@ -48,6 +54,25 @@ import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.onStart
 import kotlin.OptIn
 import kotlin.math.absoluteValue
+
+fun NavController.navigateSafely(directions: NavDirections, builder: (NavOptionsBuilder.() -> Unit)? = null) {
+    if (currentDestination?.getAction(directions.actionId) != null)
+        if (builder == null)
+            navigate(directions)
+        else
+            navigate(directions, navOptions(builder))
+}
+
+val Fragment.navController: NavController?
+    get() = if (isAdded) findNavController() else null
+
+fun NavController.destinationAsFlow() = callbackFlow {
+    val listener = NavController.OnDestinationChangedListener { controller, destination, arguments ->
+        trySend(destination)
+    }
+    addOnDestinationChangedListener(listener)
+    awaitClose { removeOnDestinationChangedListener(listener) }
+}
 
 internal fun String.textStyle(context: Context, typeface: Int = Typeface.NORMAL, colorInt: Int = R.color.black): SpannableStringBuilder {
     val str = SpannableStringBuilder(String.format(this).replace(this, this))
@@ -156,6 +181,50 @@ fun View.disableLook() {
 fun View.enableLook() {
     this.alpha = 1f
     this.isEnabled = true
+}
+
+internal fun View.visible() {
+    animate()
+        .setDuration(DefaultAnimationDuration)
+        //.translationY(this.height.toFloat())
+        .alpha(1.0f)
+        .withEndAction {
+            this.visibility = View.VISIBLE
+        }
+}
+
+internal fun View.gone() {
+    animate()
+        .setDuration(DefaultAnimationDuration)
+        .translationY(0f)
+        .alpha(0.0f)
+        .withStartAction {
+            visibility = View.GONE
+        }
+}
+
+fun View.disable(isAnimate: Boolean = true) {
+    if (isAnimate) {
+        animate()
+            .setDuration(DefaultAnimationDuration)
+            .alpha(0.5F)
+            .withEndAction { isEnabled = false }
+    } else {
+        alpha = .5f
+        isEnabled = false
+    }
+}
+
+fun View.enable(isAnimate: Boolean = true) {
+    if (isAnimate) {
+        animate()
+            .setDuration(DefaultAnimationDuration)
+            .alpha(1F)
+            .withEndAction { isEnabled = true }
+    } else {
+        this.alpha = 1f
+        this.isEnabled = true
+    }
 }
 
 fun View.snackbar(

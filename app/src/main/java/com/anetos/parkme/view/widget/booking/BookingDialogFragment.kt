@@ -100,12 +100,13 @@ class BookingDialogFragment(
         binding.apply {
             val fromTime = etFromTime.text.toString().trim()
             val toTime = etToTime.text.toString().trim()
-            val name = etName.text.toString().trim()
-            val cardNumber = etBankCard.text.toString().trim()
-            val expiryDate = etExpiry.text.toString().trim()
-            val cvv = etCvv.text.toString().trim()
+            val name = layoutBankCardInput.etName.text.toString().trim()
+            val cardNumber = layoutBankCardInput.etBankCard.text.toString().trim()
+            val expiryDate = layoutBankCardInput.etExpiry.text.toString().trim()
+            val cvv = layoutBankCardInput.etCvv.text.toString().trim()
             if (fromTime.isEmpty() && toTime.isEmpty() && name.isEmpty() &&
-                cardNumber.isEmpty() && expiryDate.isEmpty() && cvv.isEmpty()) {
+                cardNumber.isEmpty() && expiryDate.isEmpty() && cvv.isEmpty()
+            ) {
                 view?.rootView?.snackbar(
                     stringId = R.string.details_missing,
                     anchorViewId = anchorViewId,
@@ -115,10 +116,10 @@ class BookingDialogFragment(
                 )
                 tilFromTime.error = getString(R.string.empty_from_time)
                 tilToTime.error = getString(R.string.empty_to_time)
-                tilName.error = getString(R.string.empty_name)
-                tilBankCard.error = getString(R.string.empty_card_number)
-                tilExpiry.error = getString(R.string.empty_expiry)
-                tilCvv.error = getString(R.string.empty_cvv)
+                layoutBankCardInput.tilName.error = getString(R.string.empty_name)
+                layoutBankCardInput.tilBankCard.error = getString(R.string.empty_card_number)
+                layoutBankCardInput.tilExpiry.error = getString(R.string.empty_expiry)
+                layoutBankCardInput.tilCvv.error = getString(R.string.empty_cvv)
                 return
             }
             if (fromTime.isEmpty()) {
@@ -140,34 +141,34 @@ class BookingDialogFragment(
                 tilToTime.isErrorEnabled = false
             }
             if (name.isEmpty()) {
-                tilName.isErrorEnabled = true
+                layoutBankCardInput.tilName.isErrorEnabled = true
                 context?.let {
-                    tilName.error = getString(R.string.empty_name)
+                    layoutBankCardInput.tilName.error = getString(R.string.empty_name)
                 }
                 return
             } else {
-                tilName.isErrorEnabled = false
+                layoutBankCardInput.tilName.isErrorEnabled = false
             }
             if (cardNumber.length < 16) {
-                tilBankCard.isErrorEnabled = true
+                layoutBankCardInput.tilBankCard.isErrorEnabled = true
                 context?.let {
-                    tilBankCard.error = getString(R.string.empty_card_number)
+                    layoutBankCardInput.tilBankCard.error = getString(R.string.empty_card_number)
                 }
                 return
             } else {
-                tilBankCard.isErrorEnabled = false
+                layoutBankCardInput.tilBankCard.isErrorEnabled = false
             }
             if (expiryDate.expiryDate()) {
-                tilExpiry.error = getString(R.string.empty_expiry)
+                layoutBankCardInput.tilExpiry.error = getString(R.string.empty_expiry)
                 return
             } else {
-                tilExpiry.isErrorEnabled = false
+                layoutBankCardInput.tilExpiry.isErrorEnabled = false
             }
             if (cvv.length < 3) {
-                tilCvv.error = getString(R.string.empty_cvv)
+                layoutBankCardInput.tilCvv.error = getString(R.string.empty_cvv)
                 return
             } else {
-                tilCvv.isErrorEnabled = false
+                layoutBankCardInput.tilCvv.isErrorEnabled = false
             }
             if (calculateHours() <= 0.0) {
                 tilToTime.error = getString(R.string.to_time_error)
@@ -190,19 +191,18 @@ class BookingDialogFragment(
             bookedSpot.bookedHours = calculateHours()
 
             val user = SharedPreferenceHelper().getUser()
-            val updateUser = User(
-                user.name.toString(),
-                user.countryNameCode.toString(),
-                user.countryCode.toString(),
-                user.mobileNumber.toString(),
-                user.emailAddress.toString(),
-                user.address.toString(),
-                user.role.toString(),
-                bankCard,
-                user.userSubscribe.toString(),
-                user.service.toString(),
-                bookedSpot,
-            )
+            val updateUser = User()
+            updateUser.name = user.name.toString()
+            updateUser.countryNameCode = user.countryNameCode.toString()
+            updateUser.countryCode = user.countryCode.toString()
+            updateUser.mobileNumber = user.mobileNumber.toString()
+            updateUser.emailAddress = user.emailAddress.toString()
+            updateUser.address = user.address.toString()
+            updateUser.role = user.role.toString()
+            updateUser.bankCard = bankCard
+            updateUser.userSubscribe = user.userSubscribe.toString()
+            updateUser.userSubscribe = user.userSubscribe.toString()
+            updateUser.bookedSpot = bookedSpot
             withDelay {
                 firestore.collection(ConstantFirebase.COLLECTION_USERS)
                     .document(DataHelper.getUserIndex(SharedPreferenceHelper().getUser()))
@@ -230,7 +230,8 @@ class BookingDialogFragment(
         val startHour = currentDateTime.get(Calendar.HOUR_OF_DAY)
         val startMinute = currentDateTime.get(Calendar.MINUTE)
 
-        val isDarkMode = resources.configuration.uiMode.and(Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
+        val isDarkMode =
+            resources.configuration.uiMode.and(Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
 
         val theme = if (isDarkMode) android.R.style.Theme_DeviceDefault_Dialog
         else android.R.style.Theme_DeviceDefault_Light_Dialog
@@ -280,8 +281,10 @@ class BookingDialogFragment(
     }
 
     private fun calculateHours(): Double {
-        val difference = binding.etToTime.text.toString().convertDateTimeToLong() - binding.etFromTime.text.toString().convertDateTimeToLong()
-        val hours = String.format(Locale.US, TIME_LEFT_FORMAT, TimeUnit.MILLISECONDS.toHours(difference))
+        val difference = binding.etToTime.text.toString()
+            .convertDateTimeToLong() - binding.etFromTime.text.toString().convertDateTimeToLong()
+        val hours =
+            String.format(Locale.US, TIME_LEFT_FORMAT, TimeUnit.MILLISECONDS.toHours(difference))
         return hours.toDouble()
     }
 
@@ -328,10 +331,10 @@ class BookingDialogFragment(
 
     fun feedDebugData() {
         binding.apply {
-            etName.setText("Dummy Name")
-            etBankCard.setText("1234567890123456")
-            etExpiry.setText("02/25")
-            etCvv.setText("999")
+            layoutBankCardInput.etName.setText("Dummy Name")
+            layoutBankCardInput.etBankCard.setText("1234567890123456")
+            layoutBankCardInput.etExpiry.setText("02/25")
+            layoutBankCardInput.etCvv.setText("999")
         }
     }
 
