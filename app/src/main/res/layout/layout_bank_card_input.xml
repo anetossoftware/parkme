@@ -35,7 +35,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tv_label_bank_card"
+        android:id="@+id/tv_label_bank_card_number"
         style="@style/DialogSectionItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

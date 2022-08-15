@@ -9,7 +9,6 @@ import com.anetos.parkme.data.api.RemoteDataNotFoundException
 import com.anetos.parkme.data.repository.DataRepository
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import java.util.*
 
 /***
  *  created by Jaydeep Bhayani on 20/06/2022
@@ -20,18 +19,6 @@ class DataViewModel(private val repository: DataRepository) : ViewModel() {
         val FACTORY =
             viewModelFactoryWithSingleArg(::DataViewModel)
     }
-
-    /**
-     *  Get the Map Directions from start pint to end point from google Direction Api
-     */
-    val googleMapDirections = repository.googleDirectionData
-
-    fun refreshGoogleMapDirection(startPoint: String, endPoint: String) {
-        launchDataLoad {
-            repository.refreshGMapDirection(startPoint, endPoint)
-        }
-    }
-
 
     /**
      *  Enable/Disable legends

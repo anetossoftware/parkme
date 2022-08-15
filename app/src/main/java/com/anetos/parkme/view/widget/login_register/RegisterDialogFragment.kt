@@ -81,7 +81,7 @@ class RegisterDialogFragment(
             val name = etName.text.toString().trim()
             val number = etMobile.text.toString().trim()
             val email = etEmail.text.toString().trim()
-            if (name.isEmpty() || email.isEmpty() || number.isEmpty()) {
+            if (name.isEmpty() && email.isEmpty() && number.isEmpty()) {
                 view?.rootView?.snackbar(
                     stringId = R.string.details_missing,
                     anchorViewId = anchorViewId,

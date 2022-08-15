@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/BaseDialogFragment"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="@dimen/spacing_normal">
+
+    <LinearLayout
+        android:id="@+id/ll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/tb"
+            layout="@layout/dialog_fragment_toolbar_with_close" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_payable_amount"
+            style="@style/DialogSectionItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="@dimen/spacing_normal"
+            android:text="@string/payment_methods" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_label_payment_option"
+            style="@style/DialogSectionItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="@dimen/spacing_normal"
+            android:text="@string/payment_methods" />
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tl_payment_layout"
+            style="@style/TabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:icon="@drawable/ic_round_credit_card_24"
+                android:text="@string/bank_card" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:icon="@drawable/ic_round_wallet_24"
+                android:text="@string/wallet" />
+        </com.google.android.material.tabs.TabLayout>
+
+        <include
+            android:id="@+id/layout_bank_card_input"
+            layout="@layout/layout_bank_card_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/spacing_normal"
+            android:layout_marginVertical="@dimen/spacing_normal" />
+
+        <include
+            android:id="@+id/layout_wallet"
+            layout="@layout/view_wallet_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/spacing_normal"
+            android:layout_marginVertical="@dimen/spacing_normal"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_confirm"
+            style="@style/MaterialButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/spacing_normal"
+            android:padding="@dimen/spacing_normal"
+            android:text="@string/confirm_booking"
+            tools:text="Confirm Booking" />
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

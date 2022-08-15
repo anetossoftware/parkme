@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.anetos.parkme.BuildConfig
 import com.anetos.parkme.R
 import com.anetos.parkme.core.helper.*
 import com.anetos.parkme.core.helper.dialog.DialogsManager
@@ -34,6 +35,8 @@ class AddMoneyToWalletDialogFragment : BaseDialogFragment() {
     private fun DialogAddMoneyToWalletFragmentBinding.setupState() {
         tb.tvDialogTitle.text = context?.stringResource(R.string.add_money)
         btnOkay.text = BUTTON_TEXT
+        if (BuildConfig.DEBUG)
+            feedDebugData()
     }
 
     private fun DialogAddMoneyToWalletFragmentBinding.setupListeners() {

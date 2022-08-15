@@ -8,17 +8,13 @@ import android.text.format.DateFormat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.anetos.parkme.Application
 import com.anetos.parkme.BuildConfig
 import com.anetos.parkme.R
 import com.anetos.parkme.core.helper.*
 import com.anetos.parkme.data.ConstantFirebase
-import com.anetos.parkme.data.model.BankCard
-import com.anetos.parkme.data.model.BookedSpot
-import com.anetos.parkme.data.model.ParkingSpot
-import com.anetos.parkme.data.model.User
+import com.anetos.parkme.data.model.*
 import com.anetos.parkme.databinding.DialogFragmentBookingBinding
-import com.anetos.parkme.view.widget.common.BackPressDialogFragment
+import com.google.android.material.tabs.TabLayout
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDateTime
@@ -41,7 +37,6 @@ class BookingDialogFragment(
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        isCancelable = false
         binding = DialogFragmentBookingBinding.inflate(inflater, container, false)
         setupBaseDialogFragment()
         setupState()
@@ -53,8 +48,6 @@ class BookingDialogFragment(
         binding.apply {
             tb.tvDialogTitle.text = DIALOG_TITLE
             btnConfirm.text = DIALOG_TITLE
-            if (BuildConfig.DEBUG)
-                feedDebugData()
         }
     }
 
@@ -77,22 +70,6 @@ class BookingDialogFragment(
             btnConfirm.setOnClickListener {
                 bookParking()
             }
-            tb.ivClose.setOnClickListener {
-                activity?.supportFragmentManager?.let {
-                    BackPressDialogFragment(
-                        Application.context,
-                        BACK_PRESS_DIALOG_TITLE,
-                        BACK_PRESS_DIALOG_CONFIRMATION,
-                        BACK_PRESS_DIALOG_DISCRIPTION,
-                        BACK_PRESS_DIALOG_POSITIVE_BUTTON,
-                        BACK_PRESS_DIALOG_NAGATIVE_BUTTON
-                    ).onClickListener(object : BackPressDialogFragment.onBackPressClickListener {
-                        override fun onClick(backPressDialogFragment: BackPressDialogFragment) {
-                            this@BookingDialogFragment.dismiss()
-                        }
-                    }).show(it, null)
-                }
-            }
         }
     }
 
@@ -100,13 +77,7 @@ class BookingDialogFragment(
         binding.apply {
             val fromTime = etFromTime.text.toString().trim()
             val toTime = etToTime.text.toString().trim()
-            val name = layoutBankCardInput.etName.text.toString().trim()
-            val cardNumber = layoutBankCardInput.etBankCard.text.toString().trim()
-            val expiryDate = layoutBankCardInput.etExpiry.text.toString().trim()
-            val cvv = layoutBankCardInput.etCvv.text.toString().trim()
-            if (fromTime.isEmpty() && toTime.isEmpty() && name.isEmpty() &&
-                cardNumber.isEmpty() && expiryDate.isEmpty() && cvv.isEmpty()
-            ) {
+            if (fromTime.isEmpty() && toTime.isEmpty()) {
                 view?.rootView?.snackbar(
                     stringId = R.string.details_missing,
                     anchorViewId = anchorViewId,
@@ -116,10 +87,6 @@ class BookingDialogFragment(
                 )
                 tilFromTime.error = getString(R.string.empty_from_time)
                 tilToTime.error = getString(R.string.empty_to_time)
-                layoutBankCardInput.tilName.error = getString(R.string.empty_name)
-                layoutBankCardInput.tilBankCard.error = getString(R.string.empty_card_number)
-                layoutBankCardInput.tilExpiry.error = getString(R.string.empty_expiry)
-                layoutBankCardInput.tilCvv.error = getString(R.string.empty_cvv)
                 return
             }
             if (fromTime.isEmpty()) {
@@ -127,6 +94,7 @@ class BookingDialogFragment(
                 context?.let {
                     tilFromTime.error = getString(R.string.empty_from_time)
                 }
+                withDelay(2000L) { tilFromTime.isErrorEnabled = false }
                 return
             } else {
                 tilFromTime.isErrorEnabled = false
@@ -136,53 +104,19 @@ class BookingDialogFragment(
                 context?.let {
                     tilToTime.error = getString(R.string.empty_to_time)
                 }
+                withDelay(2000L) { tilToTime.isErrorEnabled = false }
                 return
             } else {
                 tilToTime.isErrorEnabled = false
             }
-            if (name.isEmpty()) {
-                layoutBankCardInput.tilName.isErrorEnabled = true
-                context?.let {
-                    layoutBankCardInput.tilName.error = getString(R.string.empty_name)
-                }
-                return
-            } else {
-                layoutBankCardInput.tilName.isErrorEnabled = false
-            }
-            if (cardNumber.length < 16) {
-                layoutBankCardInput.tilBankCard.isErrorEnabled = true
-                context?.let {
-                    layoutBankCardInput.tilBankCard.error = getString(R.string.empty_card_number)
-                }
-                return
-            } else {
-                layoutBankCardInput.tilBankCard.isErrorEnabled = false
-            }
-            if (expiryDate.expiryDate()) {
-                layoutBankCardInput.tilExpiry.error = getString(R.string.empty_expiry)
-                return
-            } else {
-                layoutBankCardInput.tilExpiry.isErrorEnabled = false
-            }
-            if (cvv.length < 3) {
-                layoutBankCardInput.tilCvv.error = getString(R.string.empty_cvv)
-                return
-            } else {
-                layoutBankCardInput.tilCvv.isErrorEnabled = false
-            }
             if (calculateHours() <= 0.0) {
                 tilToTime.error = getString(R.string.to_time_error)
+                withDelay(2000L) { tilToTime.isErrorEnabled = false }
                 return
             } else {
                 tilToTime.isErrorEnabled = false
             }
             activity?.hideKeyboard(root)
-            onClick?.onClick(this@BookingDialogFragment)
-            val bankCard = BankCard()
-            bankCard.nameOnCard = name
-            bankCard.cardNumber = cardNumber
-            bankCard.expiryDate = expiryDate
-            bankCard.cvv = cvv
 
             val bookedSpot = BookedSpot()
             bookedSpot.bookedParkingId = parkingSpot?.parkingId.toString()
@@ -190,34 +124,8 @@ class BookingDialogFragment(
             bookedSpot.bookedTill = toTime.convertDateTimeToLong()
             bookedSpot.bookedHours = calculateHours()
 
-            val user = SharedPreferenceHelper().getUser()
-            val updateUser = User()
-            updateUser.name = user.name.toString()
-            updateUser.countryNameCode = user.countryNameCode.toString()
-            updateUser.countryCode = user.countryCode.toString()
-            updateUser.mobileNumber = user.mobileNumber.toString()
-            updateUser.emailAddress = user.emailAddress.toString()
-            updateUser.address = user.address.toString()
-            updateUser.role = user.role.toString()
-            updateUser.bankCard = bankCard
-            updateUser.userSubscribe = user.userSubscribe.toString()
-            updateUser.userSubscribe = user.userSubscribe.toString()
-            updateUser.bookedSpot = bookedSpot
-            withDelay {
-                firestore.collection(ConstantFirebase.COLLECTION_USERS)
-                    .document(DataHelper.getUserIndex(SharedPreferenceHelper().getUser()))
-                    .set(updateUser)
-                    .addOnCompleteListener {
-                        if (it.isSuccessful) {
-                            SharedPreferenceHelper().saveUser(updateUser)
-                            updateParkingSpot()
-                        } else {
-                            onClick?.onFailure(this@BookingDialogFragment)
-                        }
-                    }
-                    .addOnFailureListener {
-                        onClick?.onFailure(this@BookingDialogFragment)
-                    }
+            activity?.supportFragmentManager?.let {
+                BookingPaymentDialogFragment(parkingSpot, bookedSpot).show(it, null)
             }
         }
     }
@@ -288,67 +196,11 @@ class BookingDialogFragment(
         return hours.toDouble()
     }
 
-    private fun updateParkingSpot() {
-        val updateParkingSpot = ParkingSpot()
-        updateParkingSpot.availabilityStatus = ConstantFirebase.AVAILABILITY_STATUS.OCCUPIED.name
-        updateParkingSpot.insertedAt = Calendar.getInstance().timeInMillis
-        updateParkingSpot.address = parkingSpot?.address
-        updateParkingSpot.latitude = parkingSpot?.latitude ?: 0.0
-        updateParkingSpot.longitude = parkingSpot?.longitude ?: 0.0
-        updateParkingSpot.parkingId = parkingSpot?.parkingId
-        updateParkingSpot.pricePerHr = parkingSpot?.pricePerHr ?: 0.0
-
-        withDelay {
-            firestore.collection(ConstantFirebase.COLLECTION_PARKING_SPOT)
-                .document(parkingSpot?.documentId.toString())
-                .set(updateParkingSpot)
-                .addOnCompleteListener {
-                    if (it.isSuccessful) {
-                        dismiss()
-                        onClick?.onNavigationClick(this@BookingDialogFragment)
-                    } else {
-                        onClick?.onFailure(this@BookingDialogFragment)
-                    }
-                }
-                .addOnFailureListener {
-                    onClick?.onFailure(this@BookingDialogFragment)
-                }
-        }
-    }
-
-    var onClick: onClickListener? = null
-
-    interface onClickListener {
-        fun onClick(bookingDialogFragment: BookingDialogFragment)
-        fun onFailure(bookingDialogFragment: BookingDialogFragment)
-        fun onNavigationClick(bookingDialogFragment: BookingDialogFragment)
-    }
-
-    fun onClickListener(onClick: onClickListener): BookingDialogFragment {
-        this.onClick = onClick
-        return this
-    }
-
-    fun feedDebugData() {
-        binding.apply {
-            layoutBankCardInput.etName.setText("Dummy Name")
-            layoutBankCardInput.etBankCard.setText("1234567890123456")
-            layoutBankCardInput.etExpiry.setText("02/25")
-            layoutBankCardInput.etCvv.setText("999")
-        }
-    }
-
     companion object {
         const val DIALOG_TITLE = "Book here!"
         const val PARKING_ID = "ID: %s"
         const val PARKING_PRICE = "Rate: %s CAD / Hr"
         const val PARKING_ADDRESS = "Address: %s"
-        const val BACK_PRESS_DIALOG_TITLE = "Confirmation"
-        const val BACK_PRESS_DIALOG_CONFIRMATION = "Are you sure you dot not want to reserve?"
-        const val BACK_PRESS_DIALOG_DISCRIPTION =
-            "To reserve you need to fill and submit the details"
-        const val BACK_PRESS_DIALOG_POSITIVE_BUTTON = "YES"
-        const val BACK_PRESS_DIALOG_NAGATIVE_BUTTON = "NO"
         const val SELECT_DATE_FROM = "FROM"
         const val SELECT_DATE_TO = "TO"
         const val TIME_LEFT_FORMAT = "%02d"

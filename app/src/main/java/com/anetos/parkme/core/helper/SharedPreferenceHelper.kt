@@ -101,7 +101,7 @@ class SharedPreferenceHelper {
     }
 
     companion object {
-        private const val appPreferences = "app_preferences"
+        private const val appPreferences = "parkme_preferences"
         const val keyFirebaseToken = "firebase_token"
         const val keyUserDetails = "user_details"
         private const val userPreferences = "user_preferences"

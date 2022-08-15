@@ -31,11 +31,6 @@ class HomeFragment : BaseFragment() {
     var user = User()
     var bookedParkingSpot = ParkingSpot()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        getBookedSpot()
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -88,6 +83,7 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun setupState() {
+        getBookedSpot()
         binding.apply {
             bottomAppBar.setRoundedCorners()
             activity?.let { context ->
@@ -207,12 +203,12 @@ class HomeFragment : BaseFragment() {
         fun newInstance(ctx: Context) = HomeFragment()
         const val TOTAL_PRICE = "Total Price"
         const val TOTAL_HOURS = "Booked Hours"
-        const val BOOKED_ON = "Booked on"
-        const val EXPIRES_ON = "Expires on"
+        const val BOOKED_ON = "Booked on : "
+        const val EXPIRES_ON = "Expires on : "
         const val URL = "google.navigation:q=%f,%f"
         val TAG = HomeFragment::class.simpleName
-        const val PARKING_ID = "ID: %s"
-        const val PARKING_PRICE = "Rate: %s CAD / Hr"
-        const val PARKING_ADDRESS = "Address: %s"
+        const val PARKING_ID = "ID : %s"
+        const val PARKING_PRICE = "Rate : %s CAD / Hr"
+        const val PARKING_ADDRESS = "Address : %s"
     }
 }

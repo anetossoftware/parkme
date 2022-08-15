@@ -15,7 +15,7 @@
 
         <include
             android:id="@+id/tb"
-            layout="@layout/dialog_fragment_toolbar_with_close" />
+            layout="@layout/dialog_fragment_toolbar" />
 
         <com.google.android.material.textview.MaterialTextView
             style="@style/DialogSectionItem"
@@ -119,10 +119,6 @@
                 android:imeOptions="actionNext"
                 android:inputType="date|datetime" />
         </com.google.android.material.textfield.TextInputLayout>
-
-        <include
-            android:id="@+id/layout_bank_card_input"
-            layout="@layout/layout_bank_card_input" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_confirm"
