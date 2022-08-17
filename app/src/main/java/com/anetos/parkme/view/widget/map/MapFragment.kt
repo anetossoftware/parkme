@@ -142,7 +142,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowCl
         mMap.setOnInfoWindowClickListener(this)
         mMap.setOnInfoWindowLongClickListener(this)
         mClusterManager = ClusterManager(requireContext(), mMap)
-        context?.configureMap(mMap)
+        context?.configureMap(mMap, false)
     }
 
     private fun startLocationUpdate() {
