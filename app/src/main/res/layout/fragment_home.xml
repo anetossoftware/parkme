@@ -24,239 +24,248 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <LinearLayout
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nsv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+        android:overScrollMode="never"
+        app:layout_behavior="com.anetos.parkme.customlib.BounceScrollingViewBehavior">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:context=".fragments.HomeFragment">
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/card_1"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginHorizontal="15dp"
-                android:layout_marginTop="15dp"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="8dp"
-                app:layout_constraintBottom_toBottomOf="@id/card_2"
-                app:layout_constraintEnd_toStartOf="@id/card_2"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/bg_gradient_1"
-                    android:padding="15dp">
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/label_price"
-                        style="@style/GradientTitle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/to_time"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:text="Total Price" />
-
-                    <TextView
-                        android:id="@+id/value_price"
-                        style="@style/GradientTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="0"
-                        android:textColor="@color/white"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/label_price" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/card_2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="15dp"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/card_1"
-                app:layout_constraintTop_toTopOf="@id/card_1">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bg_gradient_2"
-                    android:padding="15dp">
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/label_hours"
-                        style="@style/GradientTitle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/to_time"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:text="Total Hours" />
-
-                    <TextView
-                        android:id="@+id/value_hours"
-                        style="@style/GradientTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="0"
-                        android:textColor="@color/white"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/label_hours" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </androidx.cardview.widget.CardView>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <com.google.android.material.textview.MaterialTextView
-            style="@style/DialogSectionItem"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_normal"
-            android:padding="@dimen/spacing_normal"
-            android:text="@string/booking_slot"
-            tools:text="Booking Slot" />
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/card_3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="8dp"
-            app:layout_constraintEnd_toEndOf="@id/card_1"
-            app:layout_constraintStart_toStartOf="@id/card_1"
-            app:layout_constraintTop_toBottomOf="@id/card_1">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/padding_bottom"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_gradient_3"
-                android:padding="15dp">
+                tools:context=".fragments.HomeFragment">
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/label_booked_on"
-                    style="@style/GradientSubTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/booked_on"
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card_1"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginHorizontal="15dp"
+                    android:layout_marginTop="15dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="8dp"
+                    app:layout_constraintBottom_toBottomOf="@id/card_2"
+                    app:layout_constraintEnd_toStartOf="@id/card_2"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="Booked on :" />
+                    app:layout_constraintTop_toTopOf="parent">
 
-                <TextView
-                    android:id="@+id/value_booked_on"
-                    style="@style/GradientTitle"
-                    android:layout_width="wrap_content"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/bg_gradient_1"
+                        android:padding="15dp">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/label_price"
+                            style="@style/GradientTitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/to_time"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="Total Price" />
+
+                        <TextView
+                            android:id="@+id/value_price"
+                            style="@style/GradientTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textColor="@color/white"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/label_price" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card_2"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:inputType="datetime"
-                    android:textColor="@color/white"
-                    app:layout_constraintBottom_toBottomOf="@id/label_booked_on"
-                    app:layout_constraintStart_toEndOf="@id/label_booked_on"
-                    app:layout_constraintTop_toTopOf="@id/label_booked_on" />
+                    android:layout_marginEnd="15dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/card_1"
+                    app:layout_constraintTop_toTopOf="@id/card_1">
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/label_booked_till"
-                    style="@style/GradientSubTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="@dimen/spacing_normal"
-                    android:text="@string/expires_on"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/label_booked_on"
-                    tools:text="Expires on :" />
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_gradient_2"
+                        android:padding="15dp">
 
-                <TextView
-                    android:id="@+id/value_booked_till"
-                    style="@style/GradientTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:inputType="datetime"
-                    android:textColor="@color/white"
-                    app:layout_constraintBottom_toBottomOf="@id/label_booked_till"
-                    app:layout_constraintStart_toEndOf="@id/label_booked_till"
-                    app:layout_constraintTop_toTopOf="@id/label_booked_till" />
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/label_hours"
+                            style="@style/GradientTitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/to_time"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="Total Hours" />
 
+                        <TextView
+                            android:id="@+id/value_hours"
+                            style="@style/GradientTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textColor="@color/white"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/label_hours" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.cardview.widget.CardView>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </androidx.cardview.widget.CardView>
-
-        <com.google.android.material.textview.MaterialTextView
-            style="@style/DialogSectionItem"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/spacing_normal"
-            android:text="@string/parkign_details"
-            tools:text="Parking Details" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/spacing_normal"
-            android:background="@drawable/bg_gradient_4"
-            android:orientation="vertical">
-
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_label_parkingid"
-                style="@style/GradientSubTitle"
-                android:layout_width="wrap_content"
+                style="@style/DialogSectionItem"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="@dimen/spacing_normal"
-                android:paddingTop="@dimen/spacing_normal"
-                android:text="@string/parking_id"
-                tools:text="Parking ID" />
+                android:layout_marginTop="@dimen/spacing_normal"
+                android:padding="@dimen/spacing_normal"
+                android:text="@string/booking_slot"
+                tools:text="Booking Slot" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_label_price"
-                style="@style/GradientSubTitle"
-                android:layout_width="wrap_content"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_3"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="@dimen/spacing_normal"
-                android:paddingTop="@dimen/spacing_normal"
-                android:text="@string/price"
-                tools:text="Price" />
+                android:layout_margin="15dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="8dp"
+                app:layout_constraintEnd_toEndOf="@id/card_1"
+                app:layout_constraintStart_toStartOf="@id/card_1"
+                app:layout_constraintTop_toBottomOf="@id/card_1">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_gradient_3"
+                    android:padding="15dp">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/label_booked_on"
+                        style="@style/GradientSubTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/booked_on"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="Booked on :" />
+
+                    <TextView
+                        android:id="@+id/value_booked_on"
+                        style="@style/GradientTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:inputType="datetime"
+                        android:textColor="@color/white"
+                        app:layout_constraintBottom_toBottomOf="@id/label_booked_on"
+                        app:layout_constraintStart_toEndOf="@id/label_booked_on"
+                        app:layout_constraintTop_toTopOf="@id/label_booked_on" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/label_booked_till"
+                        style="@style/GradientSubTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="@dimen/spacing_normal"
+                        android:text="@string/expires_on"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/label_booked_on"
+                        tools:text="Expires on :" />
+
+                    <TextView
+                        android:id="@+id/value_booked_till"
+                        style="@style/GradientTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:inputType="datetime"
+                        android:textColor="@color/white"
+                        app:layout_constraintBottom_toBottomOf="@id/label_booked_till"
+                        app:layout_constraintStart_toEndOf="@id/label_booked_till"
+                        app:layout_constraintTop_toTopOf="@id/label_booked_till" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_label_parking_address"
-                style="@style/GradientSubTitle"
-                android:layout_width="wrap_content"
+                style="@style/DialogSectionItem"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/spacing_normal"
-                android:text="@string/address"
-                tools:text="Address" />
+                android:text="@string/parkign_details"
+                tools:text="Parking Details" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/spacing_normal"
+                android:background="@drawable/bg_gradient_4"
+                android:orientation="vertical">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_label_parkingid"
+                    style="@style/GradientSubTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="@dimen/spacing_normal"
+                    android:paddingTop="@dimen/spacing_normal"
+                    android:text="@string/parking_id"
+                    tools:text="Parking ID" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_label_price"
+                    style="@style/GradientSubTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="@dimen/spacing_normal"
+                    android:paddingTop="@dimen/spacing_normal"
+                    android:text="@string/price"
+                    tools:text="Price" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_label_parking_address"
+                    style="@style/GradientSubTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/spacing_normal"
+                    android:text="@string/address"
+                    tools:text="Address" />
+            </LinearLayout>
+
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:id="@+id/efab_cancel_booking"
+                style="@style/CancelExtendedFab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/spacing_normal"
+                android:backgroundTint="@color/colorRed"
+                android:contentDescription="@string/profile"
+                android:text="@string/cancel_booking"
+                android:visibility="visible"
+                tools:visibility="visible" />
+
         </LinearLayout>
-
-        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:id="@+id/efab_cancel_booking"
-            style="@style/CancelExtendedFab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/spacing_normal"
-            android:backgroundTint="@color/colorRed"
-            android:contentDescription="@string/profile"
-            android:text="@string/cancel_booking"
-            android:visibility="visible"
-            tools:visibility="visible" />
-
-    </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottomAppBar"
