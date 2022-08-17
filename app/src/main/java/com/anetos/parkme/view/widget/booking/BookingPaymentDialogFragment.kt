@@ -193,13 +193,20 @@ class BookingPaymentDialogFragment(
 
             activity?.let { DialogsManager.showProgressDialog(it) }
 
-            val bankCard = BankCard()
-            bankCard.nameOnCard = name
-            bankCard.cardNumber = cardNumber
-            bankCard.expiryDate = expiryDate
-            bankCard.cvv = cvv
-
             val user = SharedPreferenceHelper().getUser()
+
+            val bankCard = BankCard()
+            if (isWalletSelected) {
+                bankCard.nameOnCard = user.bankCard?.nameOnCard
+                bankCard.cardNumber = user.bankCard?.cardNumber
+                bankCard.expiryDate = user.bankCard?.expiryDate
+                bankCard.cvv = user.bankCard?.cvv
+            } else {
+                bankCard.nameOnCard = name
+                bankCard.cardNumber = cardNumber
+                bankCard.expiryDate = expiryDate
+                bankCard.cvv = cvv
+            }
 
             val walletCard = WalletCard()
             walletCard.nameOnCard = name
