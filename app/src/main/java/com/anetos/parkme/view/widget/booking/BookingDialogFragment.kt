@@ -201,7 +201,9 @@ class BookingDialogFragment(
             .convertDateTimeToLong() - binding.etFromTime.text.toString().convertDateTimeToLong()
         val hours =
             String.format(Locale.US, TIME_LEFT_FORMAT, TimeUnit.MILLISECONDS.toHours(difference))
-        return hours.toDouble()
+        val minutes =  String.format(Locale.US, TIME_LEFT_FORMAT, TimeUnit.MILLISECONDS.toMinutes(difference) -
+                TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(difference)))
+        return (hours.toDouble() + (minutes.toDouble()/60))
     }
 
     companion object {

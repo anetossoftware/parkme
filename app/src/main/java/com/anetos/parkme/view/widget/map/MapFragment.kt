@@ -130,7 +130,8 @@ class MapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowCl
                     confirmationDialogFragment.dismiss()
                 }
                 withDelay(1000) {
-                    Navigator.toLoginActivity()
+                    activity?.finish()
+                    Navigator.toLoginActivity(true)
                 }
             }
         }).show(requireActivity().supportFragmentManager, null)

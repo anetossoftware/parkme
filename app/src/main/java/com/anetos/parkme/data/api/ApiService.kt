@@ -1,12 +1,6 @@
 package com.anetos.parkme.data.api
 
 import android.content.Context
-import  com.anetos.parkme.core.Networking
-import  com.anetos.parkme.data.model.*
-import kotlinx.coroutines.Deferred
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Url
 
 /**
  * Api service interface to handle all the data from retrofit

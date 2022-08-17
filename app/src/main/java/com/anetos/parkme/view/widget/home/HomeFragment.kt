@@ -31,6 +31,7 @@ class HomeFragment : BaseFragment() {
     val db = Firebase.firestore
     var user = User()
     var bookedParkingSpot = ParkingSpot()
+    var isCancelByUser = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,6 +53,7 @@ class HomeFragment : BaseFragment() {
             showAbout()
         }
         binding.efabCancelBooking.setOnClickListener {
+            isCancelByUser = true
             updateBooking()
         }
         binding.fab.setOnClickListener {
@@ -201,7 +203,8 @@ class HomeFragment : BaseFragment() {
                     confirmationDialogFragment.dismiss()
                 }
                 withDelay(1000) {
-                    Navigator.toLoginActivity()
+                    activity?.finish()
+                    Navigator.toLoginActivity(true)
                 }
             }
         }).show(requireActivity().supportFragmentManager, null)
@@ -297,16 +300,31 @@ class HomeFragment : BaseFragment() {
     }
 
     fun updateBooking() {
-        ConfirmationDialogFragment(
-            dialogTitle = "Cancellation",
-            confirmation = "Cancel confirmation",
-            description = "Are you sure you want to cancel your parking spot? If yes, you will not get any refund amount.",
-            buttonText = "Confirm",
-        ).onClickListener(object : ConfirmationDialogFragment.onConfirmationClickListener {
-            override fun onClick(confirmationDialogFragment: ConfirmationDialogFragment) {
-                updateUser()
-            }
-        }).show(requireActivity().supportFragmentManager, null)
+        if (isCancelByUser) {
+            ConfirmationDialogFragment(
+                dialogTitle = "Cancellation",
+                confirmation = "Cancel confirmation",
+                description = "Are you sure you want to cancel your parking spot? If yes, you will not get any refund amount.",
+                buttonText = "Confirm",
+            ).onClickListener(object : ConfirmationDialogFragment.onConfirmationClickListener {
+                override fun onClick(confirmationDialogFragment: ConfirmationDialogFragment) {
+                    updateUser()
+                }
+            }).show(requireActivity().supportFragmentManager, null)
+        } else {
+            ConfirmationDialogFragment(
+                dialogTitle = "Alert",
+                confirmation = "Booked Timeover",
+                description = "Time of your booked spot is over, please click okay to move ahead",
+                buttonText = "Okay!",
+                isCancelable = false
+            ).onClickListener(object : ConfirmationDialogFragment.onConfirmationClickListener {
+                override fun onClick(confirmationDialogFragment: ConfirmationDialogFragment) {
+                    updateUser()
+                }
+            }).show(requireActivity().supportFragmentManager, null)
+        }
+
     }
 
     fun navigateWithDelay() {

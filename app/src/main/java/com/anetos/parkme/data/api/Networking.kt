@@ -1,8 +1,8 @@
-package  com.anetos.parkme.core
+package  com.anetos.parkme.data.api
 
 import android.content.Context
 import com.anetos.parkme.BuildConfig
-import com.anetos.parkme.data.api.ApiService
+import com.anetos.parkme.core.InternetCheck
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.Cache
 import okhttp3.OkHttpClient

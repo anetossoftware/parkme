@@ -472,4 +472,15 @@
         <item name="tabTextColor">?attr/notePrimaryColor</item>
         <item name="tabIndicatorAnimationDuration">500</item>
     </style>
+
+    <style name="IconWarning">
+        <item name="android:layout_width">@dimen/warning_icon_size</item>
+        <item name="android:layout_height">@dimen/warning_icon_size</item>
+        <item name="android:text">@string/fa_warning_sign</item>
+        <item name="android:textColor">?attr/notePrimaryColor</item>
+    </style>
+    <style name="GenericPopupErrorWindowAnimation">
+        <item name="android:windowEnterAnimation">@anim/slider_in_down</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_up</item>
+    </style>
 </resources>

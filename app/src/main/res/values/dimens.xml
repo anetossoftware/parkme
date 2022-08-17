@@ -145,4 +145,14 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
     <dimen name="collapsing_toolbar_height">200dp</dimen>
     <dimen name="collapsing_toolbar_expanded_text">50sp</dimen>
     <dimen name="dialog_item_divider_height">3dp</dimen>
+
+    <!--Generic Slide Down Error Popup-->
+    <dimen name="generic_slide_down_popup_error_description_vertical_margin">15dp</dimen>
+    <dimen name="generic_slide_down_popup_error_icon_vertical_margin">22dp</dimen>
+    <dimen name="generic_slide_down_popup_error_icon_horizontal_margin">17dp</dimen>
+    <dimen name="generic_slide_down_popup_error_title_font_size">16sp</dimen>
+    <dimen name="generic_slide_down_popup_error_description_font_size">14sp</dimen>
+
+    <dimen name="warning_icon_size">24dp</dimen>
+
 </resources>
