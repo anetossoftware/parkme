@@ -101,4 +101,5 @@
     <string name="cancel_booking">Cancel Booking</string>
     <string name="booking_cancel_success">Booking canceled successfully.</string>
     <string name="booking_cancel_failed">Booking cancellation failed.</string>
+    <string name="one_hour_error">You should chose at least 1 hour to proceed</string>
 </resources>

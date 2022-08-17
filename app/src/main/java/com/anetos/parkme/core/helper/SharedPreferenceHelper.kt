@@ -104,6 +104,5 @@ class SharedPreferenceHelper {
         private const val appPreferences = "parkme_preferences"
         const val keyFirebaseToken = "firebase_token"
         const val keyUserDetails = "user_details"
-        private const val userPreferences = "user_preferences"
     }
 }

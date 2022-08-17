@@ -8,13 +8,11 @@ import android.text.format.DateFormat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.anetos.parkme.BuildConfig
 import com.anetos.parkme.R
 import com.anetos.parkme.core.helper.*
-import com.anetos.parkme.data.ConstantFirebase
-import com.anetos.parkme.data.model.*
+import com.anetos.parkme.data.model.BookedSpot
+import com.anetos.parkme.data.model.ParkingSpot
 import com.anetos.parkme.databinding.DialogFragmentBookingBinding
-import com.google.android.material.tabs.TabLayout
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDateTime
@@ -54,7 +52,13 @@ class BookingDialogFragment(
     private fun setupState() {
         binding.apply {
             tvLabelParkingid.text = String.format(PARKING_ID, parkingSpot?.parkingId)
-            tvLabelPrice.text = String.format(PARKING_PRICE, parkingSpot?.pricePerHr)
+            tvLabelPrice.text = String.format(
+                PARKING_PRICE,
+                formatAmount(
+                    Currency.getInstance(Locale.CANADA),
+                    parkingSpot?.pricePerHr ?: 0.0
+                ).plus("/hr")
+            )
             tvLabelParkingAddress.text = String.format(PARKING_ADDRESS, parkingSpot?.address)
         }
     }
@@ -111,6 +115,10 @@ class BookingDialogFragment(
             }
             if (calculateHours() <= 0.0) {
                 tilToTime.error = getString(R.string.to_time_error)
+                withDelay(2000L) { tilToTime.isErrorEnabled = false }
+                return
+            } else if (calculateHours() < 1) {
+                tilToTime.error = getString(R.string.one_hour_error)
                 withDelay(2000L) { tilToTime.isErrorEnabled = false }
                 return
             } else {
@@ -199,7 +207,7 @@ class BookingDialogFragment(
     companion object {
         const val DIALOG_TITLE = "Book here!"
         const val PARKING_ID = "ID: %s"
-        const val PARKING_PRICE = "Rate: %s CAD / Hr"
+        const val PARKING_PRICE = "Rate: %s"
         const val PARKING_ADDRESS = "Address: %s"
         const val SELECT_DATE_FROM = "FROM"
         const val SELECT_DATE_TO = "TO"

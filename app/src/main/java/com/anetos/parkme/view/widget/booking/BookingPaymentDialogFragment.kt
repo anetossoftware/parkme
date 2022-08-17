@@ -105,7 +105,7 @@ class BookingPaymentDialogFragment(
 
     fun DialogFragmentBookingPaymentBinding.setupWalletCard(walletCard: WalletCard?) {
         layoutWallet.apply {
-            tvValueBalance.text = (walletCard?.avilableBalance ?: 0.0).toString().plus(" CAD")
+            tvValueBalance.text = (formatAmount(Currency.getInstance(Locale.CANADA), walletCard?.avilableBalance ?: 0.0))
         }
     }
 
@@ -165,6 +165,9 @@ class BookingPaymentDialogFragment(
                     layoutBankCardInput.tilBankCard.isErrorEnabled = false
                 }
                 if (expiryDate.expiryDate()) {
+                    layoutBankCardInput.tilExpiry.error = getString(R.string.empty_expiry)
+                    return
+                } else if (expiryDate.length < 5) {
                     layoutBankCardInput.tilExpiry.error = getString(R.string.empty_expiry)
                     return
                 } else {
