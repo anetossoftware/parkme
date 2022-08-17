@@ -54,7 +54,13 @@ class BookingPaymentDialogFragment(
 
     private fun setupState() {
         binding.apply {
-            tvPayableAmount.text = String.format(TOTAL_AMOUNT, getTotalPrice())
+            tvPayableAmount.text = String.format(
+                TOTAL_AMOUNT, formatAmount(
+                    Currency.getInstance(
+                        Locale.CANADA
+                    ), getTotalPrice()
+                )
+            )
             setupWalletCard(SharedPreferenceHelper().getUser().walletCard)
         }
     }
@@ -105,7 +111,10 @@ class BookingPaymentDialogFragment(
 
     fun DialogFragmentBookingPaymentBinding.setupWalletCard(walletCard: WalletCard?) {
         layoutWallet.apply {
-            tvValueBalance.text = (formatAmount(Currency.getInstance(Locale.CANADA), walletCard?.avilableBalance ?: 0.0))
+            tvValueBalance.text = (formatAmount(
+                Currency.getInstance(Locale.CANADA),
+                walletCard?.avilableBalance ?: 0.0
+            ))
         }
     }
 
@@ -295,6 +304,6 @@ class BookingPaymentDialogFragment(
             "To reserve you need to fill details and pay the asked amount."
         const val BACK_PRESS_DIALOG_POSITIVE_BUTTON = "YES"
         const val BACK_PRESS_DIALOG_NAGATIVE_BUTTON = "NO"
-        const val TOTAL_AMOUNT = "Payable Amount : %s CAD"
+        const val TOTAL_AMOUNT = "Payable Amount : %s"
     }
 }

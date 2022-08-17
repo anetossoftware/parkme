@@ -19,7 +19,8 @@
     <string name="edit_number">Edit Number</string>
     <string name="mobile">Mobile</string>
     <string name="loading_please_wait">Please wait...</string>
-    <string name="no_internet">Check your internet connection once…</string>
+    <string name="no_internet">No Connection</string>
+    <string name="no_internet_msg">Check your internet connection once…</string>
     <string name="ok">OK</string>
     <string name="empty_mobile_number">Please enter your mobile number</string>
     <string name="error_occurred">Error occurred!</string>
@@ -102,4 +103,7 @@
     <string name="booking_cancel_success">Booking canceled successfully.</string>
     <string name="booking_cancel_failed">Booking cancellation failed.</string>
     <string name="one_hour_error">You should chose at least 1 hour to proceed</string>
+
+    <string name="fa_warning_sign">&#xf071;</string>
+    <string name="fa_no_connection_sign">&#xf6ac;</string>
 </resources>

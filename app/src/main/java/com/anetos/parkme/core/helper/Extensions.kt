@@ -498,3 +498,21 @@ fun withDelay(delay : Long = 500, block : () -> Unit) {
         Handler(it).postDelayed({ this.invoke() }, delay)
     }
 }*/
+
+fun getStatusBarHeight(context: Context): Int {
+    var result = 0
+    val resourceId = context.resources.getIdentifier("status_bar_height", "dimen", "android")
+    if (resourceId > 0) {
+        result = context.resources.getDimensionPixelSize(resourceId)
+    }
+
+    return result
+}
+
+fun setMarginsToView(view: View, left: Int, top: Int, right: Int, bottom: Int) {
+    if (view.layoutParams is ViewGroup.MarginLayoutParams) {
+        val p = view.layoutParams as ViewGroup.MarginLayoutParams
+        p.setMargins(left, top, right, bottom)
+        view.requestLayout()
+    }
+}
