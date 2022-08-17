@@ -155,7 +155,7 @@ class HomeFragment : BaseFragment() {
     private fun setData() {
         binding.apply {
             valuePrice.text = formatAmount(Currency.getInstance(Locale.CANADA), calculatePrice())
-            valueHours.text = user.bookedSpot?.bookedHours.toString()
+            valueHours.text = formatValueWithTwoDecimal(user.bookedSpot?.bookedHours ?: 0.0)
             valueBookedOn.text = user.bookedSpot?.bookedFrom?.convertLongToTime(SHORT_DATE_FORMAT)
             valueBookedTill.text = user.bookedSpot?.bookedTill?.convertLongToTime(SHORT_DATE_FORMAT)
             tvLabelParkingid.text = String.format(PARKING_ID, bookedParkingSpot.parkingId)

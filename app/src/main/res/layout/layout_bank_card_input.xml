@@ -103,7 +103,7 @@
                     android:layout_height="match_parent"
                     android:hint="@string/mmyy"
                     android:imeOptions="actionNext"
-                    android:inputType="date"
+                    android:inputType="date|number"
                     android:maxLength="5"
                     tools:hint="MM/YY" />
             </com.google.android.material.textfield.TextInputLayout>

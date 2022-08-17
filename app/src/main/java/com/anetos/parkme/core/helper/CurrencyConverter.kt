@@ -55,3 +55,9 @@ fun roundOffDecimal(number: Double): Double {
     df.roundingMode = RoundingMode.FLOOR
     return df.format(number).toDouble()
 }
+
+fun formatValueWithTwoDecimal(value: Double?): String {
+    val decimalFormat = DecimalFormat("0.00")
+    val amountFormat = decimalFormat.format(value)
+    return String.format("%s", amountFormat)
+}

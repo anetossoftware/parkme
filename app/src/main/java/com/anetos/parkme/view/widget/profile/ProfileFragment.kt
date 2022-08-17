@@ -116,7 +116,8 @@ class ProfileFragment : Fragment() {
         etName.setText(userData?.name)
         etEmail.setText(userData?.emailAddress)
         countryCode.setDefaultCountryUsingNameCode(userData?.countryCode)
-        etAddress.setText(userData?.address)
+        if (!userData?.address.isNullOrEmpty() && !userData?.address.equals("null", true))
+            etAddress.setText(userData?.address)
     }
 
     fun FragmentProfileBinding.setupBankCard(bankCard: BankCard?) {
