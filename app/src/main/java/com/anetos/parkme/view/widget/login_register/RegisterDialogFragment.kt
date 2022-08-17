@@ -99,10 +99,17 @@ class RegisterDialogFragment(
                     tilName.error = getString(R.string.empty_name)
                 }
                 return
+            } else {
+                tilName.isErrorEnabled = false
             }
             if (email.indexOf("@") < 0 || email.indexOf(".") < 0) {
-                tilName.error = getString(R.string.invalid_email)
+                tilEmail.isErrorEnabled = true
+                context?.let {
+                    tilEmail.error = getString(R.string.invalid_email)
+                }
                 return
+            } else {
+                tilEmail.isErrorEnabled = false
             }
             activity?.hideKeyboard(root)
             onClick?.onClick(this@RegisterDialogFragment)

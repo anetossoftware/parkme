@@ -46,11 +46,8 @@ class ProfileFragment : Fragment() {
 
         etMobile.disableLook()
         disableProfile()
-        etName.setText(userData?.name)
-        etEmail.setText(userData?.emailAddress)
-        countryCode.setDefaultCountryUsingNameCode(userData?.countryCode)
         etMobile.setText(userData?.mobileNumber)
-
+        setupProfileData(userData)
         setupBankCard(userData?.bankCard)
         setupWalletCard(userData?.walletCard)
     }
@@ -103,7 +100,8 @@ class ProfileFragment : Fragment() {
             AddMoneyToWalletDialogFragment().onClickListener(
                 object : AddMoneyToWalletDialogFragment.onClickListener {
                     override fun onSuccess(data: Any) {
-                        setupBankCard((data as User).bankCard)
+                        setupProfileData(data as User)
+                        setupBankCard(data.bankCard)
                         setupWalletCard(data.walletCard)
                     }
                 }
@@ -112,6 +110,13 @@ class ProfileFragment : Fragment() {
         fab.setOnClickListener {
             update()
         }
+    }
+
+    fun FragmentProfileBinding.setupProfileData(userData: User?) {
+        etName.setText(userData?.name)
+        etEmail.setText(userData?.emailAddress)
+        countryCode.setDefaultCountryUsingNameCode(userData?.countryCode)
+        etAddress.setText(userData?.address)
     }
 
     fun FragmentProfileBinding.setupBankCard(bankCard: BankCard?) {
