@@ -38,22 +38,16 @@ class MainActivity : BaseActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         enableLoc()
-        isAppUpdateAvailable()
-        setupActivity()
         setupState()
         setupListeners()
     }
 
-    private fun setupActivity() {
+    private fun setupState() {
         if (SharedPreferenceHelper().getUser().bookedSpot?.bookedParkingId.isNullOrBlank()) {
             inflateGraphAndSetStartDestination(R.id.mapFragment)
         } else {
             inflateGraphAndSetStartDestination(R.id.homeFragment)
         }
-    }
-
-    private fun setupState() {
-
     }
 
     private fun setupListeners() {

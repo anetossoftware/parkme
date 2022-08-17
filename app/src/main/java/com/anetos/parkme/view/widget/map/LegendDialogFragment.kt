@@ -40,7 +40,7 @@ class LegendDialogFragment : BaseDialogFragment() {
     }
 
     companion object {
-        val TAG = this.javaClass.simpleName
+        val TAG = LegendDialogFragment::class.java.simpleName
         const val DIALOG_TITLE = "Legend Info"
         const val BUTTON_TITLE = "Okay!"
         const val PARKING_AVAILABLE_TEXT = "Shows parking spot is available for booking."

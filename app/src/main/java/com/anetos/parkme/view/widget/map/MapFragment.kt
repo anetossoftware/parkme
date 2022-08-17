@@ -2,7 +2,6 @@ package com.anetos.parkme.view.widget.map
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.Context
 import android.location.Geocoder
 import android.os.Bundle
 import android.os.Handler
@@ -15,18 +14,15 @@ import android.widget.TextView
 import com.anetos.parkme.R
 import com.anetos.parkme.core.BaseFragment
 import com.anetos.parkme.core.helper.*
-import com.anetos.parkme.core.helper.dialog.DialogsManager
 import com.anetos.parkme.core.maphelper.MapClusterItem
 import com.anetos.parkme.core.maphelper.MarkerClusterRenderer
 import com.anetos.parkme.core.maphelper.configureMap
-import com.anetos.parkme.data.ConstantDelay
 import com.anetos.parkme.data.ConstantFirebase
 import com.anetos.parkme.data.model.ParkingSpot
 import com.anetos.parkme.databinding.FragmentMapBinding
 import com.anetos.parkme.view.widget.about.AboutDialogFragment
 import com.anetos.parkme.view.widget.booking.BookingDialogFragment
 import com.anetos.parkme.view.widget.common.ConfirmationDialogFragment
-import com.anetos.parkme.view.widget.common.WorkInProgressBottomSheetDialog
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -41,7 +37,6 @@ import com.google.gson.Gson
 import com.google.maps.android.clustering.ClusterManager
 import java.io.IOException
 import java.util.*
-
 
 class MapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener,
     GoogleMap.OnInfoWindowLongClickListener {
@@ -162,7 +157,6 @@ class MapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowCl
         val settingsClient: SettingsClient = LocationServices.getSettingsClient(requireActivity())
         settingsClient.checkLocationSettings(locationSettingsRequest)
 
-        //requestLocationPermission(this, null, 1, "permission")
         LocationServices.getFusedLocationProviderClient(requireActivity()).requestLocationUpdates(
             mLocationRequest,
             locationUpdates,
@@ -218,17 +212,12 @@ class MapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowCl
                     Log.e(TAG, e.message.toString())
                 }
 
-                //stopShimmering()
-                if (parkingSpotList.size == 0 || parkingSpotList.isNullOrEmpty()) {
+                if (parkingSpotList.size == 0 || parkingSpotList.isEmpty()) {
                     parkingSpotList.add(ParkingSpot()) // for empty-list placeholder
                 }
-
-                //mClusterManager.addMarkers(requireActivity(), mMap, parkingSpotList)
                 mClusterManager.addMarkers(parkingSpotList)
             }
             .addOnFailureListener { exception ->
-                //binding.rvNotes.hide()
-                //binding.placeholder.tvPlaceholder.show()
                 Log.e(TAG, "Error getting documents: ", exception)
             }
     }
@@ -287,6 +276,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowCl
                 view.findViewById<TextView>(R.id.price).text =
                     formatAmount(Currency.getInstance(Locale.CANADA), place.pricePerHr).plus("/hr")
                 view.findViewById<TextView>(R.id.provider).text = "Parking ID: ${place.parkingId}"
+                view.performLongClickHapticFeedback()
             }
         }
     }
@@ -297,7 +287,11 @@ class MapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowCl
 
     override fun onInfoWindowLongClick(marker: Marker) {
         val parkingSpot = Gson().fromJson(marker.snippet, ParkingSpot::class.java)
-        if (ConstantFirebase.AVAILABILITY_STATUS.AVAILABLE.name.equals(parkingSpot.availabilityStatus, true)) {
+        if (ConstantFirebase.AVAILABILITY_STATUS.AVAILABLE.name.equals(
+                parkingSpot.availabilityStatus,
+                true
+            )
+        ) {
             BookingDialogFragment(parkingSpot).show(requireActivity().supportFragmentManager, null)
         } else {
             view?.rootView?.snackbar(
@@ -311,8 +305,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowCl
     }
 
     companion object {
-        fun newInstance(ctx: Context) = MapFragment()
-        val TAG = this.javaClass.simpleName
+        val TAG = MapFragment::class.java.simpleName
         const val ERROR_PARKING_OCCUPIED = "Oops! Parking spot is occupied."
     }
 }

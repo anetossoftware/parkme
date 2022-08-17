@@ -49,7 +49,6 @@ class LoginActivity : BaseActivity() {
         binding.tvTitle.text = LOGIN_TITLE
         displayNumberLayout(false)
         if (BuildConfig.DEBUG) {
-            //binding.countryCode.setAutoDetectedCountry(true)
             binding.etMobile.setText(DUMMY_NUMBER)
         }
     }
@@ -101,7 +100,12 @@ class LoginActivity : BaseActivity() {
         val mobile: String = binding.etMobile.text.toString().trim()
         when {
             mobile.isEmpty() -> {
+                withDelay(2000L) { binding.tilMobile.isErrorEnabled = false }
                 binding.tilMobile.error = getString(R.string.empty_mobile_number)
+            }
+            mobile.length != 10 -> {
+                withDelay(2000L) { binding.tilMobile.isErrorEnabled = false }
+                binding.tilMobile.error = getString(R.string.error_mobile_number_length)
             }
             else -> {
                 DialogsManager.showProgressDialog(this)
@@ -130,17 +134,17 @@ class LoginActivity : BaseActivity() {
                         e.printStackTrace()
                         when (e) {
                             is FirebaseTooManyRequestsException -> binding.root.snackbar(
-                                    stringId = R.string.too_many_verify_attempts,
-                                    drawableId = R.drawable.ic_round_error_24,
-                                    color = NoteColor.Error,
-                                    vibrate = true
-                                )
+                                stringId = R.string.too_many_verify_attempts,
+                                drawableId = R.drawable.ic_round_error_24,
+                                color = NoteColor.Error,
+                                vibrate = true
+                            )
                             is FirebaseAuthException -> binding.root.snackbar(
-                                    stringId = R.string.server_contact_failed,
-                                    drawableId = R.drawable.ic_round_error_24,
-                                    color = NoteColor.Error,
-                                    vibrate = true
-                                )
+                                stringId = R.string.server_contact_failed,
+                                drawableId = R.drawable.ic_round_error_24,
+                                color = NoteColor.Error,
+                                vibrate = true
+                            )
                             else -> binding.root.snackbar(
                                 stringId = R.string.verification_failed,
                                 drawableId = R.drawable.ic_round_error_24,
@@ -351,7 +355,6 @@ class LoginActivity : BaseActivity() {
     }
 
     companion object {
-        val AUTHUI_REQUEST_CODE = 1001
         var TAG = LoginActivity::class.qualifiedName
         const val BUTTON_TITLE = "Login/Register"
         const val TITLE_PAGE = "Welcome to parkme"

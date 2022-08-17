@@ -5,6 +5,7 @@ import android.app.TimePickerDialog
 import android.content.res.Configuration
 import android.os.Bundle
 import android.text.format.DateFormat
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +14,6 @@ import com.anetos.parkme.core.helper.*
 import com.anetos.parkme.data.model.BookedSpot
 import com.anetos.parkme.data.model.ParkingSpot
 import com.anetos.parkme.databinding.DialogFragmentBookingBinding
-import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
@@ -25,8 +25,6 @@ class BookingDialogFragment(
     var parkingSpot: ParkingSpot? = null,
 ) : BaseDialogFragment() {
     private lateinit var binding: DialogFragmentBookingBinding
-
-    private val firestore = FirebaseFirestore.getInstance()
 
     private val anchorViewId by lazy { R.id.btn_confirm }
 
@@ -161,8 +159,7 @@ class BookingDialogFragment(
                     LocalDateTime(year, month + 1, day, hour, minute)
                         .toInstant(TimeZone.currentSystemDefault())
                         .also {
-                            //println("Current"+it.toString())
-                            //binding.root.rootView.snackbar(it.toString())
+                            Log.d(TAG, it.toString())
                         }
                         .toEpochMilliseconds()
                         .also {
@@ -201,12 +198,15 @@ class BookingDialogFragment(
             .convertDateTimeToLong() - binding.etFromTime.text.toString().convertDateTimeToLong()
         val hours =
             String.format(Locale.US, TIME_LEFT_FORMAT, TimeUnit.MILLISECONDS.toHours(difference))
-        val minutes =  String.format(Locale.US, TIME_LEFT_FORMAT, TimeUnit.MILLISECONDS.toMinutes(difference) -
-                TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(difference)))
-        return (hours.toDouble() + (minutes.toDouble()/60))
+        val minutes = String.format(
+            Locale.US, TIME_LEFT_FORMAT, TimeUnit.MILLISECONDS.toMinutes(difference) -
+                    TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(difference))
+        )
+        return (hours.toDouble() + (minutes.toDouble() / 60))
     }
 
     companion object {
+        val TAG = BookingDialogFragment.javaClass.simpleName
         const val DIALOG_TITLE = "Book here!"
         const val PARKING_ID = "ID: %s"
         const val PARKING_PRICE = "Rate: %s"

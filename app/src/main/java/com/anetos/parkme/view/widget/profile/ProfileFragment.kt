@@ -124,7 +124,10 @@ class ProfileFragment : Fragment() {
 
     fun FragmentProfileBinding.setupWalletCard(walletCard: WalletCard?) {
         layoutWallet.apply {
-            tvValueBalance.text = (formatAmount(Currency.getInstance(Locale.CANADA), walletCard?.avilableBalance ?: 0.0))
+            tvValueBalance.text = (formatAmount(
+                Currency.getInstance(Locale.CANADA),
+                walletCard?.avilableBalance ?: 0.0
+            ))
         }
     }
 
@@ -236,5 +239,7 @@ class ProfileFragment : Fragment() {
         }
     }
 
-    companion object
+    companion object {
+        val TAG = ProfileFragment::class.java.simpleName
+    }
 }

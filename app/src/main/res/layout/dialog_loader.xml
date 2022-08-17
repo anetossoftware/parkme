@@ -7,40 +7,25 @@
     android:paddingHorizontal="50dp"
     android:paddingVertical="15dp">
 
-    <ProgressBar
+    <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/progress_bar"
-        android:layout_width="@dimen/dp48"
-        android:layout_height="@dimen/dp48"
-        android:indeterminateTintMode="src_atop"
-        android:indeterminateTint="@color/cream"
+        style="@style/ProgressIndicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/msg"
-        style="@style/TextAppearance.AppCompat.Body1"
+        style="@style/NoteTitleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
         android:text="@string/loading_please_wait"
         android:textColor="@color/cream"
-        android:textSize="16sp"
-        android:layout_marginTop="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/progress_bar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-<!--
-<com.airbnb.lottie.LottieAnimationView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/animation_view"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    app:lottie_autoPlay="true"
-    app:lottie_fileName="ic_loading_circle_dots_white.json"
-    app:lottie_loop="true" />-->

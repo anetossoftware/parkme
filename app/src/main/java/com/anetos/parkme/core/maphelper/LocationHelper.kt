@@ -11,7 +11,10 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 
 object LocationHelper {
-    fun fusedLocation(context: Context, fusedLocationClient: FusedLocationProviderClient): Location? {
+    fun fusedLocation(
+        context: Context,
+        fusedLocationClient: FusedLocationProviderClient
+    ): Location? {
         var lastLocation: Location? = null
         checkLocationPermission(context)
         fusedLocationClient.lastLocation.addOnSuccessListener { location ->

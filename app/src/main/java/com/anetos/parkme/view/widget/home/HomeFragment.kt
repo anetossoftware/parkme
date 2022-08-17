@@ -58,7 +58,7 @@ class HomeFragment : BaseFragment() {
         }
         binding.fab.setOnClickListener {
             val uri = String.format(
-                URL,
+                MAP_URL,
                 bookedParkingSpot.latitude,
                 bookedParkingSpot.longitude
             )
@@ -141,9 +141,6 @@ class HomeFragment : BaseFragment() {
     }
 
     fun showMap(geoLocation: Uri) {
-        /*val uri: String = String.format("geo:%f,%f", latitude, longitude)
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
-        context!!.startActivity(intent)*/
         val intent = Intent(Intent.ACTION_VIEW).apply {
             data = geoLocation
         }
@@ -336,7 +333,7 @@ class HomeFragment : BaseFragment() {
         const val TOTAL_HOURS = "Booked Hours"
         const val BOOKED_ON = "Booked on : "
         const val EXPIRES_ON = "Expires on : "
-        const val URL = "google.navigation:q=%f,%f"
+        const val MAP_URL = "google.navigation:q=%f,%f"
         val TAG = HomeFragment::class.simpleName
         const val PARKING_ID = "ID : %s"
         const val PARKING_PRICE = "Rate : %s CAD / Hr"

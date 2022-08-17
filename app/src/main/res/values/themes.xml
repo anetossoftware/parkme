@@ -98,27 +98,6 @@
         <item name="android:activityCloseExitAnimation">@anim/slide_out_right</item>
     </style>
 
-    <style name="AppTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-        <!-- enable window content transitions -->
-        <item name="android:windowActivityTransitions">true</item>
-
-        <!-- &lt;!&ndash; specify enter and exit transitions &ndash;&gt;
-         <item name="android:windowEnterTransition">@transition/explode</item>
-         <item name="android:windowExitTransition">@transition/explode</item>
-
-         &lt;!&ndash; specify shared element transitions &ndash;&gt;
-         <item name="android:windowSharedElementEnterTransition">
-             @transition/change_image_transform</item>
-         <item name="android:windowSharedElementExitTransition">
-             @transition/change_image_transform</item>-->
-    </style>
-
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-
     <style name="BottomSheetDialogStyle" parent="Theme.Design.Light.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/bottomSheetBackground</item>
     </style>
@@ -187,15 +166,6 @@
         <item name="android:navigationBarColor">?attr/noteBackgroundColor</item>
     </style>
 
-    <!--<style name="BottomSheetDialog" parent="Theme.Design.Light.BottomSheetDialog">
-        <item name="android:navigationBarColor">#000000</item>
-
-        <item name="android:colorBackground">@android:color/transparent</item>
-
-        <item name="android:windowIsFloating">false</item>
-        <item name="android:windowSoftInputMode">adjustResize</item>
-    </style>-->
-
     <style name="BaseDialogFragment">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -246,17 +216,6 @@
         <item name="android:focusable">true</item>
         <item name="android:drawablePadding">@dimen/spacing_normal</item>
     </style>
-    <!--<style name="DialogItem" parent="Widget.MaterialComponents.TextView">
-        <item name="fontFamily">@font/nunito_semibold</item>
-        <item name="android:textSize">@dimen/size_extra_small</item>
-        <item name="android:textColor">?attr/notePrimaryColor</item>
-        <item name="android:background">@drawable/dialog_quick_item_shape</item>
-        <item name="android:gravity">center</item>
-        <item name="android:padding">@dimen/spacing_small</item>
-        <item name="android:clickable">true</item>
-        <item name="android:focusable">true</item>
-        <item name="android:drawablePadding">@dimen/spacing_small</item>
-    </style>-->
 
     <style name="DialogSectionItem" parent="Widget.MaterialComponents.TextView">
         <item name="fontFamily">@font/nunito_bold</item>
@@ -395,9 +354,8 @@
     <style name="ProgressIndicator" parent="Widget.Material3.CircularProgressIndicator">
         <item name="android:indeterminate">true</item>
         <item name="android:contentDescription">@string/loading</item>
-        <item name="indicatorColor">?attr/notePrimaryColor</item>
+        <item name="indicatorColor">@color/cream</item>
         <item name="indicatorSize">50dp</item>
-        <item name="trackColor">?attr/noteBackgroundColor</item>
         <item name="trackCornerRadius">@dimen/spacing_extra_large</item>
         <item name="trackThickness">5dp</item>
     </style>
@@ -471,16 +429,5 @@
         <item name="tabTextAppearance">@style/TabItemTextAppearance</item>
         <item name="tabTextColor">?attr/notePrimaryColor</item>
         <item name="tabIndicatorAnimationDuration">500</item>
-    </style>
-
-    <style name="IconWarning">
-        <item name="android:layout_width">@dimen/warning_icon_size</item>
-        <item name="android:layout_height">@dimen/warning_icon_size</item>
-        <item name="android:text">@string/fa_warning_sign</item>
-        <item name="android:textColor">?attr/notePrimaryColor</item>
-    </style>
-    <style name="GenericPopupErrorWindowAnimation">
-        <item name="android:windowEnterAnimation">@anim/slider_in_down</item>
-        <item name="android:windowExitAnimation">@anim/slide_out_up</item>
     </style>
 </resources>

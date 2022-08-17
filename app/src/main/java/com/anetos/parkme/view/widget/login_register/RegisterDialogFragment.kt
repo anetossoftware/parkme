@@ -42,7 +42,6 @@ class RegisterDialogFragment(
             tb.tvDialogTitle.text = DIALOG_TITLE
             btnRegister.text = DIALOG_TITLE
             countryCode.setDefaultCountryUsingNameCode(this@RegisterDialogFragment.countryCode)
-            //countryCode.resetToDefaultCountry(mobileNumber)
             etMobile.setText(mobileNumber)
             etMobile.disableLook()
             if (BuildConfig.DEBUG)
@@ -143,10 +142,6 @@ class RegisterDialogFragment(
             }
 
         }
-    }
-
-    fun navigationDelay() {
-
     }
 
     fun feedDebugData() {

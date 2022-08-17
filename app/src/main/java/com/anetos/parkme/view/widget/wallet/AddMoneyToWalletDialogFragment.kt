@@ -183,10 +183,7 @@ class AddMoneyToWalletDialogFragment : BaseDialogFragment() {
     var onClick: onClickListener? = null
 
     interface onClickListener {
-        fun onClick(addMoneyToWalletDialogFragment: AddMoneyToWalletDialogFragment) {}
-        fun onNavigationClick(addMoneyToWalletDialogFragment: AddMoneyToWalletDialogFragment) {}
         fun onSuccess(data: Any) {}
-        fun onFailure(addMoneyToWalletDialogFragment: AddMoneyToWalletDialogFragment) {}
     }
 
     fun onClickListener(onClick: onClickListener): AddMoneyToWalletDialogFragment {

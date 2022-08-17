@@ -19,19 +19,6 @@ class MarkerClusterRenderer(
     clusterManager: ClusterManager<MapClusterItem>
 ) : DefaultClusterRenderer<MapClusterItem>(context, map, clusterManager) {
 
-    /*override fun onBeforeClusterRendered(
-        cluster: Cluster<MapClusterItem>,
-        markerOptions: MarkerOptions
-    ) {
-        markerOptions.icon(
-            vectorToBitmap(
-                context,
-                R.drawable.ic_round_person_24,
-                ContextCompat.getColor(context, R.color.colorBlue)
-            )
-        )
-    }*/
-
     //Remove this to avoid clustering
     override fun onBeforeClusterItemRendered(item: MapClusterItem, markerOptions: MarkerOptions) {
         val parkingSpot = Gson().fromJson(item.snippet, ParkingSpot::class.java)
