@@ -299,7 +299,7 @@ class BookingPaymentDialogFragment(
         const val DIALOG_TITLE = "Payment Confirmation"
         const val PARKING_ID = "ID: %s"
         const val BACK_PRESS_DIALOG_TITLE = "Confirmation"
-        const val BACK_PRESS_DIALOG_CONFIRMATION = "Are you sure you dot not want to reserve?"
+        const val BACK_PRESS_DIALOG_CONFIRMATION = "Are you sure you do not want to reserve?"
         const val BACK_PRESS_DIALOG_DISCRIPTION =
             "To reserve you need to fill details and pay the asked amount."
         const val BACK_PRESS_DIALOG_POSITIVE_BUTTON = "YES"
