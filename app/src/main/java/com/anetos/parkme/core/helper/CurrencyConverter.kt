@@ -21,3 +21,9 @@ fun formatAmount(currency: Currency, value: Double): String {
     val format = instance.format(value)
     return format.plus(" ") + currency.currencyCode.uppercase(Locale.getDefault())
 }
+
+fun formatValueWithTwoDecimal(value: Double?): String {
+    val decimalFormat = DecimalFormat("0.00")
+    val amountFormat = decimalFormat.format(value)
+    return String.format("%s", amountFormat)
+}
