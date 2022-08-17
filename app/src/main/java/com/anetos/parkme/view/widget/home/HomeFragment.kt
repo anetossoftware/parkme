@@ -69,10 +69,6 @@ class HomeFragment : BaseFragment() {
                     showProfile()
                     true
                 }
-                R.id.more -> {
-
-                    true
-                }
                 else -> false
             }
         }
@@ -103,8 +99,8 @@ class HomeFragment : BaseFragment() {
 
     }
 
-    fun calculatePrice(): String {
-        return (bookedParkingSpot.pricePerHr * (user.bookedSpot?.bookedHours ?: 0.0)).toString()
+    fun calculatePrice(): Double {
+        return (bookedParkingSpot.pricePerHr * (user.bookedSpot?.bookedHours ?: 0.0))
     }
 
     fun getBookedSpot() {
@@ -156,7 +152,7 @@ class HomeFragment : BaseFragment() {
 
     private fun setData() {
         binding.apply {
-            valuePrice.text = calculatePrice()
+            valuePrice.text = formatAmount(Currency.getInstance(Locale.CANADA), calculatePrice())
             valueHours.text = user.bookedSpot?.bookedHours.toString()
             valueBookedOn.text = user.bookedSpot?.bookedFrom?.convertLongToTime(SHORT_DATE_FORMAT)
             valueBookedTill.text = user.bookedSpot?.bookedTill?.convertLongToTime(SHORT_DATE_FORMAT)
@@ -254,6 +250,7 @@ class HomeFragment : BaseFragment() {
                 }
         }
     }
+
     private fun cancelParkingSpot() {
         val updateParkingSpot = ParkingSpot()
         updateParkingSpot.availabilityStatus = ConstantFirebase.AVAILABILITY_STATUS.AVAILABLE.name

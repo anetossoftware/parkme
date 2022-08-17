@@ -83,8 +83,8 @@ class MapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowCl
         }
 
         binding.bottomAppBar.setNavigationOnClickListener {
-            activity?.supportFragmentManager?.let { it1 ->
-                WorkInProgressBottomSheetDialog().show(it1, null)
+            activity?.supportFragmentManager?.let {
+                AboutDialogFragment().show(it, null)
             }
         }
         binding.bottomAppBar.setOnMenuItemClickListener { menuItem ->
@@ -92,12 +92,6 @@ class MapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowCl
                 R.id.aboutLegend -> {
                     activity?.supportFragmentManager?.let {
                         LegendDialogFragment().show(it, null)
-                    }
-                    true
-                }
-                R.id.more -> {
-                    activity?.supportFragmentManager?.let {
-                        AboutDialogFragment().show(it, null)
                     }
                     true
                 }
@@ -290,7 +284,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowCl
             if (place != null) {
                 view.findViewById<TextView>(R.id.locationName).text = place.address
                 view.findViewById<TextView>(R.id.price).text =
-                    place.pricePerHr.toString().plus(" CAD/hr")
+                    formatAmount(Currency.getInstance(Locale.CANADA), place.pricePerHr).plus("/hr")
                 view.findViewById<TextView>(R.id.provider).text = "Parking ID: ${place.parkingId}"
             }
         }

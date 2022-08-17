@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.anetos.parkme.R
 import com.anetos.parkme.core.helper.*
+import com.anetos.parkme.core.helper.StringUtils.formatAccountNumber
 import com.anetos.parkme.core.helper.dialog.DialogsManager
 import com.anetos.parkme.data.ConstantFirebase
 import com.anetos.parkme.data.model.BankCard
@@ -115,7 +116,7 @@ class ProfileFragment : Fragment() {
 
     fun FragmentProfileBinding.setupBankCard(bankCard: BankCard?) {
         layoutCard.apply {
-            tvCardNumber.text = bankCard?.cardNumber?.formatAccountNumber()
+            tvCardNumber.text = bankCard?.cardNumber?.let { formatAccountNumber(it) }
             tvValueExpiry.text = bankCard?.expiryDate
             tvCardHolderName.text = bankCard?.nameOnCard
         }
@@ -123,7 +124,7 @@ class ProfileFragment : Fragment() {
 
     fun FragmentProfileBinding.setupWalletCard(walletCard: WalletCard?) {
         layoutWallet.apply {
-            tvValueBalance.text = (walletCard?.avilableBalance ?: 0.0).toString().plus(" CAD")
+            tvValueBalance.text = (formatAmount(Currency.getInstance(Locale.CANADA), walletCard?.avilableBalance ?: 0.0))
         }
     }
 

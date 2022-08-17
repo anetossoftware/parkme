@@ -15,6 +15,7 @@ class ConfirmationDialogFragment(
     var confirmation: String? = null,
     var description: String? = null,
     var buttonText: String? = null,
+    var isCancelable: Boolean? = true
 ) : BaseDialogFragment() {
 
     var onClick: onConfirmationClickListener? = null
@@ -25,6 +26,7 @@ class ConfirmationDialogFragment(
         savedInstanceState: Bundle?
     ): View =
         ConfirmationDialogFragmentBinding.inflate(inflater, container, false).withBinding {
+            isCancelable?.let { setCancelable(it) }
             setupBaseDialogFragment()
             setupState()
             setupListeners()

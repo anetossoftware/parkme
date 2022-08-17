@@ -4,8 +4,18 @@ import android.os.Bundle
 import androidx.navigation.fragment.NavHostFragment
 import com.anetos.parkme.R
 import com.anetos.parkme.core.BaseActivity
+import com.anetos.parkme.core.helper.DataHelper
+import com.anetos.parkme.core.helper.Navigator
 import com.anetos.parkme.core.helper.SharedPreferenceHelper
+import com.anetos.parkme.core.helper.dialog.DialogsManager
+import com.anetos.parkme.data.ConstantFirebase
+import com.anetos.parkme.data.model.User
 import com.anetos.parkme.databinding.ActivityMainBinding
+import com.anetos.parkme.view.widget.common.ConfirmationDialogFragment
+import com.google.android.gms.tasks.Task
+import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 class MainActivity : BaseActivity() {
@@ -16,6 +26,12 @@ class MainActivity : BaseActivity() {
 
     private val navController by lazy { navHostFragment.navController }
 
+    val db = Firebase.firestore
+
+    override fun onStart() {
+        super.onStart()
+        reloadUser()
+    }
     @OptIn(ExperimentalCoroutinesApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +50,6 @@ class MainActivity : BaseActivity() {
         } else {
             inflateGraphAndSetStartDestination(R.id.homeFragment)
         }
-
     }
 
     private fun setupState() {
@@ -64,6 +79,44 @@ class MainActivity : BaseActivity() {
                 finish()
             }
         }).show(this.supportFragmentManager, null)*/
+    }
+
+    fun reloadUser() {
+        db.collection(ConstantFirebase.COLLECTION_USERS)
+            .document(
+                DataHelper.getUserIndex(
+                    SharedPreferenceHelper().getUser().countryCode.toString(),
+                    SharedPreferenceHelper().getUser().mobileNumber.toString()
+                )
+            )
+            .get()
+            .addOnCompleteListener { task1: Task<DocumentSnapshot?> ->
+                DialogsManager.dismissProgressDialog()
+                if (task1.isSuccessful) {
+                    val document = task1.result
+                    if (document != null && document.exists()) {
+                        val newUser: User? = document.toObject(User::class.java)
+                        if (newUser != null) {
+                            SharedPreferenceHelper().clearAppPreferences()
+                            SharedPreferenceHelper().saveUser(newUser)
+                        }
+                    }
+                }
+            }
+    }
+
+    fun resetUser() {
+        ConfirmationDialogFragment(
+            dialogTitle = "Occupancy Update",
+            confirmation = "Force Occupancy Update",
+            description = "It seems your parking spot has some updates related to occupancy, please OKAY to settled the occupied spot.",
+            buttonText = "OKAY!",
+            isCancelable = false
+        ).onClickListener(object : ConfirmationDialogFragment.onConfirmationClickListener {
+            override fun onClick(confirmationDialogFragment: ConfirmationDialogFragment) {
+                Navigator.toMainActivity(true)
+            }
+        }).show(this.supportFragmentManager, null)
     }
 
     companion object {

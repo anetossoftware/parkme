@@ -113,7 +113,7 @@
             style="@style/DialogSectionItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="number"
+            android:inputType="numberDecimal"
             android:letterSpacing=".2"
             android:paddingHorizontal="@dimen/spacing_small"
             app:layout_constraintBottom_toBottomOf="@id/tv_label_balance"

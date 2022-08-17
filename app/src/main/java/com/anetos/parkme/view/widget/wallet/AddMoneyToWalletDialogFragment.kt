@@ -103,6 +103,9 @@ class AddMoneyToWalletDialogFragment : BaseDialogFragment() {
         if (expiryDate.expiryDate()) {
             layoutBankCardInput.tilExpiry.error = getString(R.string.empty_expiry)
             return
+        } else if (expiryDate.length < 5) {
+            layoutBankCardInput.tilExpiry.error = getString(R.string.empty_expiry)
+            return
         } else {
             layoutBankCardInput.tilExpiry.isErrorEnabled = false
         }
