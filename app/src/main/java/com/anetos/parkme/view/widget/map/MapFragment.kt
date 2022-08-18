@@ -135,6 +135,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowLo
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
+        mMap.setOnInfoWindowLongClickListener(this)
         mClusterManager = ClusterManager(requireContext(), mMap)
         context?.configureMap(mMap, false)
     }
