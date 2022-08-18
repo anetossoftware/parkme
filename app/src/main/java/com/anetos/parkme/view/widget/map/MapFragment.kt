@@ -35,11 +35,11 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
 import com.google.maps.android.clustering.ClusterManager
+import com.google.maps.android.collections.MarkerManager
 import java.io.IOException
 import java.util.*
 
-class MapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener,
-    GoogleMap.OnInfoWindowLongClickListener {
+class MapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowLongClickListener {
     private lateinit var binding: FragmentMapBinding
 
     private lateinit var mMap: GoogleMap
@@ -48,6 +48,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowCl
     private val updateInterval: Long = 10 * 1000
     private val fastestInterval: Long = 2000
     private lateinit var mClusterManager: ClusterManager<MapClusterItem>
+    private lateinit var markerCollection: MarkerManager.Collection
     var placeName = ""
 
     private val anchorViewId by lazy { R.id.fab }
@@ -134,8 +135,6 @@ class MapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowCl
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
-        mMap.setOnInfoWindowClickListener(this)
-        mMap.setOnInfoWindowLongClickListener(this)
         mClusterManager = ClusterManager(requireContext(), mMap)
         context?.configureMap(mMap, false)
     }
@@ -228,8 +227,21 @@ class MapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowCl
         val handler = Handler(Looper.getMainLooper())
         handler.post {
             this.renderer = MarkerClusterRenderer(requireContext(), mMap, mClusterManager)
+            this@MapFragment.markerCollection = mClusterManager.markerCollection
+
+            mClusterManager.setOnClusterClickListener { item ->
+                view?.rootView?.snackbar(
+                    string = CLUSTER_CLICK,
+                    drawableId = R.drawable.ic_round_error_24,
+                    anchorViewId = anchorViewId,
+                    vibrate = true
+                )
+                false
+            }
+
             mMap.setOnCameraIdleListener(this)
             mMap.setOnMarkerClickListener(this)
+
             for (item in parkingSpotList) {
                 val markerOption = MarkerOptions()
                 markerOption.position(LatLng(item.latitude, item.longitude))
@@ -237,26 +249,38 @@ class MapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowCl
 
                 //Set Custom InfoWindow Adapter
                 this.addItem(markerOption.snippet?.let { MapClusterItem(item, it) })
-                mMap.setInfoWindowAdapter(CustomInfoWindowAdapter(requireActivity()))
+                this@MapFragment.markerCollection.setInfoWindowAdapter(activity?.let {
+                    CustomInfoWindowAdapter(it)
+                })
             }
+            this@MapFragment.markerCollection.setOnInfoWindowClickListener(object :
+                GoogleMap.OnInfoWindowClickListener {
+                override fun onInfoWindowClick(marker: Marker) {
+                    showBooking(marker)
+                }
+            })
             this.cluster()
         }
+    }
+
+    override fun onInfoWindowLongClick(p0: Marker) {
+        view?.rootView?.snackbar(
+            string = "Just click to book.",
+            drawableId = R.drawable.ic_round_error_24,
+            anchorViewId = anchorViewId,
+            color = NoteColor.Yellow,
+            vibrate = true
+        )
     }
 
     class CustomInfoWindowAdapter constructor(var context: Activity) :
         GoogleMap.InfoWindowAdapter {
 
         @SuppressLint("InflateParams")
-        val mContents = context.layoutInflater.inflate(
-            R.layout.view_maps_info_window,
-            null
-        )
+        val mContents = context.layoutInflater.inflate(R.layout.view_maps_info_window, null)
 
         @SuppressLint("InflateParams")
-        val mWindow = context.layoutInflater.inflate(
-            R.layout.view_maps_info_window_custom,
-            null
-        )
+        val mWindow = context.layoutInflater.inflate(R.layout.view_maps_info_window_custom, null)
 
         @SuppressLint("InflateParams", "NewApi")
         override fun getInfoContents(marker: Marker): View? {
@@ -281,31 +305,33 @@ class MapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowCl
         }
     }
 
-    override fun onInfoWindowClick(p0: Marker) {
-        binding.root.snackbar(R.string.app_name)
-    }
-
-    override fun onInfoWindowLongClick(marker: Marker) {
+    fun showBooking(marker: Marker) {
         val parkingSpot = Gson().fromJson(marker.snippet, ParkingSpot::class.java)
-        if (ConstantFirebase.AVAILABILITY_STATUS.AVAILABLE.name.equals(
-                parkingSpot.availabilityStatus,
-                true
-            )
-        ) {
-            BookingDialogFragment(parkingSpot).show(requireActivity().supportFragmentManager, null)
-        } else {
-            view?.rootView?.snackbar(
-                string = ERROR_PARKING_OCCUPIED,
-                drawableId = R.drawable.ic_round_error_24,
-                anchorViewId = anchorViewId,
-                color = NoteColor.Error,
-                vibrate = true
-            )
+        if (parkingSpot != null) {
+            if (ConstantFirebase.AVAILABILITY_STATUS.AVAILABLE.name.equals(
+                    parkingSpot.availabilityStatus,
+                    true
+                )
+            ) {
+                BookingDialogFragment(parkingSpot).show(
+                    requireActivity().supportFragmentManager,
+                    null
+                )
+            } else {
+                view?.rootView?.snackbar(
+                    string = ERROR_PARKING_OCCUPIED,
+                    drawableId = R.drawable.ic_round_error_24,
+                    anchorViewId = anchorViewId,
+                    color = NoteColor.Error,
+                    vibrate = true
+                )
+            }
         }
     }
 
     companion object {
         val TAG = MapFragment::class.java.simpleName
         const val ERROR_PARKING_OCCUPIED = "Oops! Parking spot is occupied."
+        const val CLUSTER_CLICK = "Double tap to expand."
     }
 }
