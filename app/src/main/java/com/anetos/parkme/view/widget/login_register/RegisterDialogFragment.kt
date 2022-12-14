@@ -4,13 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.anetos.parkme.Application
+import com.anetos.parkme.MyApplication
 import com.anetos.parkme.BuildConfig
 import com.anetos.parkme.R
 import com.anetos.parkme.core.helper.*
 import com.anetos.parkme.data.ConstantFirebase
 import com.anetos.parkme.data.SharePrefConstant
-import com.anetos.parkme.data.model.User
+import com.anetos.parkme.domain.model.User
 import com.anetos.parkme.databinding.RegisterDialogFragmentBinding
 import com.anetos.parkme.view.widget.common.BackPressDialogFragment
 import com.google.firebase.firestore.FirebaseFirestore
@@ -61,7 +61,7 @@ class RegisterDialogFragment(
             tb.ivClose.setOnClickListener {
                 activity?.supportFragmentManager?.let {
                     BackPressDialogFragment(
-                        Application.context,
+                        MyApplication.context,
                         BACK_PRESS_DIALOG_TITLE,
                         BACK_PRESS_DIALOG_CONFIRMATION,
                         BACK_PRESS_DIALOG_DISCRIPTION,

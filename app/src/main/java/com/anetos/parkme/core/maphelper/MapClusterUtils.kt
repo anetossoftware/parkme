@@ -4,7 +4,7 @@ import android.content.Context
 import com.anetos.parkme.R
 import com.anetos.parkme.core.helper.vectorToBitmap
 import com.anetos.parkme.data.ConstantFirebase
-import com.anetos.parkme.data.model.ParkingSpot
+import com.anetos.parkme.domain.model.ParkingSpot
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions

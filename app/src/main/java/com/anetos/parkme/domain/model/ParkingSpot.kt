@@ -1,10 +1,8 @@
-package com.anetos.parkme.data.model
+package com.anetos.parkme.domain.model
 
 import android.os.Parcel
 import android.os.Parcelable
 import com.anetos.parkme.data.ConstantFirebase
-import com.google.firebase.firestore.Exclude
-import java.io.Serializable
 import java.util.*
 
 class ParkingSpot() : Parcelable {

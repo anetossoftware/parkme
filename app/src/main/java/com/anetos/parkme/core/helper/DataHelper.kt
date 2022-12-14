@@ -1,6 +1,6 @@
 package com.anetos.parkme.core.helper
 
-import com.anetos.parkme.data.model.User
+import com.anetos.parkme.domain.model.User
 
 object DataHelper {
     fun getUserIndex(user: User): String {

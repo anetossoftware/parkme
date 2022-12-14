@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/noteBackgroundColor">
+    android:animateLayoutChanges="true"
+    android:background="?attr/appBackgroundColor">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/abl"
@@ -35,8 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:paddingBottom="@dimen/padding_bottom"
-            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+            android:paddingBottom="@dimen/padding_bottom">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -272,16 +272,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:layout_margin="@dimen/spacing_normal"
-        app:backgroundTint="?attr/notePrimaryColor"
-        app:fabAlignmentMode="end"
+        app:backgroundTint="?attr/appPrimaryColor"
         app:fabAnimationMode="scale"
-        app:fabCradleRoundedCornerRadius="@dimen/spacing_extra_small"
+        app:fabAlignmentMode="end"
+        app:fabCradleRoundedCornerRadius="@dimen/spacing_normal"
         app:hideOnScroll="true"
         app:menu="@menu/menu_bottom_home"
         app:navigationContentDescription="@string/app_name"
         app:navigationIcon="@drawable/ic_round_menu_24"
-        app:navigationIconTint="?attr/notePrimaryColor" />
+        app:navigationIconTint="?attr/appBackgroundColor" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
@@ -290,8 +289,7 @@
         android:layout_margin="@dimen/spacing_normal"
         android:contentDescription="@string/app_name"
         android:src="@drawable/navigation_variant"
-        app:backgroundTint="?attr/notePrimaryColor"
+        app:backgroundTint="?attr/appBackgroundColor"
         app:layout_anchor="@id/bottomAppBar"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-        app:tint="?attr/noteBackgroundColor" />
+        app:tint="?attr/appPrimaryColor" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

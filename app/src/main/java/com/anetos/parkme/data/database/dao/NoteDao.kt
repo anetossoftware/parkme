@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.anetos.parkme.data.model.Note
+import com.anetos.parkme.domain.model.Note
 
 @Dao
 public interface NoteDao {

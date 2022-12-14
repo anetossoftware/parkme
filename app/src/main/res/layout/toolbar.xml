@@ -15,7 +15,6 @@
         android:textAlignment="center"
         app:navigationIcon="@drawable/ic_round_search_24"
         app:contentInsetStartWithNavigation="0dp"
-        app:popupTheme="@style/AppTheme.PopupOverlay"
         app:title="@string/app_name"
         app:theme="@style/ToolbarTextAppearance"
         app:titleTextColor="@color/colorWhite" />

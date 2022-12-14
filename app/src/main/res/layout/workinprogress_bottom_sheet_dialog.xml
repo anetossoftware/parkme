@@ -36,7 +36,7 @@
                 android:paddingHorizontal="@dimen/spacing_normal"
                 android:paddingTop="@dimen/spacing_small"
                 android:paddingBottom="@dimen/spacing_normal"
-                android:textColor="?attr/notePrimaryColor"
+                android:textColor="?attr/appPrimaryColor"
                 android:textSize="@dimen/size_small"
                 app:layout_constraintBottom_toTopOf="@id/btn_confirm"
                 app:layout_constraintEnd_toEndOf="parent"

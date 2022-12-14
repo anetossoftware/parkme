@@ -4,15 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.anetos.parkme.Application
+import com.anetos.parkme.MyApplication
 import com.anetos.parkme.BuildConfig
 import com.anetos.parkme.R
 import com.anetos.parkme.core.helper.*
 import com.anetos.parkme.core.helper.dialog.DialogsManager
 import com.anetos.parkme.data.ConstantDelay
 import com.anetos.parkme.data.ConstantFirebase
-import com.anetos.parkme.data.model.*
 import com.anetos.parkme.databinding.DialogFragmentBookingPaymentBinding
+import com.anetos.parkme.domain.model.*
 import com.anetos.parkme.view.widget.common.BackPressDialogFragment
 import com.google.android.material.tabs.TabLayout
 import com.google.firebase.firestore.FirebaseFirestore
@@ -93,7 +93,7 @@ class BookingPaymentDialogFragment(
             tb.ivClose.setOnClickListener {
                 activity?.supportFragmentManager?.let {
                     BackPressDialogFragment(
-                        Application.context,
+                        MyApplication.context,
                         BACK_PRESS_DIALOG_TITLE,
                         BACK_PRESS_DIALOG_CONFIRMATION,
                         BACK_PRESS_DIALOG_DISCRIPTION,

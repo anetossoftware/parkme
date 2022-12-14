@@ -7,7 +7,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 import com.anetos.parkme.data.database.dao.NoteDao;
-import com.anetos.parkme.data.model.Note;
+import com.anetos.parkme.domain.model.Note;
 
 
 @Database(

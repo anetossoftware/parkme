@@ -9,9 +9,11 @@ import com.google.firebase.FirebaseApp
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
+import dagger.hilt.android.HiltAndroidApp
 import java.util.*
 
-class Application : Application() {
+@HiltAndroidApp
+class MyApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()

@@ -4,7 +4,7 @@ import android.content.Context
 import android.view.View
 import androidx.viewbinding.ViewBinding
 import com.anetos.parkme.R
-import com.anetos.parkme.data.model.Note
+import com.anetos.parkme.domain.model.Note
 
 val LabelDefaultStrokeWidth = 2.dp
 val LabelDefaultCornerRadius = 1000.dp.toFloat()

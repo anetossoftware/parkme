@@ -131,7 +131,7 @@
                 android:paddingTop="@dimen/spacing_normal"
                 android:paddingBottom="@dimen/spacing_normal"
                 android:text="@string/msg_login"
-                android:textColor="?attr/notePrimaryColor"
+                android:textColor="?attr/appPrimaryColor"
                 android:textSize="@dimen/size_small"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"

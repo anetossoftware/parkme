@@ -5,7 +5,7 @@
         android:left="@dimen/spacing_small">
         <shape>
             <corners android:radius="@dimen/spacing_extra_large" />
-            <solid android:color="?attr/notePrimaryColor" />
+            <solid android:color="?attr/appPrimaryColor" />
             <size android:width="@dimen/spacing_small" />
         </shape>
     </item>

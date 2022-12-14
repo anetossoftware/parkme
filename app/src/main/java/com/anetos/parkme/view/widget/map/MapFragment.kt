@@ -11,6 +11,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.anetos.parkme.R
 import com.anetos.parkme.core.BaseFragment
 import com.anetos.parkme.core.helper.*
@@ -18,8 +22,8 @@ import com.anetos.parkme.core.maphelper.MapClusterItem
 import com.anetos.parkme.core.maphelper.MarkerClusterRenderer
 import com.anetos.parkme.core.maphelper.configureMap
 import com.anetos.parkme.data.ConstantFirebase
-import com.anetos.parkme.data.model.ParkingSpot
 import com.anetos.parkme.databinding.FragmentMapBinding
+import com.anetos.parkme.domain.model.ParkingSpot
 import com.anetos.parkme.view.widget.about.AboutDialogFragment
 import com.anetos.parkme.view.widget.booking.BookingDialogFragment
 import com.anetos.parkme.view.widget.common.ConfirmationDialogFragment
@@ -31,17 +35,18 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
 import com.google.maps.android.clustering.ClusterManager
 import com.google.maps.android.collections.MarkerManager
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import java.io.IOException
 import java.util.*
 
+@AndroidEntryPoint
 class MapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowLongClickListener {
     private lateinit var binding: FragmentMapBinding
-
+    private val viewModel by viewModels<MapViewModel>()
     private lateinit var mMap: GoogleMap
     private var mLocationRequest: LocationRequest = LocationRequest()
     private lateinit var fusedLocationClient: FusedLocationProviderClient
@@ -166,14 +171,14 @@ class MapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowLo
 
     private val locationUpdates = object : LocationCallback() {
         override fun onLocationResult(lr: LocationResult) {
-            val geoCoder = Geocoder(context, Locale.getDefault())
+            val geoCoder = Geocoder(requireContext(), Locale.getDefault())
             try {
                 val address = geoCoder.getFromLocation(
                     lr.locations.last().latitude,
                     lr.locations.last().longitude,
                     1
                 )
-                placeName = address.firstOrNull().let { it?.subLocality ?: it?.thoroughfare ?: "" }
+                placeName = address?.firstOrNull().let { it?.subLocality ?: it?.thoroughfare ?: "" }
                 Log.e(TAG, " " + lr.locations.last().latitude + " " + lr.locations.last().longitude)
             } catch (e: IOException) {
                 // Handle IOException
@@ -186,40 +191,15 @@ class MapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowLo
         }
     }
 
-    fun getFirebaseData() {
-        // Access a Cloud Firestore instance from your Activity
-        val db = Firebase.firestore
-        db.collection(ConstantFirebase.COLLECTION_PARKING_SPOT)
-            .get()
-            .addOnSuccessListener { result ->
-                val parkingSpotList: MutableList<ParkingSpot> = ArrayList()
-                try {
-                    for (document in result) {
-                        val data = document.data
-                        val parkingSpot = ParkingSpot()
-                        parkingSpot.documentId = document.id
-                        parkingSpot.parkingId = data.get(ParkingSpot::parkingId.name).toString()
-                        parkingSpot.address = data.get(ParkingSpot::address.name).toString()
-                        parkingSpot.latitude = data.get(ParkingSpot::latitude.name) as Double
-                        parkingSpot.longitude = data.get(ParkingSpot::longitude.name) as Double
-                        parkingSpot.pricePerHr = data.get(ParkingSpot::pricePerHr.name) as Double
-                        parkingSpot.availabilityStatus =
-                            data.get(ParkingSpot::availabilityStatus.name).toString()
-                        Log.d(TAG, "${document.id} => ${document.data}")
-                        parkingSpotList.add(parkingSpot)
-                    }
-                } catch (e: Exception) {
-                    Log.e(TAG, e.message.toString())
+    private fun getFirebaseData() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.parkingSpots.collect {
+                    if (it.isNotEmpty())
+                        mClusterManager.addMarkers(it)
                 }
-
-                if (parkingSpotList.size == 0 || parkingSpotList.isEmpty()) {
-                    parkingSpotList.add(ParkingSpot()) // for empty-list placeholder
-                }
-                mClusterManager.addMarkers(parkingSpotList)
             }
-            .addOnFailureListener { exception ->
-                Log.e(TAG, "Error getting documents: ", exception)
-            }
+        }
     }
 
     fun ClusterManager<MapClusterItem>.addMarkers(
@@ -254,12 +234,11 @@ class MapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowLo
                     CustomInfoWindowAdapter(it)
                 })
             }
-            this@MapFragment.markerCollection.setOnInfoWindowClickListener(object :
-                GoogleMap.OnInfoWindowClickListener {
-                override fun onInfoWindowClick(marker: Marker) {
-                    showBooking(marker)
-                }
-            })
+            this@MapFragment.markerCollection.setOnInfoWindowClickListener { marker ->
+                showBooking(
+                    marker
+                )
+            }
             this.cluster()
         }
     }

@@ -2,9 +2,8 @@ package com.anetos.parkme.core.helper
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.anetos.parkme.Application
-import com.anetos.parkme.core.helper.SharedPreferenceHelper.Companion.appPreferences
-import com.anetos.parkme.data.model.User
+import com.anetos.parkme.MyApplication
+import com.anetos.parkme.domain.model.User
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type
@@ -16,7 +15,7 @@ import java.lang.reflect.Type
 class SharedPreferenceHelper {
 
     fun getAppSharedPreferences(): SharedPreferences? {
-        return Application.context.getSharedPreferences(appPreferences, Context.MODE_PRIVATE)
+        return MyApplication.context.getSharedPreferences(appPreferences, Context.MODE_PRIVATE)
     }
 
     fun clearAppPreferences() {

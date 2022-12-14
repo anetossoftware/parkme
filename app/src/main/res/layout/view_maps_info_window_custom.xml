@@ -45,7 +45,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
-                    android:textColor="?attr/noteSurfaceColor"
+                    android:textColor="?attr/appSurfaceColor"
                     app:layout_constraintStart_toStartOf="@+id/provider"
                     app:layout_constraintEnd_toEndOf="@id/provider"
                     app:layout_constraintTop_toBottomOf="@+id/locationName"
@@ -57,7 +57,7 @@
                     android:layout_height="wrap_content"
                     android:padding="8dp"
                     android:textAlignment="center"
-                    android:textColor="?attr/noteSurfaceColor"
+                    android:textColor="?attr/appSurfaceColor"
                     tools:text="location name"/>
 
                 <TextView
@@ -65,7 +65,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
-                    android:textColor="?attr/noteSurfaceColor"
+                    android:textColor="?attr/appSurfaceColor"
                     android:textSize="12sp"
                     tools:text="Provider"/>
 

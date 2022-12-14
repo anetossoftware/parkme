@@ -12,7 +12,7 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
-        android:name=".Application"
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -23,7 +23,7 @@
         android:theme="@style/BaseTheme"
         tools:targetApi="31">
         <activity
-            android:theme="@style/AppTheme.NoActionBar"
+
             android:name=".view.SplashActivity"
             android:exported="true">
             <intent-filter>
@@ -42,8 +42,7 @@
             android:name=".view.activity.MainActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize"
-            android:screenOrientation="portrait"
-            android:theme="@style/BaseTheme" />
+            android:screenOrientation="portrait" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
