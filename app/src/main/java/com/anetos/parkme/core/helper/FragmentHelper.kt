@@ -10,7 +10,7 @@ import android.app.Activity
 import android.content.Intent
 import android.view.View
 import com.anetos.parkme.R
-import com.anetos.parkme.data.model.Note
+import com.anetos.parkme.domain.model.Note
 
 
 inline fun FragmentManager.transaction(func: FragmentTransaction.() -> FragmentTransaction) {

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_checked="true">
-        <ripple android:color="?attr/noteSecondaryColor">
+        <ripple android:color="?attr/appSecondaryColor">
             <item>
                 <shape android:shape="rectangle">
-                    <solid android:color="?attr/noteSurfaceColor" />
+                    <solid android:color="?attr/appSurfaceColor" />
                     <corners android:radius="@dimen/spacing_small" />
                 </shape>
             </item>
@@ -12,10 +12,10 @@
     </item>
 
     <item>
-        <ripple android:color="?attr/noteSurfaceColor">
+        <ripple android:color="?attr/appSurfaceColor">
             <item>
                 <shape android:shape="rectangle">
-                    <solid android:color="?attr/noteBackgroundColor" />
+                    <solid android:color="?attr/appBackgroundColor" />
                     <corners android:radius="@dimen/spacing_small" />
                 </shape>
             </item>

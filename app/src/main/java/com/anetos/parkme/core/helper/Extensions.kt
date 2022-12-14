@@ -39,7 +39,7 @@ import androidx.navigation.navOptions
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.anetos.parkme.R
-import com.anetos.parkme.data.model.Note
+import com.anetos.parkme.domain.model.Note
 import com.google.android.gms.maps.model.BitmapDescriptor
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.material.bottomappbar.BottomAppBar
@@ -119,7 +119,7 @@ fun View.setFullSpan() {
 }
 
 fun GradientDrawable.toRippleDrawable(context: Context): RippleDrawable {
-    val colorStateList = context.colorAttributeResource(R.attr.noteSecondaryColor).toColorStateList()
+    val colorStateList = context.colorAttributeResource(R.attr.appSecondaryColor).toColorStateList()
     return RippleDrawable(colorStateList, this, this)
 }
 
@@ -245,13 +245,13 @@ fun View.snackbar(
     }
     if (color != null) {
         val backgroundColor = context.colorResource(color.toResource())
-        val contentColor = context.colorAttributeResource(R.attr.noteBackgroundColor)
+        val contentColor = context.colorAttributeResource(R.attr.appBackgroundColor)
         setBackgroundTint(backgroundColor)
         setTextColor(contentColor)
         textView?.compoundDrawablesRelative?.get(0)?.mutate()?.setTint(contentColor)
     } else {
-        val backgroundColor = context.colorAttributeResource(R.attr.notePrimaryColor)
-        val contentColor = context.colorAttributeResource(R.attr.noteBackgroundColor)
+        val backgroundColor = context.colorAttributeResource(R.attr.appPrimaryColor)
+        val contentColor = context.colorAttributeResource(R.attr.appBackgroundColor)
         setBackgroundTint(backgroundColor)
         setTextColor(contentColor)
         textView?.compoundDrawablesRelative?.get(0)?.mutate()?.setTint(contentColor)
@@ -278,13 +278,13 @@ fun View.snackbar(
     }
     if (color != null) {
         val backgroundColor = context.colorResource(color.toResource())
-        val contentColor = context.colorAttributeResource(R.attr.noteBackgroundColor)
+        val contentColor = context.colorAttributeResource(R.attr.appBackgroundColor)
         setBackgroundTint(backgroundColor)
         setTextColor(contentColor)
         textView?.compoundDrawablesRelative?.get(0)?.mutate()?.setTint(contentColor)
     } else {
-        val backgroundColor = context.colorAttributeResource(R.attr.notePrimaryColor)
-        val contentColor = context.colorAttributeResource(R.attr.noteBackgroundColor)
+        val backgroundColor = context.colorAttributeResource(R.attr.appPrimaryColor)
+        val contentColor = context.colorAttributeResource(R.attr.appBackgroundColor)
         setBackgroundTint(backgroundColor)
         setTextColor(contentColor)
         textView?.compoundDrawablesRelative?.get(0)?.mutate()?.setTint(contentColor)
@@ -295,14 +295,14 @@ fun View.snackbar(
 
 fun View.snackbar(
     message: String,
-    note: Note? = null,
+    app: Note? = null,
 ) = Snackbar.make(this, message, Snackbar.LENGTH_SHORT).apply {
-    if (note == null) {
-        setBackgroundTint(context.colorAttributeResource(R.attr.notePrimaryColor))
-        setTextColor(context.colorAttributeResource(R.attr.noteBackgroundColor))
+    if (app == null) {
+        setBackgroundTint(context.colorAttributeResource(R.attr.appPrimaryColor))
+        setTextColor(context.colorAttributeResource(R.attr.appBackgroundColor))
     } else {
-        setBackgroundTint(context.colorResource(note.noteColor.toResource()))
-        setTextColor(context.colorAttributeResource(R.attr.noteBackgroundColor))
+        setBackgroundTint(context.colorResource(app.noteColor.toResource()))
+        setTextColor(context.colorAttributeResource(R.attr.appBackgroundColor))
     }
     val params = view.layoutParams as? CoordinatorLayout.LayoutParams
     params?.let {
@@ -409,8 +409,8 @@ const val SwipeGestureThreshold = 100F
 @SuppressLint("ClickableViewAccessibility")
 inline fun BottomAppBar.setOnSwipeGestureListener(crossinline callback: () -> Unit) {
     val gestureListener = object : GestureDetector.SimpleOnGestureListener() {
-        override fun onFling(e1: MotionEvent?, e2: MotionEvent?, velocityX: Float, velocityY: Float): Boolean {
-            val diffY = (e2?.y ?: 0F) - (e1?.y ?: 0F)
+        override fun onFling(e1: MotionEvent, e2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {
+            val diffY = (e2.y ?: 0F) - (e1.y ?: 0F)
             return if (diffY.absoluteValue > SwipeGestureThreshold) {
                 callback()
                 true

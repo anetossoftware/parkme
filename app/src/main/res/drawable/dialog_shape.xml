@@ -2,7 +2,7 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
 
-    <solid android:color="?attr/noteBackgroundColor" />
+    <solid android:color="?attr/appBackgroundColor" />
     <corners
         android:topLeftRadius="@dimen/spacing_normal"
         android:topRightRadius="@dimen/spacing_normal" />

@@ -14,8 +14,8 @@ import com.anetos.parkme.core.helper.*
 import com.anetos.parkme.core.helper.dialog.DialogsManager
 import com.anetos.parkme.data.ConstantDelay
 import com.anetos.parkme.data.ConstantFirebase
-import com.anetos.parkme.data.model.*
 import com.anetos.parkme.databinding.FragmentHomeBinding
+import com.anetos.parkme.domain.model.*
 import com.anetos.parkme.view.widget.about.AboutDialogFragment
 import com.anetos.parkme.view.widget.common.ConfirmationDialogFragment
 import com.google.firebase.auth.FirebaseAuth
@@ -36,7 +36,7 @@ class HomeFragment : BaseFragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         setupMixedTransitions()
@@ -87,9 +87,8 @@ class HomeFragment : BaseFragment() {
     private fun setupState() {
         getBookedSpot()
         binding.apply {
-            bottomAppBar.setRoundedCorners()
             activity?.let { context ->
-                val backgroundColor = context.colorAttributeResource(R.attr.noteBackgroundColor)
+                val backgroundColor = context.colorAttributeResource(R.attr.appBackgroundColor)
                 binding.bottomAppBar.navigationIcon?.mutate()?.setTint(backgroundColor)
                 binding.bottomAppBar.menu.forEach { it.icon?.mutate()?.setTint(backgroundColor) }
             }

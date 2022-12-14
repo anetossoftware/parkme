@@ -21,7 +21,7 @@
             android:background="@drawable/generic_shape"
             android:textDirection="locale"
             android:textSize="@dimen/size_small"
-            android:textColor="?attr/notePrimaryColor"
+            android:textColor="?attr/appPrimaryColor"
             android:layout_margin="@dimen/spacing_normal"
             android:padding="@dimen/spacing_normal"
             android:layout_width="match_parent"

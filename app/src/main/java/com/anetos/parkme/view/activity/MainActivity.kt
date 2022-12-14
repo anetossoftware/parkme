@@ -9,15 +9,17 @@ import com.anetos.parkme.core.helper.Navigator
 import com.anetos.parkme.core.helper.SharedPreferenceHelper
 import com.anetos.parkme.core.helper.dialog.DialogsManager
 import com.anetos.parkme.data.ConstantFirebase
-import com.anetos.parkme.data.model.User
+import com.anetos.parkme.domain.model.User
 import com.anetos.parkme.databinding.ActivityMainBinding
 import com.anetos.parkme.view.widget.common.ConfirmationDialogFragment
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
+@AndroidEntryPoint
 class MainActivity : BaseActivity() {
 
     private lateinit var binding: ActivityMainBinding

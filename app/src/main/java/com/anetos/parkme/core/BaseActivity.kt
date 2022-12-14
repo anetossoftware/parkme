@@ -3,19 +3,14 @@ package com.anetos.parkme.core
 import android.app.Activity
 import android.content.Intent
 import android.content.IntentSender
-import android.net.ConnectivityManager
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.util.Log
-import android.view.View
-import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
-import androidx.core.content.ContextCompat
-import com.anetos.parkme.Application
+import com.anetos.parkme.MyApplication
 import com.anetos.parkme.R
 import com.anetos.parkme.core.helper.PermissionHelper
 import com.anetos.parkme.core.maphelper.LocationHelper
@@ -26,8 +21,6 @@ import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.common.api.PendingResult
 import com.google.android.gms.common.api.Status
 import com.google.android.gms.location.*
-import com.google.android.material.snackbar.BaseTransientBottomBar
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
 import com.google.android.play.core.appupdate.AppUpdateOptions
 import com.google.android.play.core.install.InstallState
@@ -44,7 +37,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
  */
 abstract class BaseActivity : AppCompatActivity() {
     //private val appUpdateManager: AppUpdateManager by lazy { AppUpdateManagerFactory.create(this) }
-    val appUpdateManager = AppUpdateManagerFactory.create(Application.getAppContext())
+    val appUpdateManager = AppUpdateManagerFactory.create(MyApplication.getAppContext())
 
     // Returns an intent object that you use to check for an update.
     val appUpdateInfoTask = appUpdateManager.appUpdateInfo
@@ -185,7 +178,7 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     private var googleApiClient: GoogleApiClient? = null
-    private var googleApi: FusedLocationProviderClient? = null
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
 
     fun enableLoc() {
         LocationHelper.isLocationEnabled(this)
@@ -196,7 +189,7 @@ abstract class BaseActivity : AppCompatActivity() {
                 message = "App need the permission"
             )
         }
-        googleApi = FusedLocationProviderClient(this)
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         googleApiClient = GoogleApiClient.Builder(this)
             .addApi(LocationServices.API)
             .addConnectionCallbacks(object : GoogleApiClient.ConnectionCallbacks {

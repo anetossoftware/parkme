@@ -6,34 +6,40 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.navArgs
 import com.anetos.parkme.R
+import com.anetos.parkme.core.ResultState
 import com.anetos.parkme.core.helper.*
 import com.anetos.parkme.core.helper.StringUtils.formatAccountNumber
 import com.anetos.parkme.core.helper.dialog.DialogsManager
-import com.anetos.parkme.data.ConstantFirebase
-import com.anetos.parkme.data.model.BankCard
-import com.anetos.parkme.data.model.BookedSpot
-import com.anetos.parkme.data.model.User
-import com.anetos.parkme.data.model.WalletCard
 import com.anetos.parkme.databinding.FragmentProfileBinding
+import com.anetos.parkme.domain.model.BankCard
+import com.anetos.parkme.domain.model.BookedSpot
+import com.anetos.parkme.domain.model.User
+import com.anetos.parkme.domain.model.WalletCard
 import com.anetos.parkme.view.widget.wallet.AddMoneyToWalletDialogFragment
 import com.google.android.material.tabs.TabLayout
-import com.google.firebase.firestore.FirebaseFirestore
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import java.util.*
 
+@AndroidEntryPoint
 class ProfileFragment : Fragment() {
-
     private val args by navArgs<ProfileFragmentArgs>()
+    private val viewModel by viewModels<ProfileViewModel>()
     private val anchorViewId by lazy { R.id.fab }
-    private val firestore = FirebaseFirestore.getInstance()
+    private var updateUser = User()
 
     private var isEditOn = true
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View =
         FragmentProfileBinding.inflate(inflater, container, false).withBinding {
             setupMixedTransitions()
@@ -43,7 +49,42 @@ class ProfileFragment : Fragment() {
 
     private fun FragmentProfileBinding.setupState() {
         val userData = args.userData
-
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.profileData.collect {
+                    when (it) {
+                        is ResultState.Loading -> {
+                            if (it.isLoading) DialogsManager.showProgressDialog(requireContext())
+                        }
+                        is ResultState.Success -> {
+                            withDelay {
+                                DialogsManager.dismissProgressDialog()
+                                SharedPreferenceHelper().saveUser(updateUser)
+                                view?.rootView?.snackbar(
+                                    stringId = R.string.success_profile_update,
+                                    drawableId = R.drawable.ic_round_check_circle_24,
+                                    anchorViewId = anchorViewId,
+                                    color = NoteColor.Success,
+                                )
+                                disableProfile()
+                            }
+                        }
+                        is ResultState.Error -> {
+                            withDelay {
+                                DialogsManager.dismissProgressDialog()
+                                view?.rootView?.snackbar(
+                                    stringId = R.string.failure_profile_update,
+                                    drawableId = R.drawable.ic_round_error_24,
+                                    anchorViewId = anchorViewId,
+                                    color = NoteColor.Error,
+                                    vibrate = true
+                                )
+                            }
+                        }
+                    }
+                }
+            }
+        }
         etMobile.disableLook()
         disableProfile()
         etMobile.setText(userData?.mobileNumber)
@@ -130,7 +171,8 @@ class ProfileFragment : Fragment() {
 
     fun FragmentProfileBinding.setupWalletCard(walletCard: WalletCard?) {
         layoutWallet.apply {
-            tvValueBalance.text = (formatAmount(Currency.getInstance(Locale.CANADA), walletCard?.avilableBalance ?: 0.0))
+            tvValueBalance.text = (formatAmount(Currency.getInstance(Locale.CANADA),
+                walletCard?.avilableBalance ?: 0.0))
         }
     }
 
@@ -211,35 +253,8 @@ class ProfileFragment : Fragment() {
         updateUser.userSubscribe = user.userSubscribe.toString()
         updateUser.bookedSpot = bookedSpot
         updateUser.insertedAt = Calendar.getInstance().timeInMillis
-        withDelay {
-            firestore.collection(ConstantFirebase.COLLECTION_USERS)
-                .document(DataHelper.getUserIndex(SharedPreferenceHelper().getUser()))
-                .set(updateUser)
-                .addOnCompleteListener {
-                    DialogsManager.dismissProgressDialog()
-                    if (it.isSuccessful) {
-                        SharedPreferenceHelper().saveUser(updateUser)
-                        view?.rootView?.snackbar(
-                            stringId = R.string.success_profile_update,
-                            drawableId = R.drawable.ic_round_check_circle_24,
-                            anchorViewId = anchorViewId,
-                            color = NoteColor.Success,
-                        )
-                        disableProfile()
-                    } else {
-                        view?.rootView?.snackbar(
-                            stringId = R.string.failure_profile_update,
-                            drawableId = R.drawable.ic_round_error_24,
-                            anchorViewId = anchorViewId,
-                            color = NoteColor.Error,
-                            vibrate = true
-                        )
-                    }
-                }
-                .addOnFailureListener {
-                    DialogsManager.dismissProgressDialog()
-                }
-        }
+        viewModel.updateProfileData(updateUser)
+        this@ProfileFragment.updateUser = updateUser
     }
 
     companion object

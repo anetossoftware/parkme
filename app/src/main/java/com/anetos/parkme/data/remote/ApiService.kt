@@ -1,6 +1,4 @@
-package com.anetos.parkme.data.api
-
-import android.content.Context
+package com.anetos.parkme.data.remote
 
 /**
  * Api service interface to handle all the data from retrofit
@@ -13,9 +11,6 @@ interface ApiService {
     fun getAppVersionDataAsync(@Url url: String): Deferred<AppVersionResponse>*/
 
     companion object {
-
-        fun create(context: Context): ApiService {
-            return Networking.create(context)
-        }
+        const val BASE_URL = "https://engineering.league.dev/challenge/api/"
     }
 }

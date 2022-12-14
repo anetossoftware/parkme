@@ -10,8 +10,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.anetos.parkme.R
 import com.anetos.parkme.core.helper.*
-import com.anetos.parkme.data.model.BookedSpot
-import com.anetos.parkme.data.model.ParkingSpot
+import com.anetos.parkme.domain.model.BookedSpot
+import com.anetos.parkme.domain.model.ParkingSpot
 import com.anetos.parkme.databinding.DialogFragmentBookingBinding
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.datetime.Clock
@@ -155,7 +155,7 @@ class BookingDialogFragment(
         val is24HourFormat = DateFormat.is24HourFormat(context)
 
         context?.let { context ->
-            val buttonTextColor = context.colorAttributeResource(R.attr.notePrimaryColor)
+            val buttonTextColor = context.colorAttributeResource(R.attr.appPrimaryColor)
             DatePickerDialog(context, theme, { _, year, month, day ->
                 TimePickerDialog(context, theme, { _, hour, minute ->
                     LocalDateTime(year, month + 1, day, hour, minute)

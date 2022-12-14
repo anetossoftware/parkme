@@ -1,4 +1,4 @@
-package com.anetos.parkme.data.model
+package com.anetos.parkme.domain.model
 
 import android.os.Parcel
 import android.os.Parcelable

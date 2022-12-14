@@ -14,7 +14,7 @@ import com.anetos.parkme.core.isNetworkAvailable
 import com.anetos.parkme.data.ConstantDelay
 import com.anetos.parkme.data.ConstantFirebase
 import com.anetos.parkme.data.SharePrefConstant
-import com.anetos.parkme.data.model.User
+import com.anetos.parkme.domain.model.User
 import com.anetos.parkme.databinding.ActivityLoginBinding
 import com.anetos.parkme.view.activity.MainActivity
 import com.anetos.parkme.view.widget.common.BackPressDialogFragment

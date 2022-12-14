@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <attr name="notePrimaryColor" format="reference" />
-    <attr name="noteSecondaryColor" format="reference" />
-    <attr name="noteBackgroundColor" format="reference" />
-    <attr name="noteSurfaceColor" format="reference" />
+    <attr name="appPrimaryColor" format="reference" />
+    <attr name="appSecondaryColor" format="reference" />
+    <attr name="appBackgroundColor" format="reference" />
+    <attr name="appSurfaceColor" format="reference" />
 </resources>

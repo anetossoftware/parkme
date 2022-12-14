@@ -38,13 +38,13 @@
         <argument
             android:name="userData"
             android:defaultValue="@null"
-            app:argType="com.anetos.parkme.data.model.User"
+            app:argType="com.anetos.parkme.domain.model.User"
             app:nullable="true" />
 
         <argument
             android:name="parkingData"
             android:defaultValue="@null"
-            app:argType="com.anetos.parkme.data.model.ParkingSpot"
+            app:argType="com.anetos.parkme.domain.model.ParkingSpot"
             app:nullable="true" />
         <!--<action
             android:id="@+id/action_profileFragment_to_homeFragment"

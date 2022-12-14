@@ -1,76 +1,54 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Parkme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/white</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_700</item>
-        <item name="colorOnSecondary">@color/black</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/noteBackgroundColor</item>
-        <item name="android:fontFamily">@font/nunito_semibold</item>
-        <item name="fontFamily">@font/nunito_semibold</item>
-        <item name="notePrimaryColor">@color/colorPrimary</item>
-        <item name="noteSecondaryColor">@color/colorSecondary</item>
-        <item name="noteBackgroundColor">@color/colorBackground</item>
-        <item name="noteSurfaceColor">@color/colorSurface</item>
-        <item name="snackbarStyle">@style/Snackbar</item>
-        <item name="snackbarTextViewStyle">@style/SnackbarTextView</item>
-        <!-- Customize your theme here. -->
-    </style>
-
-    <style name="BaseTheme" parent="Theme.Material3.Light.NoActionBar">
-        <item name="android:windowBackground">?attr/noteBackgroundColor</item>
-        <item name="android:statusBarColor">?attr/noteBackgroundColor</item>
+    <!--<style name="BaseTheme" parent="Theme.Material3.Light.NoActionBar">
+        <item name="android:windowBackground">?attr/appBackgroundColor</item>
+        <item name="android:statusBarColor">?attr/appBackgroundColor</item>
         <item name="android:windowLightStatusBar" tools:targetApi="23">true</item>
-        <item name="android:colorPrimary">?attr/notePrimaryColor</item>
-        <item name="android:navigationBarColor">?attr/noteBackgroundColor</item>
+        <item name="android:colorPrimary">?attr/appPrimaryColor</item>
+        <item name="android:navigationBarColor">?attr/appBackgroundColor</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
-        <item name="android:colorControlActivated">?attr/notePrimaryColor</item>
-        <item name="android:colorControlHighlight">?attr/noteSurfaceColor</item>
-        <item name="android:textColorHighlight">?attr/noteSurfaceColor</item>
-        <item name="android:colorControlNormal">?attr/notePrimaryColor</item>
-        <item name="android:textColorHint">?attr/noteSecondaryColor</item>
-        <item name="hintTextColor">?attr/noteSecondaryColor</item>
+        <item name="android:colorControlActivated">?attr/appPrimaryColor</item>
+        <item name="android:colorControlHighlight">?attr/appSurfaceColor</item>
+        <item name="android:textColorHighlight">?attr/appSurfaceColor</item>
+        <item name="android:colorControlNormal">?attr/appPrimaryColor</item>
+        <item name="android:textColorHint">?attr/appSecondaryColor</item>
+        <item name="hintTextColor">?attr/appSecondaryColor</item>
         <item name="android:fontFamily">@font/nunito_semibold</item>
         <item name="fontFamily">@font/nunito_semibold</item>
-        <item name="notePrimaryColor">@color/colorPrimary</item>
-        <item name="noteSecondaryColor">@color/colorSecondary</item>
-        <item name="noteBackgroundColor">@color/colorBackground</item>
-        <item name="noteSurfaceColor">@color/colorSurface</item>
+        <item name="appPrimaryColor">@color/colorPrimary</item>
+        <item name="appSecondaryColor">@color/colorSecondary</item>
+        <item name="appBackgroundColor">@color/colorBackground</item>
+        <item name="appSurfaceColor">@color/colorSurface</item>
         <item name="appBarLayoutStyle">@style/Widget.MaterialComponents.AppBarLayout.Primary</item>
         <item name="snackbarStyle">@style/Snackbar</item>
         <item name="snackbarTextViewStyle">@style/SnackbarTextView</item>
-    </style>
+    </style>-->
 
-    <!-- Base application theme. -->
-    <!-- Theme.AppCompat.Light.NoActionBar -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@android:color/black</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:windowContentOverlay">@null</item>
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-        <!--<item name="android:windowLightStatusBar" tools:targetApi="23">true</item>-->
-        <item name="android:actionMenuTextAppearance">@style/LowerCaseMenuTextAppearance</item>
-        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
-        <!--<item name="android:statusBarColor" tools:targetApi="lollipop">@android:color/white</item>-->
-    </style>
+    <style name="BaseTheme" parent="Theme.Material3.Light.NoActionBar">
+        <item name="android:windowLightStatusBar" tools:targetApi="23">true</item>
+        <item name="android:navigationBarColor">#000000</item>
+        <item name="android:statusBarColor">?attr/appBackgroundColor</item>
 
-    <style name="DrawerArrowStyle" parent="@style/Widget.AppCompat.DrawerArrowToggle">
-        <item name="spinBars">true</item>
-        <item name="color">@android:color/white</item>
-    </style>
+        <item name="android:windowBackground">?attr/appBackgroundColor</item>
 
-    <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
-        <!--<item name="android:textSize">18sp</item>-->
-        <item name="textAllCaps">true</item>
-        <item name="android:textAllCaps">true</item>
+        <item name="android:colorControlActivated">?attr/appPrimaryColor</item>
+        <item name="android:colorControlHighlight">?attr/appSurfaceColor</item>
+        <item name="android:textColorHighlight">@color/colorTextHighlight</item>
+        <item name="android:colorControlNormal">?attr/appPrimaryColor</item>
+        <item name="android:textColorHint">?attr/appSecondaryColor</item>
+        <item name="hintTextColor">?attr/appSecondaryColor</item>
+
+        <item name="android:fontFamily">@font/nunito_medium</item>
+        <item name="fontFamily">@font/nunito_medium</item>
+
+        <item name="appPrimaryColor">@color/colorPrimary</item>
+        <item name="appSecondaryColor">@color/colorSecondary</item>
+        <item name="appBackgroundColor">@color/colorBackground</item>
+        <item name="appSurfaceColor">@color/colorSurface</item>
+
+        <item name="appBarLayoutStyle">@style/Widget.MaterialComponents.AppBarLayout.Primary</item>
+        <item name="snackbarStyle">@style/Snackbar</item>
+        <item name="snackbarTextViewStyle">@style/SnackbarTextView</item>
     </style>
 
     <style name="ToolbarTextAppearance">
@@ -91,33 +69,12 @@
         <item name="colorAccent">@color/colorOrange</item>
     </style>
 
-    <style name="CustomActiviyAnimation" parent="@android:style/Animation.Activity">
+    <style name="CustomActivityAnimation" parent="@android:style/Animation.Activity">
         <item name="android:activityOpenEnterAnimation">@anim/slide_in_right</item>
         <item name="android:activityOpenExitAnimation">@anim/slide_out_left</item>
         <item name="android:activityCloseEnterAnimation">@anim/slide_in_left</item>
         <item name="android:activityCloseExitAnimation">@anim/slide_out_right</item>
     </style>
-
-    <style name="AppTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-        <!-- enable window content transitions -->
-        <item name="android:windowActivityTransitions">true</item>
-
-        <!-- &lt;!&ndash; specify enter and exit transitions &ndash;&gt;
-         <item name="android:windowEnterTransition">@transition/explode</item>
-         <item name="android:windowExitTransition">@transition/explode</item>
-
-         &lt;!&ndash; specify shared element transitions &ndash;&gt;
-         <item name="android:windowSharedElementEnterTransition">
-             @transition/change_image_transform</item>
-         <item name="android:windowSharedElementExitTransition">
-             @transition/change_image_transform</item>-->
-    </style>
-
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="BottomSheetDialogStyle" parent="Theme.Design.Light.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/bottomSheetBackground</item>
@@ -128,7 +85,7 @@
     </style>
 
     <style name="AppBarLayout" parent="Widget.MaterialComponents.AppBarLayout.Primary">
-        <item name="android:background">?attr/noteBackgroundColor</item>
+        <item name="android:background">?attr/appBackgroundColor</item>
         <item name="liftOnScroll">true</item>
         <item name="android:elevation">@dimen/elevation_normal</item>
         <item name="android:animateLayoutChanges">true</item>
@@ -139,21 +96,25 @@
         <item name="titleMarginEnd">@dimen/spacing_normal</item>
         <item name="titleTextAppearance">@style/ToolbarTitleTextAppearance</item>
         <item name="layout_collapseMode">pin</item>
-        <item name="titleTextColor">?attr/notePrimaryColor</item>
+        <item name="titleTextColor">?attr/appPrimaryColor</item>
+    </style>
+
+    <style name="ToolbarWithSubtitle" parent="Toolbar">
+        <item name="android:padding">@dimen/spacing_small</item>
     </style>
 
     <style name="ToolbarTitleTextAppearance" parent="TextAppearance.MaterialComponents.Headline1">
         <item name="android:maxLines">1</item>
         <item name="android:textSize">@dimen/size_large</item>
         <item name="fontFamily">@font/nunito_extrabold</item>
-        <item name="android:textColor">?attr/notePrimaryColor</item>
+        <item name="android:textColor">?attr/appPrimaryColor</item>
     </style>
 
     <style name="CollapsingToolbarExpandedTitleTextAppearance" parent="TextAppearance.MaterialComponents.Headline1">
         <item name="android:maxLines">1</item>
         <item name="android:textSize">@dimen/collapsing_toolbar_expanded_text</item>
         <item name="fontFamily">@font/nunito_extrabold</item>
-        <item name="android:textColor">?attr/notePrimaryColor</item>
+        <item name="android:textColor">?attr/appPrimaryColor</item>
     </style>
 
     <style name="CollapsingToolbar" parent="Widget.Design.CollapsingToolbar">
@@ -173,28 +134,28 @@
     <style name="SubtitleTextView" parent="Widget.MaterialComponents.TextView">
         <item name="android:textSize">@dimen/size_tiny</item>
         <item name="fontFamily">@font/nunito_semibold_italic</item>
-        <item name="android:textColor">?attr/notePrimaryColor</item>
+        <item name="android:textColor">?attr/appPrimaryColor</item>
         <item name="android:maxLines">1</item>
         <item name="android:ellipsize">end</item>
         <item name="android:layout_gravity">end</item>
     </style>
 
-    <style name="BottomSheetDialog" parent="Theme.Design.Light.BottomSheetDialog">
+    <!--<style name="BottomSheetDialog" parent="Theme.Design.Light.BottomSheetDialog">
         <item name="android:colorBackground">@android:color/transparent</item>
         <item name="android:windowIsFloating">false</item>
         <item name="android:windowSoftInputMode">adjustResize</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:navigationBarColor">?attr/noteBackgroundColor</item>
-    </style>
+        <item name="android:navigationBarColor">?attr/appBackgroundColor</item>
+    </style>-->
 
-    <!--<style name="BottomSheetDialog" parent="Theme.Design.Light.BottomSheetDialog">
+    <style name="BottomSheetDialog" parent="Theme.Design.Light.BottomSheetDialog">
         <item name="android:navigationBarColor">#000000</item>
 
         <item name="android:colorBackground">@android:color/transparent</item>
 
         <item name="android:windowIsFloating">false</item>
         <item name="android:windowSoftInputMode">adjustResize</item>
-    </style>-->
+    </style>
 
     <style name="BaseDialogFragment">
         <item name="android:layout_width">match_parent</item>
@@ -207,7 +168,7 @@
 
     <style name="DialogTitle" parent="Widget.MaterialComponents.TextView">
         <item name="fontFamily">@font/nunito_extrabold</item>
-        <item name="android:textColor">?attr/notePrimaryColor</item>
+        <item name="android:textColor">?attr/appPrimaryColor</item>
         <item name="android:textSize">@dimen/size_large</item>
         <item name="android:gravity">center</item>
     </style>
@@ -229,7 +190,7 @@
     <style name="DialogItem" parent="Widget.MaterialComponents.TextView">
         <item name="fontFamily">@font/nunito_bold</item>
         <item name="android:textSize">@dimen/size_small</item>
-        <item name="android:textColor">?attr/notePrimaryColor</item>
+        <item name="android:textColor">?attr/appPrimaryColor</item>
         <item name="android:background">@drawable/dialog_item_shape</item>
         <item name="android:padding">@dimen/spacing_normal</item>
         <item name="android:clickable">true</item>
@@ -240,7 +201,7 @@
     <style name="LegendItem" parent="Widget.MaterialComponents.TextView">
         <!--<item name="fontFamily">@font/nunito_bold</item>-->
         <item name="android:textSize">@dimen/size_small</item>
-        <item name="android:textColor">?attr/notePrimaryColor</item>
+        <item name="android:textColor">?attr/appPrimaryColor</item>
         <item name="android:padding">@dimen/spacing_normal</item>
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>
@@ -249,7 +210,7 @@
     <!--<style name="DialogItem" parent="Widget.MaterialComponents.TextView">
         <item name="fontFamily">@font/nunito_semibold</item>
         <item name="android:textSize">@dimen/size_extra_small</item>
-        <item name="android:textColor">?attr/notePrimaryColor</item>
+        <item name="android:textColor">?attr/appPrimaryColor</item>
         <item name="android:background">@drawable/dialog_quick_item_shape</item>
         <item name="android:gravity">center</item>
         <item name="android:padding">@dimen/spacing_small</item>
@@ -261,13 +222,13 @@
     <style name="DialogSectionItem" parent="Widget.MaterialComponents.TextView">
         <item name="fontFamily">@font/nunito_bold</item>
         <item name="android:textSize">@dimen/size_extra_small</item>
-        <item name="android:textColor">?attr/notePrimaryColor</item>
+        <item name="android:textColor">?attr/appPrimaryColor</item>
     </style>
 
     <style name="NoteTitleTextView" parent="Widget.MaterialComponents.TextView">
         <item name="fontFamily">@font/nunito_bold</item>
         <item name="android:textSize">@dimen/size_small</item>
-        <item name="android:textColor">?attr/notePrimaryColor</item>
+        <item name="android:textColor">?attr/appPrimaryColor</item>
         <item name="android:ellipsize">end</item>
     </style>
 
@@ -275,18 +236,18 @@
         <item name="fontFamily">@font/nunito_semibold</item>
         <item name="android:textSize">@dimen/size_tiny</item>
         <item name="android:lineSpacingMultiplier">1</item>
-        <item name="android:textColor">?attr/notePrimaryColor</item>
+        <item name="android:textColor">?attr/appPrimaryColor</item>
         <item name="android:ellipsize">end</item>
     </style>
 
     <style name="ExpiryDateTextView" parent="Widget.MaterialComponents.TextView">
-        <item name="android:textColor">?attr/noteSecondaryColor</item>
+        <item name="android:textColor">?attr/appSecondaryColor</item>
         <item name="android:textSize">@dimen/size_extra_tiny</item>
         <item name="fontFamily">@font/nunito_semibold_italic</item>
     </style>
 
     <style name="BankCardTypeTextView" parent="Widget.MaterialComponents.TextView">
-        <item name="android:textColor">?attr/notePrimaryColor</item>
+        <item name="android:textColor">?attr/appPrimaryColor</item>
         <item name="android:textSize">@dimen/size_large</item>
         <item name="android:textStyle">bold</item>
         <item name="android:letterSpacing">0.1</item>
@@ -294,7 +255,7 @@
     </style>
 
     <style name="WalletCardTypeTextView" parent="Widget.MaterialComponents.TextView">
-        <item name="android:textColor">?attr/notePrimaryColor</item>
+        <item name="android:textColor">?attr/appPrimaryColor</item>
         <item name="android:textSize">@dimen/size_large</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textAllCaps">true</item>
@@ -305,8 +266,8 @@
     <style name="NoteTitleEditText" parent="Widget.AppCompat.EditText">
         <item name="fontFamily">@font/nunito_bold</item>
         <item name="android:textSize">@dimen/size_huge</item>
-        <item name="android:textColor">?attr/notePrimaryColor</item>
-        <item name="android:textColorHint">?attr/noteSecondaryColor</item>
+        <item name="android:textColor">?attr/appPrimaryColor</item>
+        <item name="android:textColorHint">?attr/appSecondaryColor</item>
         <item name="android:background">@android:color/transparent</item>
         <item name="android:textCursorDrawable">@drawable/cursor_shape</item>
     </style>
@@ -316,20 +277,20 @@
         <item name="android:background">@android:color/transparent</item>
         <item name="android:textSize">@dimen/size_small</item>
         <item name="android:gravity">top</item>
-        <item name="android:textColor">?attr/notePrimaryColor</item>
+        <item name="android:textColor">?attr/appPrimaryColor</item>
         <item name="android:lineSpacingMultiplier">1.3</item>
         <item name="android:textCursorDrawable">@drawable/cursor_shape</item>
     </style>
 
     <style name="PlaceholderTextView" parent="Widget.MaterialComponents.TextView">
         <item name="android:textSize">@dimen/size_extra_huge</item>
-        <item name="android:textColor">?attr/noteSecondaryColor</item>
+        <item name="android:textColor">?attr/appSecondaryColor</item>
         <item name="fontFamily">@font/nunito_bold</item>
         <item name="android:gravity">center</item>
     </style>
 
     <style name="TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-        <item name="boxBackgroundColor">?attr/noteSurfaceColor</item>
+        <item name="boxBackgroundColor">?attr/appSurfaceColor</item>
         <item name="boxStrokeWidth">0dp</item>
         <item name="boxStrokeWidthFocused">0dp</item>
         <item name="boxCornerRadiusBottomEnd">@dimen/spacing_small</item>
@@ -337,15 +298,15 @@
         <item name="boxCornerRadiusTopEnd">@dimen/spacing_small</item>
         <item name="boxCornerRadiusTopStart">@dimen/spacing_small</item>
         <item name="hintEnabled">false</item>
-        <item name="android:textColorHint">?attr/noteSecondaryColor</item>
-        <item name="android:textColorHighlight">?attr/noteSecondaryColor</item>
-        <item name="android:colorControlActivated">?attr/notePrimaryColor</item>
+        <item name="android:textColorHint">?attr/appSecondaryColor</item>
+        <item name="android:textColorHighlight">?attr/appSecondaryColor</item>
+        <item name="android:colorControlActivated">?attr/appPrimaryColor</item>
     </style>
 
     <style name="LabelItem" parent="Widget.MaterialComponents.TextView">
         <item name="android:textSize">@dimen/size_normal</item>
         <item name="android:background">@drawable/label_item_shape</item>
-        <item name="android:textColor">?attr/notePrimaryColor</item>
+        <item name="android:textColor">?attr/appPrimaryColor</item>
         <item name="fontFamily">@font/nunito_semibold</item>
         <item name="android:textDirection">anyRtl</item>
     </style>
@@ -353,13 +314,13 @@
     <style name="LabelItemWithoutStoke" parent="Widget.MaterialComponents.TextView">
         <item name="android:textSize">@dimen/size_normal</item>
         <item name="android:background">@drawable/label_item_shape_without_stroke</item>
-        <item name="android:textColor">?attr/notePrimaryColor</item>
+        <item name="android:textColor">?attr/appPrimaryColor</item>
         <item name="fontFamily">@font/nunito_semibold</item>
         <item name="android:textDirection">anyRtl</item>
     </style>
 
     <style name="TextInputEditText">
-        <item name="android:textColor">?attr/notePrimaryColor</item>
+        <item name="android:textColor">?attr/appPrimaryColor</item>
         <item name="android:textCursorDrawable">@drawable/cursor_shape</item>
     </style>
 
@@ -369,24 +330,24 @@
         <item name="android:gravity">top</item>
         <item name="android:minLines">4</item>
         <item name="maxLines">5</item>
-        <item name="android:textColor">?attr/notePrimaryColor</item>
+        <item name="android:textColor">?attr/appPrimaryColor</item>
         <item name="android:textCursorDrawable">@drawable/cursor_shape</item>
     </style>
 
     <style name="MaterialButton" parent="Widget.Material3.Button">
-        <item name="android:backgroundTint">?attr/notePrimaryColor</item>
+        <item name="android:backgroundTint">?attr/appPrimaryColor</item>
         <item name="android:textAllCaps">false</item>
-        <item name="android:textColor">?attr/noteBackgroundColor</item>
+        <item name="android:textColor">?attr/appBackgroundColor</item>
         <item name="android:textSize">20sp</item>
         <item name="cornerRadius">@dimen/spacing_small</item>
         <item name="fontFamily">@font/nunito_bold</item>
     </style>
 
     <style name="MaterialSecondaryButton" parent="Widget.Material3.Button">
-        <item name="android:backgroundTint">?attr/noteBackgroundColor</item>
-        <item name="strokeColor">?attr/notePrimaryColor</item>
+        <item name="android:backgroundTint">?attr/appBackgroundColor</item>
+        <item name="strokeColor">?attr/appPrimaryColor</item>
         <item name="android:textAllCaps">false</item>
-        <item name="android:textColor">?attr/notePrimaryColor</item>
+        <item name="android:textColor">?attr/appPrimaryColor</item>
         <item name="android:textSize">20sp</item>
         <item name="cornerRadius">@dimen/spacing_small</item>
         <item name="fontFamily">@font/nunito_bold</item>
@@ -395,9 +356,9 @@
     <style name="ProgressIndicator" parent="Widget.Material3.CircularProgressIndicator">
         <item name="android:indeterminate">true</item>
         <item name="android:contentDescription">@string/loading</item>
-        <item name="indicatorColor">?attr/notePrimaryColor</item>
+        <item name="indicatorColor">?attr/appPrimaryColor</item>
         <item name="indicatorSize">50dp</item>
-        <item name="trackColor">?attr/noteBackgroundColor</item>
+        <item name="trackColor">?attr/appBackgroundColor</item>
         <item name="trackCornerRadius">@dimen/spacing_extra_large</item>
         <item name="trackThickness">5dp</item>
     </style>
@@ -407,7 +368,8 @@
     </style>
 
     <style name="SnackbarTextView" parent="Widget.Material3.Snackbar.TextView">
-        <item name="fontFamily">@font/nunito_bold</item>
+        <item name="fontFamily">@font/nunito_medium</item>
+        <item name="android:textDirection">anyRtl</item>
     </style>
 
     <style name="ShapeAppearanceOverlay.App.CornerSize50Percent" parent="">
@@ -417,7 +379,7 @@
     <style name="IconItem" parent="Widget.MaterialComponents.TextView">
         <item name="fontFamily">@font/nunito_semibold</item>
         <item name="android:textSize">@dimen/size_small</item>
-        <item name="android:textColor">?attr/notePrimaryColor</item>
+        <item name="android:textColor">?attr/appPrimaryColor</item>
         <item name="android:padding">@dimen/spacing_normal</item>
         <item name="android:layout_margin">@dimen/spacing_small</item>
         <item name="android:background">@drawable/dialog_item_selector</item>
@@ -428,15 +390,15 @@
     <style name="ExtendedFab" parent="Widget.Material3.ExtendedFloatingActionButton.Primary">
         <item name="android:layout_gravity">bottom|end</item>
         <item name="android:layout_margin">@dimen/spacing_normal</item>
-        <item name="android:textColor">?attr/noteBackgroundColor</item>
-        <item name="backgroundTint">?attr/notePrimaryColor</item>
+        <item name="android:textColor">?attr/appBackgroundColor</item>
+        <item name="backgroundTint">?attr/appPrimaryColor</item>
         <item name="fontFamily">@font/nunito_semibold</item>
     </style>
 
     <style name="AddExtendedFab" parent="Widget.Material3.ExtendedFloatingActionButton.Primary">
         <item name="android:layout_gravity">top|end</item>
-        <item name="android:textColor">?attr/noteBackgroundColor</item>
-        <item name="backgroundTint">?attr/notePrimaryColor</item>
+        <item name="android:textColor">?attr/appBackgroundColor</item>
+        <item name="backgroundTint">?attr/appPrimaryColor</item>
         <item name="android:elevation">@dimen/elevation_none</item>
         <item name="icon">@drawable/ic_round_add_24</item>
         <item name="iconTint">@color/white</item>
@@ -445,8 +407,8 @@
 
     <style name="CancelExtendedFab" parent="Widget.Material3.ExtendedFloatingActionButton.Primary">
         <item name="android:layout_gravity">center</item>
-        <item name="android:textColor">?attr/noteBackgroundColor</item>
-        <item name="backgroundTint">?attr/notePrimaryColor</item>
+        <item name="android:textColor">?attr/appBackgroundColor</item>
+        <item name="backgroundTint">?attr/appPrimaryColor</item>
         <item name="android:elevation">@dimen/elevation_none</item>
         <item name="icon">@drawable/ic_round_close_24</item>
         <item name="iconTint">@color/white</item>
@@ -464,12 +426,12 @@
         <item name="tabIconTint">@drawable/tab_icon_color_selector</item>
         <item name="tabIndicator">@drawable/tab_indicator_shape</item>
         <item name="tabIndicatorAnimationMode">elastic</item>
-        <item name="tabIndicatorColor">?attr/notePrimaryColor</item>
+        <item name="tabIndicatorColor">?attr/appPrimaryColor</item>
         <item name="tabIndicatorGravity">stretch</item>
         <item name="tabInlineLabel">true</item>
-        <item name="tabSelectedTextColor">?attr/noteBackgroundColor</item>
+        <item name="tabSelectedTextColor">?attr/appBackgroundColor</item>
         <item name="tabTextAppearance">@style/TabItemTextAppearance</item>
-        <item name="tabTextColor">?attr/notePrimaryColor</item>
+        <item name="tabTextColor">?attr/appPrimaryColor</item>
         <item name="tabIndicatorAnimationDuration">500</item>
     </style>
 
@@ -477,8 +439,9 @@
         <item name="android:layout_width">@dimen/warning_icon_size</item>
         <item name="android:layout_height">@dimen/warning_icon_size</item>
         <item name="android:text">@string/fa_warning_sign</item>
-        <item name="android:textColor">?attr/notePrimaryColor</item>
+        <item name="android:textColor">?attr/appPrimaryColor</item>
     </style>
+
     <style name="GenericPopupErrorWindowAnimation">
         <item name="android:windowEnterAnimation">@anim/slider_in_down</item>
         <item name="android:windowExitAnimation">@anim/slide_out_up</item>

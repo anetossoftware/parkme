@@ -77,7 +77,7 @@
             android:theme="@style/TextInputLayout"
             app:endIconDrawable="@drawable/calendar_start"
             app:endIconMode="custom"
-            app:endIconTint="?attr/notePrimaryColor">
+            app:endIconTint="?attr/appPrimaryColor">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_from_time"
@@ -107,7 +107,7 @@
             android:theme="@style/TextInputLayout"
             app:endIconDrawable="@drawable/calendar_end"
             app:endIconMode="custom"
-            app:endIconTint="?attr/notePrimaryColor">
+            app:endIconTint="?attr/appPrimaryColor">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_to_time"
