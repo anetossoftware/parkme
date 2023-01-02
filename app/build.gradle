@@ -10,6 +10,7 @@ plugins {
 }
 
 android {
+    namespace 'com.anetos.parkme'
     compileSdk 33
 
     defaultConfig {
@@ -125,9 +126,6 @@ android {
             returnDefaultValues = true
         }
     }
-    lintOptions {
-        checkReleaseBuilds false
-    }
 }
 
 dependencies {
@@ -208,7 +206,7 @@ dependencies {
     implementation "com.google.maps.android:android-maps-utils:$mapsUtilPlayServices"
     implementation "com.google.android.gms:play-services-maps:18.1.0"
     implementation 'com.google.android.gms:play-services-location:21.0.1'
-    implementation "com.google.android.libraries.places:places:2.7.0"
+    implementation "com.google.android.libraries.places:places:3.0.0"
     // implementation 'com.google.android.gms:play-services:12.0.1'
 
     // Import the Firebase BoM
