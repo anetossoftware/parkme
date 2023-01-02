@@ -87,7 +87,7 @@ class RegisterDialogFragment(
                     stringId = R.string.details_missing,
                     anchorViewId = anchorViewId,
                     drawableId = R.drawable.ic_round_error_24,
-                    color = NoteColor.Error,
+                    color = AppColor.Error,
                     vibrate = true
                 )
                 tilName.error = getString(R.string.empty_name)
@@ -136,7 +136,7 @@ class RegisterDialogFragment(
                                 stringId = R.string.registered,
                                 anchorViewId = anchorViewId,
                                 drawableId = R.drawable.ic_round_check_circle_24,
-                                color = NoteColor.Success,
+                                color = AppColor.Success,
                             )
                             withDelay(900L) {
                                 dismiss()

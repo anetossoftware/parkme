@@ -132,19 +132,19 @@ class LoginActivity : BaseActivity() {
                             is FirebaseTooManyRequestsException -> binding.root.snackbar(
                                     stringId = R.string.too_many_verify_attempts,
                                     drawableId = R.drawable.ic_round_error_24,
-                                    color = NoteColor.Error,
+                                    color = AppColor.Error,
                                     vibrate = true
                                 )
                             is FirebaseAuthException -> binding.root.snackbar(
                                     stringId = R.string.server_contact_failed,
                                     drawableId = R.drawable.ic_round_error_24,
-                                    color = NoteColor.Error,
+                                    color = AppColor.Error,
                                     vibrate = true
                                 )
                             else -> binding.root.snackbar(
                                 stringId = R.string.verification_failed,
                                 drawableId = R.drawable.ic_round_error_24,
-                                color = NoteColor.Error,
+                                color = AppColor.Error,
                                 vibrate = true
                             )
                         }
@@ -196,7 +196,7 @@ class LoginActivity : BaseActivity() {
                         binding.root.snackbar(
                             stringId = R.string.verification_success,
                             drawableId = R.drawable.ic_round_check_circle_24,
-                            color = NoteColor.Success,
+                            color = AppColor.Success,
                         )
                         firestore.collection(ConstantFirebase.COLLECTION_USERS)
                             .document(
@@ -244,7 +244,7 @@ class LoginActivity : BaseActivity() {
                         binding.root.snackbar(
                             stringId = R.string.incorrect_code,
                             drawableId = R.drawable.ic_round_error_24,
-                            color = NoteColor.Error,
+                            color = AppColor.Error,
                             vibrate = true
                         )
                     }
@@ -253,7 +253,7 @@ class LoginActivity : BaseActivity() {
                         binding.root.snackbar(
                             stringId = R.string.sign_in_failed,
                             drawableId = R.drawable.ic_round_error_24,
-                            color = NoteColor.Error,
+                            color = AppColor.Error,
                             vibrate = true
                         )
                     }
@@ -280,7 +280,7 @@ class LoginActivity : BaseActivity() {
                 binding.root.snackbar(
                     stringId = R.string.booking_failed,
                     drawableId = R.drawable.ic_round_error_24,
-                    color = NoteColor.Error,
+                    color = AppColor.Error,
                     vibrate = true
                 )
             }
@@ -303,7 +303,7 @@ class LoginActivity : BaseActivity() {
             binding.root.snackbar(
                 stringId = R.string.no_internet,
                 drawableId = R.drawable.ic_round_error_24,
-                color = NoteColor.Error,
+                color = AppColor.Error,
                 vibrate = true
             )
             return

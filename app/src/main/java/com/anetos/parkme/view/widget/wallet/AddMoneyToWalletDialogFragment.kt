@@ -66,7 +66,7 @@ class AddMoneyToWalletDialogFragment : BaseBottomSheetDialogFragment() {
                                     stringId = R.string.money_added_success,
                                     drawableId = R.drawable.ic_round_check_circle_24,
                                     anchorViewId = anchorViewId,
-                                    color = NoteColor.Success,
+                                    color = AppColor.Success,
                                 )
                                 this@AddMoneyToWalletDialogFragment::dismiss.withDelay(ConstantDelay.NAVIGATION_DELAY)
                             }
@@ -78,7 +78,7 @@ class AddMoneyToWalletDialogFragment : BaseBottomSheetDialogFragment() {
                                     stringId = R.string.payment_failed,
                                     drawableId = R.drawable.ic_round_error_24,
                                     anchorViewId = anchorViewId,
-                                    color = NoteColor.Error,
+                                    color = AppColor.Error,
                                     vibrate = true
                                 )
                             }
@@ -106,7 +106,7 @@ class AddMoneyToWalletDialogFragment : BaseBottomSheetDialogFragment() {
                 stringId = R.string.details_missing,
                 anchorViewId = anchorViewId,
                 drawableId = R.drawable.ic_round_error_24,
-                color = NoteColor.Error,
+                color = AppColor.Error,
                 vibrate = true
             )
             tilAmount.error = getString(R.string.empty_amount)

@@ -134,7 +134,7 @@ class BookingPaymentDialogFragment(
                         stringId = R.string.insufficiant_amount,
                         anchorViewId = anchorViewId,
                         drawableId = R.drawable.ic_round_error_24,
-                        color = NoteColor.Error,
+                        color = AppColor.Error,
                         vibrate = true
                     )
                     return
@@ -145,7 +145,7 @@ class BookingPaymentDialogFragment(
                         stringId = R.string.details_missing,
                         anchorViewId = anchorViewId,
                         drawableId = R.drawable.ic_round_error_24,
-                        color = NoteColor.Error,
+                        color = AppColor.Error,
                         vibrate = true
                     )
                     layoutBankCardInput.tilName.error = getString(R.string.empty_name)
@@ -259,7 +259,7 @@ class BookingPaymentDialogFragment(
                             stringId = R.string.booking_success,
                             drawableId = R.drawable.ic_round_check_circle_24,
                             anchorViewId = anchorViewId,
-                            color = NoteColor.Success,
+                            color = AppColor.Success,
                         )
                         ::navigateWithDelay.withDelay(ConstantDelay.NAVIGATION_DELAY)
                     } else {
@@ -267,7 +267,7 @@ class BookingPaymentDialogFragment(
                             stringId = R.string.booking_failed,
                             drawableId = R.drawable.ic_round_error_24,
                             anchorViewId = anchorViewId,
-                            color = NoteColor.Error,
+                            color = AppColor.Error,
                             vibrate = true
                         )
                     }
@@ -277,7 +277,7 @@ class BookingPaymentDialogFragment(
                         stringId = R.string.booking_failed,
                         drawableId = R.drawable.ic_round_error_24,
                         anchorViewId = anchorViewId,
-                        color = NoteColor.Error,
+                        color = AppColor.Error,
                         vibrate = true
                     )
                 }

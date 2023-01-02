@@ -231,7 +231,7 @@ fun View.snackbar(
     @StringRes stringId: Int,
     @DrawableRes drawableId: Int? = null,
     @IdRes anchorViewId: Int? = null,
-    color: NoteColor? = null,
+    color: AppColor? = null,
     vararg formatArgs: Any? = emptyArray(),
     vibrate: Boolean = false,
 ) = Snackbar.make(this, context.stringResource(stringId, *formatArgs), Snackbar.LENGTH_SHORT).apply {
@@ -264,7 +264,7 @@ fun View.snackbar(
     string: String,
     @DrawableRes drawableId: Int? = null,
     @IdRes anchorViewId: Int? = null,
-    color: NoteColor? = null,
+    color: AppColor? = null,
     vararg formatArgs: Any? = emptyArray(),
     vibrate: Boolean = false,
 ) = Snackbar.make(this, string, Snackbar.LENGTH_SHORT).apply {
@@ -301,7 +301,7 @@ fun View.snackbar(
         setBackgroundTint(context.colorAttributeResource(R.attr.appPrimaryColor))
         setTextColor(context.colorAttributeResource(R.attr.appBackgroundColor))
     } else {
-        setBackgroundTint(context.colorResource(app.noteColor.toResource()))
+        setBackgroundTint(context.colorResource(app.appColor.toResource()))
         setTextColor(context.colorAttributeResource(R.attr.appBackgroundColor))
     }
     val params = view.layoutParams as? CoordinatorLayout.LayoutParams

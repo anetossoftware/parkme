@@ -196,7 +196,7 @@ class HomeFragment : BaseFragment() {
                         stringId = R.string.logout_successful,
                         drawableId = R.drawable.ic_round_check_circle_24,
                         anchorViewId = anchorViewId,
-                        color = NoteColor.Success,
+                        color = AppColor.Success,
                         vibrate = true
                     )
                     confirmationDialogFragment.dismiss()
@@ -273,7 +273,7 @@ class HomeFragment : BaseFragment() {
                             stringId = R.string.booking_cancel_success,
                             drawableId = R.drawable.ic_round_check_circle_24,
                             anchorViewId = anchorViewId,
-                            color = NoteColor.Success,
+                            color = AppColor.Success,
                         )
                         ::navigateWithDelay.withDelay(ConstantDelay.NAVIGATION_DELAY)
                     } else {
@@ -281,7 +281,7 @@ class HomeFragment : BaseFragment() {
                             stringId = R.string.booking_cancel_failed,
                             drawableId = R.drawable.ic_round_error_24,
                             anchorViewId = anchorViewId,
-                            color = NoteColor.Error,
+                            color = AppColor.Error,
                             vibrate = true
                         )
                     }
@@ -291,7 +291,7 @@ class HomeFragment : BaseFragment() {
                         stringId = R.string.booking_cancel_failed,
                         drawableId = R.drawable.ic_round_error_24,
                         anchorViewId = anchorViewId,
-                        color = NoteColor.Error,
+                        color = AppColor.Error,
                         vibrate = true
                     )
                 }

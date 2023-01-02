@@ -64,7 +64,7 @@ class ProfileFragment : Fragment() {
                                     stringId = R.string.success_profile_update,
                                     drawableId = R.drawable.ic_round_check_circle_24,
                                     anchorViewId = anchorViewId,
-                                    color = NoteColor.Success,
+                                    color = AppColor.Success,
                                 )
                                 disableProfile()
                             }
@@ -76,7 +76,7 @@ class ProfileFragment : Fragment() {
                                     stringId = R.string.failure_profile_update,
                                     drawableId = R.drawable.ic_round_error_24,
                                     anchorViewId = anchorViewId,
-                                    color = NoteColor.Error,
+                                    color = AppColor.Error,
                                     vibrate = true
                                 )
                             }
@@ -201,7 +201,7 @@ class ProfileFragment : Fragment() {
                 stringId = R.string.details_missing,
                 anchorViewId = anchorViewId,
                 drawableId = R.drawable.ic_round_error_24,
-                color = NoteColor.Error,
+                color = AppColor.Error,
                 vibrate = true
             )
             tilName.error = getString(R.string.empty_name)
