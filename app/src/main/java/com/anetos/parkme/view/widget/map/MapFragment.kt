@@ -125,7 +125,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowLo
                         stringId = R.string.logout_successful,
                         drawableId = R.drawable.ic_round_check_circle_24,
                         anchorViewId = anchorViewId,
-                        color = NoteColor.Success,
+                        color = AppColor.Success,
                         vibrate = true
                     )
                     confirmationDialogFragment.dismiss()
@@ -248,7 +248,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowLo
             string = "Just click to book.",
             drawableId = R.drawable.ic_round_error_24,
             anchorViewId = anchorViewId,
-            color = NoteColor.Yellow,
+            color = AppColor.Yellow,
             vibrate = true
         )
     }
@@ -301,7 +301,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowLo
                     string = ERROR_PARKING_OCCUPIED,
                     drawableId = R.drawable.ic_round_error_24,
                     anchorViewId = anchorViewId,
-                    color = NoteColor.Error,
+                    color = AppColor.Error,
                     vibrate = true
                 )
             }

@@ -30,30 +30,30 @@ fun Context.tryLoadingFontResource(@FontRes id: Int) = try {
     null
 }
 
-fun NoteColor.toResource(): Int = when (this) {
-    NoteColor.Blue -> R.color.colorAccentBlue
-    NoteColor.Gray -> R.color.colorAccentGray
-    NoteColor.Pink -> R.color.colorAccentPink
-    NoteColor.Cyan -> R.color.colorAccentCyan
-    NoteColor.Purple -> R.color.colorAccentPurple
-    NoteColor.Red -> R.color.colorAccentRed
-    NoteColor.Yellow -> R.color.colorAccentYellow
-    NoteColor.Orange -> R.color.colorAccentOrange
-    NoteColor.Green -> R.color.colorAccentGreen
-    NoteColor.Brown -> R.color.colorAccentBrown
-    NoteColor.BlueGray -> R.color.colorAccentBlueGray
-    NoteColor.Teal -> R.color.colorAccentTeal
-    NoteColor.Indigo -> R.color.colorAccentIndigo
-    NoteColor.DeepPurple -> R.color.colorAccentDeepPurple
-    NoteColor.DeepOrange -> R.color.colorAccentDeepOrange
-    NoteColor.DeepGreen -> R.color.colorAccentDeepGreen
-    NoteColor.LightBlue -> R.color.colorAccentLightBlue
-    NoteColor.LightGreen -> R.color.colorAccentLightGreen
-    NoteColor.LightRed -> R.color.colorAccentLightRed
-    NoteColor.LightPink -> R.color.colorAccentLightPink
-    NoteColor.Black -> R.color.colorAccentBlack
-    NoteColor.Error -> R.color.error
-    NoteColor.Success -> R.color.success
+fun AppColor.toResource(): Int = when (this) {
+    AppColor.Blue -> R.color.colorAccentBlue
+    AppColor.Gray -> R.color.colorAccentGray
+    AppColor.Pink -> R.color.colorAccentPink
+    AppColor.Cyan -> R.color.colorAccentCyan
+    AppColor.Purple -> R.color.colorAccentPurple
+    AppColor.Red -> R.color.colorAccentRed
+    AppColor.Yellow -> R.color.colorAccentYellow
+    AppColor.Orange -> R.color.colorAccentOrange
+    AppColor.Green -> R.color.colorAccentGreen
+    AppColor.Brown -> R.color.colorAccentBrown
+    AppColor.BlueGray -> R.color.colorAccentBlueGray
+    AppColor.Teal -> R.color.colorAccentTeal
+    AppColor.Indigo -> R.color.colorAccentIndigo
+    AppColor.DeepPurple -> R.color.colorAccentDeepPurple
+    AppColor.DeepOrange -> R.color.colorAccentDeepOrange
+    AppColor.DeepGreen -> R.color.colorAccentDeepGreen
+    AppColor.LightBlue -> R.color.colorAccentLightBlue
+    AppColor.LightGreen -> R.color.colorAccentLightGreen
+    AppColor.LightRed -> R.color.colorAccentLightRed
+    AppColor.LightPink -> R.color.colorAccentLightPink
+    AppColor.Black -> R.color.colorAccentBlack
+    AppColor.Error -> R.color.error
+    AppColor.Success -> R.color.success
 }
 
 val Number.dp

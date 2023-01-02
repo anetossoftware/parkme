@@ -4,7 +4,7 @@ import android.os.Parcel
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.anetos.parkme.core.helper.NoteColor
+import com.anetos.parkme.core.helper.AppColor
 
 
 @Entity
@@ -18,7 +18,7 @@ class Note() : Parcelable {
     var noteBody: String = String()
     var completed = false
     var creationDate: String? = null
-    var noteColor: NoteColor = NoteColor.Gray
+    var appColor: AppColor = AppColor.Gray
 
     constructor(parcel: Parcel) : this() {
         id = parcel.readInt()
