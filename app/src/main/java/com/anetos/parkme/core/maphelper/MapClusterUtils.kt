@@ -61,4 +61,8 @@ class MapClusterItem(private val place: ParkingSpot, snippet: String) : ClusterI
     override fun getSnippet(): String {
         return mSnippet
     }
+
+    override fun getZIndex(): Float {
+        TODO("Not yet implemented")
+    }
 }

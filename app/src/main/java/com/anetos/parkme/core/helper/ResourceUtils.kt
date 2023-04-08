@@ -54,6 +54,7 @@ fun AppColor.toResource(): Int = when (this) {
     AppColor.Black -> R.color.colorAccentBlack
     AppColor.Error -> R.color.error
     AppColor.Success -> R.color.success
+    else -> 0
 }
 
 val Number.dp

@@ -63,9 +63,9 @@
     <color name="colorTab">@color/colorWhite</color>
     <color name="colorTabBackground">@color/colorWhite</color>
     <color name="colorViewBackground">@color/colorTeal</color>
-    <color name="colorRecyclerLineDivider">@color/colorPrimaryDark</color>
+    <color name="colorRecyclerLineDivider">?attr/appPrimaryColor</color>
     <color name="colorLineDivider">@color/colorYellow</color>
-    <color name="colorTabTint">@color/colorAccent</color>
+    <color name="colorTabTint">?attr/appBackgroundColor</color>
     <color name="logoColor">#1a73e8</color>
 
     <color name="transparant">#D5131313</color>
