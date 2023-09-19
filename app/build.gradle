@@ -59,7 +59,7 @@ android {
             }*/
         }
         debug {
-            applicationIdSuffix ".debug"
+            //applicationIdSuffix ".debug"
             //signingConfig signingConfigs.debug_signing_keys
             buildConfigField 'String', 'ENVIRON', '"uat"'
             minifyEnabled false
@@ -67,14 +67,14 @@ android {
             shrinkResources false
             zipAlignEnabled true
             debuggable true
-            applicationVariants.all { variant ->
-                variant.outputs.all {
-                    def formattedDate = new Date().format('HH_mm')
-                    def flavor = variant.name
-                    def versionName = variant.versionName
-                    outputFileName = "${rootProject.getName()}_${formattedDate}-${flavor}-v${versionName}.apk"
-                }
-            }
+//            applicationVariants.all { variant ->
+//                variant.outputs.all {
+//                    def formattedDate = new Date().format('HH_mm')
+//                    def flavor = variant.name
+//                    def versionName = variant.versionName
+//                    outputFileName = "${rootProject.getName()}_${formattedDate}-${flavor}-v${versionName}.apk"
+//                }
+//            }
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             manifestPlaceholders = [app_name: "Parkme - Debug"]
         }
@@ -111,7 +111,7 @@ android {
             buildConfigField 'String', 'CONCEPT', '"user"'
             buildConfigField 'String', 'BASE_URL', '"http://"'
             buildConfigField "Boolean", "SHOW_VERSION_TOAST", 'true'
-            signingConfig signingConfigs.release
+            //signingConfig signingConfigs.release
             //Release keys for one signal
             manifestPlaceholders = [
                     ENABLE_CLEARTEXT_TRAFFIC: "false",
