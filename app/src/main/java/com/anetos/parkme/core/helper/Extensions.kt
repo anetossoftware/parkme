@@ -409,8 +409,12 @@ const val SwipeGestureThreshold = 100F
 @SuppressLint("ClickableViewAccessibility")
 inline fun BottomAppBar.setOnSwipeGestureListener(crossinline callback: () -> Unit) {
     val gestureListener = object : GestureDetector.SimpleOnGestureListener() {
-        override fun onFling(e1: MotionEvent, e2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {
-            val diffY = (e2.y ?: 0F) - (e1.y ?: 0F)
+        override fun onFling(
+            e1: MotionEvent?,
+            e2: MotionEvent,
+            velocityX: Float,
+            velocityY: Float): Boolean {
+            val diffY = e2.y - (e1?.y ?: 0F)
             return if (diffY.absoluteValue > SwipeGestureThreshold) {
                 callback()
                 true
