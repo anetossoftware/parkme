@@ -93,7 +93,7 @@ android {
             buildConfigField 'String', 'CONCEPT', '"user"'
             buildConfigField 'String', 'BASE_URL', '"http://"'
             buildConfigField "Boolean", "SHOW_VERSION_TOAST", 'true'
-            signingConfig signingConfigs.release
+            //signingConfig signingConfigs.release
             //Release keys for one signal
             manifestPlaceholders = [
                     ENABLE_CLEARTEXT_TRAFFIC: "false",
