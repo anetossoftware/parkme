@@ -29,20 +29,20 @@ android {
     }
 
 
-    signingConfigs {
-        release {
-            storeFile file("../keystore/PARKME")
-            storePassword 'Parkme@123'
-            keyAlias "anetos"
-            keyPassword 'Parkme@123'
-        }
-        debug_signing_keys {
-            storeFile file("../keystore/PARKME")
-            storePassword 'Parkme@123'
-            keyAlias "anetos"
-            keyPassword 'Parkme@123'
-        }
-    }
+//    signingConfigs {
+//        release {
+//            storeFile file("../keystore/PARKME")
+//            storePassword 'Parkme@123'
+//            keyAlias "anetos"
+//            keyPassword 'Parkme@123'
+//        }
+//        debug_signing_keys {
+//            storeFile file("../keystore/PARKME")
+//            storePassword 'Parkme@123'
+//            keyAlias "anetos"
+//            keyPassword 'Parkme@123'
+//        }
+//    }
     buildTypes {
         release {
             buildConfigField 'String', 'ENVIRON', '"prod"'
