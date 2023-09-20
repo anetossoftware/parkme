@@ -54,12 +54,6 @@ android {
                 mappingFileUploadEnabled false
             }*/
         }
-        debug {
-            //applicationIdSuffix ".debug"
-            //signingConfig signingConfigs.debug_signing_keys
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-            manifestPlaceholders["app_name"] = "Parkme-Debug"
-        }
     }
 
 
