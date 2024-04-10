@@ -21,8 +21,6 @@ class MyApplication : Application() {
         context = applicationContext
 
         FirebaseApp.initializeApp(this)
-        //FirebaseAnalytics.getInstance(this).setAnalyticsCollectionEnabled(false)
-
         // Obtain the FirebaseAnalytics instance.
         firebaseAnalytics = Firebase.analytics
         firebaseAnalytics.setAnalyticsCollectionEnabled(true)
