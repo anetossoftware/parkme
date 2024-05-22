@@ -35,3 +35,14 @@ parking app
 5. Refund Model
 6. Push Notifications
 7. Admin Control
+
+
+1. gradle(task: "clean assembleRelease") will create a Release Apk
+
+2. gradle( task: "assemble", // assemble is used for building apks
+   flavor: "qa", // define your flavours here
+   build_type: "Release" ) will create a relase apk
+
+3. gradle( task: "bundle", //for generating AAB
+   flavor: "qa", //your app flavour
+   build_type: "Debug" ) // will create a debug version of your app bundle

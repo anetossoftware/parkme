@@ -1,0 +1,58 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:android)
+
+platform :android do
+  desc "Runs all the tests"
+  lane :test do
+    gradle(task: "test")
+  end
+
+  desc "This lane uploads QA build to app tester"
+  lane :beta do
+    gradle(
+        task: "clean assemble", # assemble is used for building apks
+        flavor: "Parkme", # define your flavours here
+        build_type: "Release", # will create a Release version of your app bundle,
+        properties: {
+            "android.injected.signing.store.file" => ENV["KEYSTORE_FILE"],
+            "android.injected.signing.store.password" => ENV["KEYSTORE_PASSWORD"],
+            "android.injected.signing.key.alias" => ENV["KEY_ALIAS"],
+            "android.injected.signing.key.password" => ENV["KEY_PASSWORD"],
+        }
+    )
+    firebase_app_distribution(
+        service_credentials_file: ENV["FIREBASE_DISTRIBUTION_KEY"],
+        app: "1:926440502655:android:e18adb9a64bdb4906ad64a",
+        release_notes: "Lots of amazing new features to test out!",
+        groups: "qa-test"
+    )
+  
+    # sh "your_script.sh"
+    # You can also use other beta testing services here
+  end
+
+  desc "Deploy a new version to the Google Play"
+  lane :deploy do
+    gradle(task: "clean assembleParkmeRelease") # Will create a Release APK
+    firebase_app_distribution(
+            service_credentials_file: "firebase-distribution-key.json",
+            app: "1:926440502655:android:e18adb9a64bdb4906ad64a",
+            release_notes: "Lots of amazing new features to test out!",
+            groups: "qa-test"
+        )
+  end
+end
