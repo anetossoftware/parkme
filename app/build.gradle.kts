@@ -1,7 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.jetbrains.kotlin.android)
-    kotlin("kapt")
+    alias(libs.plugins.org.jetbrains.kotlin.android)
+    alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.ksp)
     alias(libs.plugins.androidx.navigation.safeargs)
     alias(libs.plugins.dagger.hilt.android)
     alias(libs.plugins.google.gms.google.services)
@@ -79,13 +80,16 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.14"
+    composeCompiler {
+        enableStrongSkippingMode = true
+
+//        reportsDestination = layout.buildDirectory.dir("compose_compiler")
+//        stabilityConfigurationFile = rootProject.layout.projectDirectory.file("stability_config.conf")
     }
-    lint {
-        abortOnError = false
-        checkReleaseBuilds = false
-    }
+//    lint {
+//        abortOnError = false
+//        checkReleaseBuilds = false
+//    }
     testOptions {
         unitTests {
             //includeAndroidResources = true
@@ -149,7 +153,7 @@ dependencies {
 
     //room Database
     implementation(libs.androidx.room.runtime)
-    kapt(libs.androidx.room.compiler)
+    ksp(libs.androidx.room.compiler)
     // Kotlin Extensions and Coroutines support for Room
     implementation(libs.androidx.room.ktx)
 
@@ -206,17 +210,15 @@ dependencies {
 
     //Dagger - Hilt
     implementation(libs.hilt.android)
-    kapt(libs.hilt.compiler)
+    ksp(libs.hilt.compiler)
 
     // For instrumentation tests
     androidTestImplementation(libs.hilt.android.testing)
-    kaptAndroidTest(libs.hilt.compiler.v245)
 
     // For local unit tests
-    testImplementation(libs.hilt.android.testing.v245)
-    kaptTest(libs.hilt.compiler)
+    testImplementation(libs.hilt.android.testing)
 }
 // Allow references to generated code
-kapt {
-    correctErrorTypes = true
+ksp {
+    arg("correctErrorTypes", "true")
 }

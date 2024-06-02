@@ -1,7 +1,6 @@
 package com.anetos.parkme.view
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -9,10 +8,11 @@ import androidx.appcompat.app.AppCompatActivity
 import com.anetos.parkme.core.helper.Navigator
 import com.anetos.parkme.core.helper.SharedPreferenceHelper
 import com.anetos.parkme.databinding.ActivitySplashBinding
-import com.anetos.parkme.view.widget.login_register.LoginActivity
 import com.google.firebase.messaging.FirebaseMessaging
+import dagger.hilt.android.AndroidEntryPoint
 
 @SuppressLint("CustomSplashScreen")
+@AndroidEntryPoint
 class SplashActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySplashBinding
