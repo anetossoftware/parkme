@@ -70,6 +70,35 @@
           ]
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:926440502655:android:367282a091e02fde6ad64a",
+        "android_client_info": {
+          "package_name": "com.anetos.parkme.qut"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "926440502655-kj1uvegk74c4bn6b5uhqpr7qtmrkif04.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAnr4MZjZygQc8-87OJT3FfeD9s02EGTlA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "926440502655-kj1uvegk74c4bn6b5uhqpr7qtmrkif04.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
     }
   ],
   "configuration_version": "1"

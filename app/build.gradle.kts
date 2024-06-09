@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.org.jetbrains.kotlin.android)
@@ -9,6 +11,17 @@ plugins {
     alias(libs.plugins.google.firebase.crashlytics)
 }
 
+val localProperties = Properties().apply {
+    if (project.rootProject.file("local.properties").exists()) {
+        load(project.rootProject.file("local.properties").inputStream())
+    }
+}
+
+val showUiLog = System.getenv("SHOW_UI_LOG") ?: localProperties["SHOW_UI_LOG"] as String
+val keyStoreFile = System.getenv("KEYSTORE_FILE") ?: localProperties["signing.wholesale.debug.file"] as String
+val keyStoreAlias = System.getenv("KEY_ALIAS") ?: localProperties["signing.wholesale.debug.alias"] as String
+val keyStorePassword = System.getenv("KEY_PASSWORD") ?: localProperties["signing.wholesale.debug.password"] as String
+
 android {
     namespace = "com.anetos.parkme"
     compileSdk = 34
@@ -18,7 +31,7 @@ android {
         minSdk = 29
         targetSdk = 34
         versionCode = 1
-        versionName = "1.0"
+        versionName = "1.0.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         //vectorDrawables.useSupportLibrary = true
@@ -30,14 +43,15 @@ android {
 
     signingConfigs {
         create("release") {
-            storeFile = file("../keystore/PARKME")
-            storePassword = "Parkme@123"
-            keyAlias = "anetos"
-            keyPassword = "Parkme@123"
+            storeFile = file(keyStoreFile)
+            storePassword = keyStorePassword
+            keyAlias = keyStoreAlias
+            keyPassword = keyStorePassword
         }
     }
     buildTypes {
         release {
+            signingConfig = signingConfigs.getByName("release")
             isShrinkResources = true
             isMinifyEnabled = true
             proguardFiles(
@@ -51,21 +65,11 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
             manifestPlaceholders["app_name"] = "Parkme"
         }
-    }
-
-    flavorDimensions += "version"
-    productFlavors {
-        create("dev") {
+        create("qut") {
+            applicationIdSuffix = ".qut"
+            signingConfig = signingConfigs.getByName("release")
             buildConfigField("Boolean", "SHOW_VERSION_TOAST", "true")
-            //signingConfig signingConfigs.release
-            //Release keys for one signal
-            manifestPlaceholders["ENABLE_CLEARTEXT_TRAFFIC"] = "false"
-
-            //resConfigs "ldltr", "en"
-        }
-        create("prod") {
-            buildConfigField("Boolean", "SHOW_VERSION_TOAST", "true")
-            //signingConfig signingConfigs.release
+            manifestPlaceholders["app_name"] = "Parkme - qut"
             //Release keys for one signal
             manifestPlaceholders["ENABLE_CLEARTEXT_TRAFFIC"] = "false"
 

@@ -1,0 +1,98 @@
+name: Build QUT with Firebase CLI
+on:
+  push:
+    branches:
+      - 'QUT/**'
+      - '**'
+jobs:
+  build:
+    name: build Qut Apk
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'adopt'
+          cache: gradle
+
+      - name: Get build flavor
+        run: |
+          ENV=Qut
+          echo BUILD_ENV=$ENV >> $GITHUB_ENV
+
+      - name: Decode base64 and save debug keystore
+        run: |
+          echo "${{ secrets.KEYSTORE_FILE_DEBUG }}" | base64 -d > android-debug.keystore
+          echo "KEYSTORE_FILE=$PWD/android-debug.keystore" >> $GITHUB_ENV
+          ls -l $PWD/android-debug.keystore
+
+      - name: Verify keystore files
+        run: |
+          ls -l ${{ env.KEYSTORE_FILE }}
+          ls -l $PWD/android-debug.keystore
+
+      - name: Set up environment variables
+        run: |
+          echo BASE_URL=${{ secrets.BASE_URL_QUT }}  >> $GITHUB_ENV
+          echo MAPS_API_KEY=${{ secrets.MAPS_API_KEY }}  >> $GITHUB_ENV
+          echo SHOW_UI_LOG=${{ secrets.SHOW_UI_LOG_DEBUG }} >> $GITHUB_ENV
+          echo KEY_ALIAS=${{ secrets.KEY_ALIAS_DEBUG }}  >> $GITHUB_ENV
+          echo KEY_PASSWORD=${{ secrets.KEYSTORE_PASSWORD_DEBUG }}  >> $GITHUB_ENV
+
+      - name: Get FULL_DATE
+        run: |
+          echo FULL_DATE=$(TZ="Canada/Eastern" date) >> $GITHUB_ENV
+
+      - name: Get SHORT_DATE
+        run: |
+          echo SHORT_DATE=$(TZ="Canada/Eastern" date +%Y%m%d%H) >> $GITHUB_ENV
+
+      # this gets the first 6 characters of the git hash, used for labelling
+      - name: Get short hash
+        run: |
+          short=${GITHUB_SHA::6}
+          echo SHORT_HASH=$short >> $GITHUB_ENV
+
+      - name: Echo env for logs
+        run: |
+          echo BUILD_ENV=$BUILD_ENV
+          echo SHORT_HASH=$SHORT_HASH
+
+      - name: Cache Gradle packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
+          restore-keys: ${{ runner.os }}-gradle
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Clean Gradle
+        run: ./gradlew clean
+
+      # For qut should be update to APK
+      - name: Compile and Build
+        run: ./gradlew assemble${{ env.BUILD_ENV }}Release
+
+      - name: Show Result files
+        run: ls ./app/build/outputs/apk/qut/release/
+
+      - name: Install Firebase Tools
+        run: curl -sL https://firebase.tools | bash
+
+      - name: Get Firebase Tools Version
+        run: firebase --version
+
+        ## For qut should be update to APK
+      - name: Publish App to Firebase App Distribution
+        run: firebase appdistribution:distribute
+          --token ${{ secrets.FIREBASE_TOKEN }}
+          ./app/build/outputs/apk/qut/release/app-qut-release.apk
+          --app ${{ secrets.FIREBASE_APP_ID_QUT }}
+          --release-notes "${{ github.event.head_commit.message }}"
+          --groups "QUT"
