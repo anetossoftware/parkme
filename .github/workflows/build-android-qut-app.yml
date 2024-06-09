@@ -26,30 +26,29 @@ jobs:
 
       - name: Decode base64 and save debug keystore
         run: |
-          echo "${{ secrets.KEYSTORE_FILE_DEBUG }}" | base64 -d > android-debug.keystore
+          echo "${{ secrets.KEYSTORE_FILE }}" | base64 -d > android-debug.keystore
           echo "KEYSTORE_FILE=$PWD/android-debug.keystore" >> $GITHUB_ENV
           ls -l $PWD/android-debug.keystore
 
-      - name: Verify keystore files
+      - name: Decode base64 and save release google credential
+        run: |
+          echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" | base64 -d > GOOGLE_APPLICATION_CREDENTIALS.json
+          echo "GOOGLE_APPLICATION_CREDENTIALS=$PWD/GOOGLE_APPLICATION_CREDENTIALS.json" >> $GITHUB_ENV
+          ls -l $PWD/GOOGLE_APPLICATION_CREDENTIALS.json  
+
+      - name: Verify generated files
         run: |
           ls -l ${{ env.KEYSTORE_FILE }}
           ls -l $PWD/android-debug.keystore
+          ls -l ${{ env.GOOGLE_APPLICATION_CREDENTIALS }}
+          ls -l $PWD/GOOGLE_APPLICATION_CREDENTIALS.json
 
       - name: Set up environment variables
         run: |
-          echo BASE_URL=${{ secrets.BASE_URL_QUT }}  >> $GITHUB_ENV
           echo MAPS_API_KEY=${{ secrets.MAPS_API_KEY }}  >> $GITHUB_ENV
           echo SHOW_UI_LOG=${{ secrets.SHOW_UI_LOG_DEBUG }} >> $GITHUB_ENV
-          echo KEY_ALIAS=${{ secrets.KEY_ALIAS_DEBUG }}  >> $GITHUB_ENV
-          echo KEY_PASSWORD=${{ secrets.KEYSTORE_PASSWORD_DEBUG }}  >> $GITHUB_ENV
-
-      - name: Get FULL_DATE
-        run: |
-          echo FULL_DATE=$(TZ="Canada/Eastern" date) >> $GITHUB_ENV
-
-      - name: Get SHORT_DATE
-        run: |
-          echo SHORT_DATE=$(TZ="Canada/Eastern" date +%Y%m%d%H) >> $GITHUB_ENV
+          echo KEY_ALIAS=${{ secrets.KEY_ALIAS }}  >> $GITHUB_ENV
+          echo KEY_PASSWORD=${{ secrets.KEYSTORE_PASSWORD }}  >> $GITHUB_ENV
 
       # this gets the first 6 characters of the git hash, used for labelling
       - name: Get short hash
@@ -77,10 +76,12 @@ jobs:
 
       # For qut should be update to APK
       - name: Compile and Build
-        run: ./gradlew assemble${{ env.BUILD_ENV }}Release
+        #run: ./gradlew bundle${{ env.BUILD_ENV }}
+        run: ./gradlew assemble${{ env.BUILD_ENV }}
 
       - name: Show Result files
-        run: ls ./app/build/outputs/apk/qut/release/
+        #run: ls ./app/build/outputs/bundle/qut/
+        run: ls ./app/build/outputs/apk/qut/
 
       - name: Install Firebase Tools
         run: curl -sL https://firebase.tools | bash
@@ -91,8 +92,7 @@ jobs:
         ## For qut should be update to APK
       - name: Publish App to Firebase App Distribution
         run: firebase appdistribution:distribute
-          --token ${{ secrets.FIREBASE_TOKEN }}
-          ./app/build/outputs/apk/qut/release/app-qut-release.apk
+          ./app/build/outputs/apk/qut/app-qut.apk
           --app ${{ secrets.FIREBASE_APP_ID_QUT }}
           --release-notes "${{ github.event.head_commit.message }}"
           --groups "QUT"

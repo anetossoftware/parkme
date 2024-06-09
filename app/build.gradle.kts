@@ -1,4 +1,7 @@
+import java.text.SimpleDateFormat
+import java.util.Date
 import java.util.Properties
+import java.util.TimeZone
 
 plugins {
     alias(libs.plugins.android.application)
@@ -18,9 +21,9 @@ val localProperties = Properties().apply {
 }
 
 val showUiLog = System.getenv("SHOW_UI_LOG") ?: localProperties["SHOW_UI_LOG"] as String
-val keyStoreFile = System.getenv("KEYSTORE_FILE") ?: localProperties["signing.wholesale.debug.file"] as String
-val keyStoreAlias = System.getenv("KEY_ALIAS") ?: localProperties["signing.wholesale.debug.alias"] as String
-val keyStorePassword = System.getenv("KEY_PASSWORD") ?: localProperties["signing.wholesale.debug.password"] as String
+val keyStoreFile = System.getenv("KEYSTORE_FILE") ?: localProperties["signing.app.debug.file"] as String
+val keyStoreAlias = System.getenv("KEY_ALIAS") ?: localProperties["signing.app.debug.alias"] as String
+val keyStorePassword = System.getenv("KEY_PASSWORD") ?: localProperties["signing.app.debug.password"] as String
 
 android {
     namespace = "com.anetos.parkme"
@@ -30,7 +33,7 @@ android {
         applicationId = "com.anetos.parkme"
         minSdk = 29
         targetSdk = 34
-        versionCode = 1
+        versionCode = getDate()
         versionName = "1.0.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -39,6 +42,9 @@ android {
             useSupportLibrary = true
         }
         multiDexEnabled = true
+
+        manifestPlaceholders["MAPS_API_KEY"] =
+            System.getenv("MAPS_API_KEY") ?: localProperties["MAPS_API_KEY"] as String
     }
 
     signingConfigs {
@@ -63,13 +69,13 @@ android {
         debug {
             isDebuggable = true
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
-            manifestPlaceholders["app_name"] = "Parkme"
+            manifestPlaceholders["app_name"] = "Parkme-debug"
         }
         create("qut") {
             applicationIdSuffix = ".qut"
             signingConfig = signingConfigs.getByName("release")
             buildConfigField("Boolean", "SHOW_VERSION_TOAST", "true")
-            manifestPlaceholders["app_name"] = "Parkme - qut"
+            manifestPlaceholders["app_name"] = "Parkme-qut"
             //Release keys for one signal
             manifestPlaceholders["ENABLE_CLEARTEXT_TRAFFIC"] = "false"
 
@@ -205,6 +211,7 @@ dependencies {
     implementation(libs.core.ktx)
     //country code
     implementation(libs.ccp)
+    implementation(libs.kotlinx.serialization.json)
     //datetime
     implementation(libs.kotlinx.datetime)
     implementation(libs.androidx.navigation.fragment.ktx)
@@ -225,4 +232,19 @@ dependencies {
 // Allow references to generated code
 ksp {
     arg("correctErrorTypes", "true")
+}
+
+fun getDate(): Int {
+    val today = Date()
+
+    val yearMonDay = SimpleDateFormat("yyyyMMdd")
+    yearMonDay.timeZone = TimeZone.getTimeZone("EST")
+
+    val hours = SimpleDateFormat("HH")
+    hours.timeZone = TimeZone.getTimeZone("EST")
+
+    val generatedVersionCode = (yearMonDay.format(today) + hours.format(today)).toInt()
+
+    println("Generated versionCode: $generatedVersionCode")
+    return generatedVersionCode
 }

@@ -27,7 +27,7 @@ class MyApplication : Application() {
         firebaseAnalytics = Firebase.analytics
         firebaseAnalytics.setAnalyticsCollectionEnabled(true)
         MapsInitializer.initialize(this)
-        Places.initialize(this, getString(R.string.google_maps_key), Locale.US)
+        //Places.initialize(this, BuildConfig.MAPS_API_KEY, Locale.US)
     }
 
     fun getAppContext(): Context {

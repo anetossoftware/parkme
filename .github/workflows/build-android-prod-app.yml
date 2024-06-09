@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - 'release/**'
+      #- '**'
 jobs:
   build:
     name: build Prod Bundle
@@ -29,26 +30,25 @@ jobs:
           echo "KEYSTORE_FILE=$PWD/android-release.keystore" >> $GITHUB_ENV
           ls -l $PWD/android-release.keystore
 
-      - name: Verify keystore files
+      - name: Decode base64 and save release google credential
+        run: |
+          echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" | base64 -d > GOOGLE_APPLICATION_CREDENTIALS.json
+          echo "GOOGLE_APPLICATION_CREDENTIALS=$PWD/GOOGLE_APPLICATION_CREDENTIALS.json" >> $GITHUB_ENV
+          ls -l $PWD/GOOGLE_APPLICATION_CREDENTIALS.json  
+
+      - name: Verify generated files
         run: |
           ls -l ${{ env.KEYSTORE_FILE }}
           ls -l $PWD/android-release.keystore
+          ls -l ${{ env.GOOGLE_APPLICATION_CREDENTIALS }}
+          ls -l $PWD/GOOGLE_APPLICATION_CREDENTIALS.json
 
       - name: Set up environment variables
         run: |
-          echo BASE_URL=${{ secrets.BASE_URL }}  >> $GITHUB_ENV
           echo MAPS_API_KEY=${{ secrets.MAPS_API_KEY }}  >> $GITHUB_ENV
           echo SHOW_UI_LOG=${{ secrets.SHOW_UI_LOG }} >> $GITHUB_ENV
           echo KEY_ALIAS=${{ secrets.KEY_ALIAS }}  >> $GITHUB_ENV
           echo KEY_PASSWORD=${{ secrets.KEYSTORE_PASSWORD }}  >> $GITHUB_ENV
-
-      - name: Get FULL_DATE
-        run: |
-          echo FULL_DATE=$(TZ="Canada/Eastern" date) >> $GITHUB_ENV
-
-      - name: Get SHORT_DATE
-        run: |
-          echo SHORT_DATE=$(TZ="Canada/Eastern" date +%Y%m%d%H) >> $GITHUB_ENV
 
       # this gets the first 6 characters of the git hash, used for labelling
       - name: Get short hash
@@ -76,10 +76,10 @@ jobs:
 
       # For prod should be update to AAB
       - name: Compile and Build
-        run: ./gradlew bundle${{ env.BUILD_ENV }}Release
+        run: ./gradlew bundleRelease
 
       - name: Show Result files
-        run: ls ./app/build/outputs/bundle/prodRelease/
+        run: ls ./app/build/outputs/bundle/release/
 
       - name: Install Firebase Tools
         run: curl -sL https://firebase.tools | bash
@@ -87,11 +87,13 @@ jobs:
       - name: Get Firebase Tools Version
         run: firebase --version
 
+      - name: Verify Firebase Authentication
+        run: firebase projects:list
+
         ## For prod should be update to AAB
       - name: Publish App to Firebase App Distribution
         run: firebase appdistribution:distribute
-          --token ${{ secrets.FIREBASE_TOKEN }}
-          ./app/build/outputs/bundle/prodRelease/app-prod-release.aab
+          ./app/build/outputs/bundle/release/app-release.aab
           --app ${{ secrets.FIREBASE_APP_ID }}
           --release-notes "${{ github.event.head_commit.message }}"
           --groups "PROD"
